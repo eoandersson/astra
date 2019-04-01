@@ -66,14 +66,31 @@ Lorem ipsum.
 
 ## Built With
 
-* [React + Redux]() - Front-end Framework
+As a general overview, the system follows a microservices architecture. All services 
+are (**Though not yet!**) containerized in order to ensure that the 
+application runs quickly and reliably from one computing environment to another.
+
+The following tools and frameworks are used in this project:
+
+### Front-end
+
+* [React]() - Front-end Framework
+* [Redux]() - Application State Management
+
+### Back-end and Data Storage
+
 * [Spring Boot]() - Backend Services
 * [Maven](https://maven.apache.org/) - Dependency Management
+* [MongoDB]() - Data Storage
+
+### Additional Tools and Frameworks
+
 * [Docker]() - Service Containerization
+* [GitLab CI/CD]() - Continous Integration / Deployment
 
 ## Contributing
 
-Please read [CONTRIBUTING.md]() for details on our code of conduct, and the process for submitting pull requests to us.
+Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on the process for submitting pull requests to us.
 
 ## Versioning
 
@@ -83,7 +100,6 @@ Lorem ipsum.
 
 * **Erik Andersson** - *erian599@student.liu.se*
 * **Elin Larsson** - *elila927@student.liu.se*
-
 
 ## License
 
