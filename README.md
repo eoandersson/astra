@@ -1,6 +1,6 @@
 # Project Management Tool
 
-<Future Project Name> is a project management tool. A user is supposed to be able 
+**Future Project Name** is a project management tool. A user is supposed to be able 
 to log in and create new projects. Each project can have one or multiple members and 
 contains several steps. The user will also have a dashboard for their own profile where 
 they can see their own progress.
