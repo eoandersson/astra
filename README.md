@@ -5,7 +5,7 @@ to log in and create new projects. Each project can have one or multiple members
 contains several steps. The user will also have a dashboard for their own profile where 
 they can see their own progress.
 
-For technical speficiations, see the **Built With** section.
+For technical speficiations, see the [Built With](#built-with) section.
 
 ## Getting Started
 
