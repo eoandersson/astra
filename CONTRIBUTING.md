@@ -6,11 +6,8 @@ open source contributors.
 
 ## Topics
 
-* [Reporting Security Issues](#reporting-security-issues)
-* [Design and Cleanup Proposals](#design-and-cleanup-proposals)
-* [Reporting Issues](#reporting-other-issues)
 * [Quick Contribution Tips and Guidelines](#quick-contribution-tips-and-guidelines)
-* [Community Guidelines](#moby-community-guidelines)
+* [Future Topics]()
 
 ## Quick contribution tips and guidelines
 
