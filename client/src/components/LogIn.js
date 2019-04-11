@@ -9,8 +9,16 @@ class LogIn extends Component {
     this.login = this.login.bind(this);
   }
 
-  login() {
-    this.props.history.push("/loggedIn");
+  login(event) {
+    event.preventDefault();
+    fetch("/api/login")
+      .then(response => response.json())
+      .then(response => {
+        console.log(response.loginText);
+        if (response.loginText == "You are logged in!") {
+          this.props.history.push("/loggedIn");
+        }
+      });
   }
 
   render() {
