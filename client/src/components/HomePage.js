@@ -6,6 +6,28 @@ class HomePage extends Component {
     super(props);
 
     this.state = { projects: [] };
+
+    this.getId = this.getId.bind(this);
+    this.pad0 = this.pad0.bind(this);
+  }
+
+  getId(mongoId) {
+    var result =
+      this.pad0(mongoId.timestamp.toString(16), 8) +
+      this.pad0(mongoId.machineIdentifier.toString(16), 6) +
+      this.pad0(mongoId.processIdentifier.toString(16), 4) +
+      this.pad0(mongoId.counter.toString(16), 6);
+
+    return result;
+  }
+
+  pad0(str, len) {
+    var zeros = "00000000000000000000000000";
+    if (str.length < len) {
+      return zeros.substr(0, len - str.length) + str;
+    }
+
+    return str;
   }
 
   componentDidMount() {
@@ -33,9 +55,18 @@ class HomePage extends Component {
   render() {
     return (
       <div className="HomePage">
-        {this.state.projects.map(project => (
-          <Project project={project} />
-        ))}
+        {this.state.projects.map(
+          project => (
+            console.log(this.getId(project.projectId)),
+            (
+              <Project
+                project={project}
+                key={this.getId(project.projectId)}
+                projectId={this.getId(project.projectId)}
+              />
+            )
+          )
+        )}
       </div>
     );
   }

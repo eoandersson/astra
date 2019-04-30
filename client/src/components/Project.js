@@ -3,6 +3,7 @@ import Button from "react-bootstrap/Button";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import Task from "./Task";
 import User from "./User";
+import TaskHeader from "./TaskHeader";
 
 class Project extends Component {
   constructor(props) {
@@ -18,6 +19,7 @@ class Project extends Component {
 
   delete(event) {
     event.preventDefault();
+    alert(this.props.projectId);
   }
 
   render() {
@@ -38,13 +40,17 @@ class Project extends Component {
         </div>
         <div className="ProjectBody">
           <div className="ProjectUsers">
-            {this.props.project.users.map(user => (
-              <User user={user} />
-            ))}
+            <h5>Project Members</h5>
+            <p>
+              {this.props.project.users.map(user => (
+                <User user={user} key={user} />
+              ))}
+            </p>
           </div>
           <div className="ProjectTasks">
+            <TaskHeader />
             {this.props.project.tasks.map(task => (
-              <Task task={task} />
+              <Task task={task} key={task.name} />
             ))}
           </div>
         </div>

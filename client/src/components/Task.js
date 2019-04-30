@@ -5,9 +5,11 @@ class Task extends Component {
   render() {
     return (
       <div className="Task">
-        <p>{this.props.task.name}</p>
-        <p>{this.props.task.description}</p>
-        <p>{this.props.task.state.toString()}</p>
+        <p className="TaskLeft">{this.props.task.name}</p>
+        <p className="TaskCenter">{this.props.task.description}</p>
+        <p className="TaskRight">
+          {this.props.task.state ? "Complete" : "Uncomplete"}
+        </p>
       </div>
     );
   }
