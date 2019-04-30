@@ -40,7 +40,7 @@ class LogIn extends Component {
         var jwtArr = jwt.split(" ");
         jwt = jwtArr[1];
         localStorage.setItem("JWT", jwt);
-        this.props.history.push("/loggedIn");
+        this.props.history.push("/home");
       } else {
         console.log("Error");
       }

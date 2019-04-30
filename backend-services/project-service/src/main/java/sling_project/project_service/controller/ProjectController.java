@@ -13,8 +13,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import sling_project.project_service.model.ProjectTaskRequest;
 import sling_project.project_service.model.Projects;
 import sling_project.project_service.model.UserProjectRequest;
 import sling_project.project_service.repository.ProjectsRepository;
@@ -33,8 +35,28 @@ public class ProjectController {
 	}
 	
 	@RequestMapping(value = "/projects", method = RequestMethod.DELETE)
-	public ResponseEntity<?> deleteProject(@RequestBody UserProjectRequest request) {
+	public ResponseEntity<?> deleteProject(@Valid @RequestBody UserProjectRequest request) {
 		return mongoService.deleteProject(request);
+	}
+	
+	@RequestMapping(value = "/projects", method = RequestMethod.PUT)
+	public ResponseEntity<?> updateProject(@Valid @RequestBody Projects project) {
+		return mongoService.updateProject(project);
+	}
+	
+	@RequestMapping(value = "/projects/task", method = RequestMethod.POST)
+	public ResponseEntity<?> createTask(@Valid @RequestBody ProjectTaskRequest request) {
+		return mongoService.createTask(request);
+	}
+	
+	@RequestMapping(value = "/projects/task", method = RequestMethod.DELETE)
+	public ResponseEntity<?> deleteTask(@Valid @RequestBody ProjectTaskRequest request) {
+		return mongoService.deleteTask(request);
+	}
+	
+	@RequestMapping(value = "/projects/task", method = RequestMethod.PUT)
+	public ResponseEntity<?> updateTask(@Valid @RequestBody ProjectTaskRequest request) {
+		return mongoService.updateTask(request);
 	}
 	
 	@RequestMapping(value = "/projects", method = RequestMethod.GET)
@@ -42,14 +64,24 @@ public class ProjectController {
 		return mongoService.getAllProjects();
 	}
 	
-	@RequestMapping(value = "/projects/{username}", method = RequestMethod.GET)
+	@RequestMapping(value = "/projects/user/{username}", method = RequestMethod.GET)
 	public ResponseEntity<?> getProjectsByUsername(@PathVariable String username) {
 		return mongoService.getProjectsByUsername(username);
 	}
 	
-	@RequestMapping(value = "/projects/add/", method = RequestMethod.PUT)
+	@RequestMapping(value = "/projects/id/{projectId}", method = RequestMethod.GET)
+	public ResponseEntity<?> getProjectsByUsername(@PathVariable ObjectId projectId) {
+		return mongoService.getProjectById(projectId);
+	}
+	
+	@RequestMapping(value = "/projects/user", method = RequestMethod.PUT)
 	public ResponseEntity<?> addUserToProject(@RequestBody UserProjectRequest request) {
 		return mongoService.addUserToProject(request);
+	}
+	
+	@RequestMapping(value = "/projects/user", method = RequestMethod.DELETE)
+	public ResponseEntity<?> removeUserFromProject(@RequestBody UserProjectRequest request) {
+		return mongoService.removeUserFromProject(request);
 	}
 
 }

@@ -18,11 +18,11 @@ public class Projects {
 		users.add(username);
 	}
 	
-	private void addTask(Tasks task) {
+	public void addTask(Tasks task) {
 		tasks.add(task);
 	}
 	
-	private void removeUser(String username) {
+	public void removeUser(String username) {
 		for (int i = 0; i < users.size(); i++) {
 			if (users.get(i).equals(username)) {
 				users.remove(i);
@@ -31,11 +31,25 @@ public class Projects {
 		}
 	}
 	
-	private void removeTasks(String name) {
+	public void removeTasks(Tasks task) {
+		String name = task.getName();
 		for (int i = 0; i < tasks.size(); i++) {
-			Tasks task = tasks.get(i);
-			if (task.getName().equals(name)) {
+			String curName = tasks.get(i).getName();
+			if (curName.equals(name)) {
 				tasks.remove(i);
+				break;
+			}
+		}
+	}
+	
+	public void setTaskState(Tasks task) {
+		String name = task.getName();
+		for (int i = 0; i < tasks.size(); i++) {
+			String curName = tasks.get(i).getName();
+			if (curName.equals(name)) {
+				Tasks curTask = tasks.get(i);
+				curTask.setDescription(task.getDescription());
+				curTask.setState(task.getState());
 				break;
 			}
 		}

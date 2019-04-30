@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import sling_project.project_service.model.ProjectTaskRequest;
 import sling_project.project_service.model.Projects;
 import sling_project.project_service.model.UserProjectRequest;
 import sling_project.project_service.model.Users;
@@ -84,6 +85,48 @@ public class MongoProjectService {
 		return false;
 	}
 	
+
+	public ResponseEntity<?> updateProject(Projects project) {
+		projectsRepository.save(project);
+		return new ResponseEntity(HttpStatus.OK);
+	}
+	
+	public ResponseEntity<?> createTask(ProjectTaskRequest request) {
+		Projects project = projectsRepository.findByProjectId(request.getProjectId());
+		
+		if(project == null) {
+			return new ResponseEntity(HttpStatus.NOT_FOUND);
+		}
+		
+		project.addTask(request.getTask());
+		projectsRepository.save(project);
+		return new ResponseEntity(HttpStatus.OK);
+	}
+	
+	public ResponseEntity<?> deleteTask(ProjectTaskRequest request) {
+		Projects project = projectsRepository.findByProjectId(request.getProjectId());
+		
+		if(project == null) {
+			return new ResponseEntity(HttpStatus.NOT_FOUND);
+		}
+		
+		project.removeTasks(request.getTask());
+		projectsRepository.save(project);
+		return new ResponseEntity(HttpStatus.OK);
+	}
+	
+	public ResponseEntity<?> updateTask(ProjectTaskRequest request) {
+		Projects project = projectsRepository.findByProjectId(request.getProjectId());
+		
+		if(project == null) {
+			return new ResponseEntity(HttpStatus.NOT_FOUND);
+		}
+		
+		project.setTaskState(request.getTask());
+		projectsRepository.save(project);
+		return new ResponseEntity(HttpStatus.OK);
+	}
+	
 	public ResponseEntity<?> getAllProjects() {
 		return new ResponseEntity(projectsRepository.findAll(), HttpStatus.OK);
 	}
@@ -102,6 +145,15 @@ public class MongoProjectService {
 		
 		return new ResponseEntity(projects, HttpStatus.OK);
 		
+	}
+	
+	public ResponseEntity<?> getProjectById(ObjectId projectId) {
+		Projects project = projectsRepository.findByProjectId(projectId);
+		if(project == null) {
+			return new ResponseEntity(HttpStatus.NOT_FOUND);
+		}
+		
+		return new ResponseEntity(project, HttpStatus.OK);
 	}
 	
 	public ResponseEntity<?> addUserToProject(UserProjectRequest request) {
@@ -125,5 +177,32 @@ public class MongoProjectService {
 		return new ResponseEntity(HttpStatus.OK);
 		
 	}
+	
+	public ResponseEntity<?> removeUserFromProject(UserProjectRequest request) {
+		ObjectId id = request.getProjectId();
+		Projects project = projectsRepository.findByProjectId(id);
+		Users user = usersRepository.findByUsername(request.getUsername());
+		
+		if(project == null || user == null) {
+			return new ResponseEntity(HttpStatus.NOT_FOUND);
+		}
+		
+		project.removeUser(request.getUsername());
+		
+		ArrayList<ObjectId> userProjects = user.getProjects();
+		for(int i = 0; i < userProjects.size(); i++) {
+			if(userProjects.get(i).equals(id)) {
+				userProjects.remove(i);
+				usersRepository.save(user);
+				break;
+			}
+		}
+		
+		projectsRepository.save(project);
+		
+		return new ResponseEntity(HttpStatus.OK);
+		
+	}
+	
 
 }

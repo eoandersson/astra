@@ -37,7 +37,7 @@ class RegisterPage extends Component {
     }).then(response => {
       console.log(response.status);
       if (response.status == 200) {
-        this.props.history.push("/loggedIn");
+        this.props.history.push("/");
       } else {
         console.log("Error");
       }
