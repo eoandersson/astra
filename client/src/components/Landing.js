@@ -7,9 +7,15 @@ class Landing extends Component {
   render() {
     return (
       <div className="Landing">
-        <LogIn />
-        <ThirdPart />
-        <Register />
+        <div className="LoginTitle" />
+        <div className="LoginContent">
+          <div className="LoginForm">
+            <h3>Login</h3>
+            <LogIn />
+            <ThirdPart />
+            <Register />
+          </div>
+        </div>
       </div>
     );
   }

@@ -55,18 +55,20 @@ class HomePage extends Component {
   render() {
     return (
       <div className="HomePage">
-        {this.state.projects.map(
-          project => (
-            console.log(this.getId(project.projectId)),
-            (
-              <Project
-                project={project}
-                key={this.getId(project.projectId)}
-                projectId={this.getId(project.projectId)}
-              />
+        <div className="HomeContent">
+          {this.state.projects.map(
+            project => (
+              console.log(this.getId(project.projectId)),
+              (
+                <Project
+                  project={project}
+                  key={this.getId(project.projectId)}
+                  projectId={this.getId(project.projectId)}
+                />
+              )
             )
-          )
-        )}
+          )}
+        </div>
       </div>
     );
   }

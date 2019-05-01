@@ -46,36 +46,40 @@ class RegisterPage extends Component {
 
   render() {
     return (
-      <div className="RegisterForm">
-        <Form>
-          <Form.Group controlId="formGridEmail">
-            <Form.Label>Username</Form.Label>
-            <Form.Control
-              type="text"
-              placeholder="Enter username"
-              value={this.state.username}
-              onChange={this.handleUsernameChange}
-            />
-          </Form.Group>
+      <div className="Content">
+        <div className="RegisterForm">
+          <h3>Register</h3>
+          <hr />
+          <Form>
+            <Form.Group controlId="formGridEmail">
+              <Form.Label>Username</Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="Enter username"
+                value={this.state.username}
+                onChange={this.handleUsernameChange}
+              />
+            </Form.Group>
 
-          <Form.Group controlId="formGridPassword">
-            <Form.Label>Password</Form.Label>
-            <Form.Control
-              type="password"
-              placeholder="Password"
-              value={this.state.password}
-              onChange={this.handlePasswordChange}
-            />
-          </Form.Group>
+            <Form.Group controlId="formGridPassword">
+              <Form.Label>Password</Form.Label>
+              <Form.Control
+                type="password"
+                placeholder="Password"
+                value={this.state.password}
+                onChange={this.handlePasswordChange}
+              />
+            </Form.Group>
 
-          <Form.Group id="formGridCheckbox">
-            <Form.Check type="checkbox" label="Check me out" />
-          </Form.Group>
+            <Form.Group id="formGridCheckbox">
+              <Form.Check type="checkbox" label="Check me out" />
+            </Form.Group>
 
-          <Button variant="primary" type="submit" onClick={this.register}>
-            Submit
-          </Button>
-        </Form>
+            <Button variant="primary" type="submit" onClick={this.register}>
+              Submit
+            </Button>
+          </Form>
+        </div>
       </div>
     );
   }
