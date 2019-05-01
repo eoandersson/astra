@@ -11,6 +11,7 @@ public class Projects {
 	@Id
 	public ObjectId projectId;
 	
+	private String projectName;
 	private ArrayList<String> users;
 	private ArrayList<Tasks> tasks;
 	
@@ -58,21 +59,35 @@ public class Projects {
 	public ObjectId get_id() {
 		return projectId;
 	}
+	
 	public void set_id(ObjectId _id) {
 		this.projectId = _id;
 	}
+	
 	public ArrayList<String> getUsers() {
 		return users;
 	}
+	
 	public void setUsers(ArrayList<String> users) {
 		this.users = users;
 	}
+	
 	public ArrayList<Tasks> getTasks() {
 		return tasks;
 	}
+	
 	public void setTasks(ArrayList<Tasks> tasks) {
 		this.tasks = tasks;
 	}
+
+	public String getProjectName() {
+		return projectName;
+	}
+
+	public void setProjectName(String projectName) {
+		this.projectName = projectName;
+	}
+	
 	
 
 }

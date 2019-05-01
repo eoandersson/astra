@@ -1,12 +1,15 @@
 import React, { Component } from "react";
+import Button from "react-bootstrap/Button";
+import ButtonToolbar from "react-bootstrap/ButtonToolbar";
 import Project from "./Project";
+import CreateProject from "./CreateProject";
 
 class HomePage extends Component {
   constructor(props) {
     super(props);
 
-    this.state = { projects: [] };
-
+    this.state = { projects: [], modalShow: false };
+    this.renderProjects = this.renderProjects.bind(this);
     this.getId = this.getId.bind(this);
     this.pad0 = this.pad0.bind(this);
   }
@@ -31,6 +34,10 @@ class HomePage extends Component {
   }
 
   componentDidMount() {
+    this.renderProjects();
+  }
+
+  renderProjects() {
     fetch("/api/projects", {
       method: "GET",
       headers: {
@@ -53,9 +60,24 @@ class HomePage extends Component {
   }
 
   render() {
+    let modalClose = () => this.setState({ modalShow: false });
     return (
       <div className="HomePage">
         <div className="HomeContent">
+          <ButtonToolbar>
+            <Button
+              variant="success"
+              onClick={() => this.setState({ modalShow: true })}
+            >
+              Create Project
+            </Button>
+
+            <CreateProject
+              show={this.state.modalShow}
+              onHide={modalClose}
+              renderProjects={this.renderProjects}
+            />
+          </ButtonToolbar>
           {this.state.projects.map(
             project => (
               console.log(this.getId(project.projectId)),
@@ -64,6 +86,7 @@ class HomePage extends Component {
                   project={project}
                   key={this.getId(project.projectId)}
                   projectId={this.getId(project.projectId)}
+                  renderProjects={this.renderProjects}
                 />
               )
             )

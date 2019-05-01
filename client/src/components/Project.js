@@ -4,11 +4,13 @@ import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import Task from "./Task";
 import User from "./User";
 import TaskHeader from "./TaskHeader";
+import DeleteProjectButton from "./DeleteProjectButton";
+import EditProject from "./EditProject";
 
 class Project extends Component {
   constructor(props) {
     super(props);
-
+    this.state = { modalShow: false };
     this.edit = this.edit.bind(this);
     this.delete = this.delete.bind(this);
   }
@@ -23,19 +25,36 @@ class Project extends Component {
   }
 
   render() {
+    let modalClose = () => this.setState({ modalShow: false });
+
     return (
       <div className="Project">
         <div className="ProjectHeader">
           <div className="ProjectName">
-            <h3>Project Name</h3>
+            <h3>{this.props.project.projectName}</h3>
           </div>
           <div className="ProjectButtons">
-            <Button variant="danger" type="submit" onClick={this.delete}>
-              Delete
-            </Button>
-            <Button variant="primary" type="submit" onClick={this.edit}>
+            <DeleteProjectButton
+              projectId={this.props.projectId}
+              renderProjects={this.props.renderProjects}
+            />
+            <Button
+              variant="primary"
+              type="submit"
+              onClick={() => this.setState({ modalShow: true })}
+            >
               Edit
             </Button>
+
+            <EditProject
+              show={this.state.modalShow}
+              onHide={modalClose}
+              projectId={this.props.projectId}
+              renderProjects={this.props.renderProjects}
+              projectName={this.props.project.projectName}
+              users={this.props.project.users}
+              tasks={this.props.project.tasks}
+            />
           </div>
         </div>
         <div className="ProjectBody">

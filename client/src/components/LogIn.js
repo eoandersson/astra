@@ -42,7 +42,7 @@ class LogIn extends Component {
         localStorage.setItem("JWT", jwt);
         this.props.history.push("/home");
       } else {
-        console.log("Error");
+        console.log(response.status);
       }
     });
   }

@@ -1,6 +1,9 @@
 login_service/login_service/service/MongoUserDetailsService.class
+login_service/login_service/security/JWTAuthorizationFilter.class
 login_service/login_service/LoginApplication.class
+login_service/login_service/security/JWTAuthenticationFilter.class
 login_service/login_service/repository/UsersRespository.class
-login_service/login_service/config/SecurityConfiguration.class
+login_service/login_service/security/SecurityConfiguration.class
 login_service/login_service/controller/UsersController.class
 login_service/login_service/model/Users.class
+login_service/login_service/security/SecurityConstants.class
