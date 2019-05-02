@@ -13,8 +13,10 @@ class CreateProject extends Component {
       shareholders: [{ name: "" }],
       users: []
     };
+
     this.addProject = this.addProject.bind(this);
     this.handleProjectNameChange = this.handleProjectNameChange.bind(this);
+    this.clearFields = this.clearFields.bind(this);
   }
 
   addProject(event) {
@@ -37,11 +39,20 @@ class CreateProject extends Component {
     }).then(response => {
       console.log(response.status);
       if (response.status == 200) {
+        this.clearFields();
         this.props.renderProjects();
         this.props.onHide();
       } else {
         console.log("Error");
       }
+    });
+  }
+
+  clearFields() {
+    this.setState({
+      projectName: "",
+      shareholders: [{ name: "" }],
+      users: []
     });
   }
 
@@ -102,7 +113,7 @@ class CreateProject extends Component {
             </Form.Group>
             {this.state.shareholders.map((shareholder, idx) => (
               <div className="shareholder">
-                <Form.Row controlId="formBasicEmail">
+                <Form.Row className="ModalRow" controlId="formBasicEmail">
                   <Col>
                     <Form.Control
                       type="text"
@@ -126,13 +137,15 @@ class CreateProject extends Component {
             <Button variant="primary" onClick={this.handleAddShareholder}>
               Add user
             </Button>
-            <Button variant="primary" type="submit" onClick={this.addProject}>
-              Submit
-            </Button>
           </Form>
         </Modal.Body>
         <Modal.Footer>
-          <Button onClick={this.props.onHide}>Close</Button>
+          <Button variant="success" type="submit" onClick={this.addProject}>
+            Submit
+          </Button>
+          <Button variant="outline-primary" onClick={this.props.onHide}>
+            Close
+          </Button>
         </Modal.Footer>
       </Modal>
     );

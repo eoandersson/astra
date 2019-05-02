@@ -93,6 +93,7 @@ code {
 }
 
 .HomeContent {
+  min-height: 100%;
   height: auto;
   width: 80%;
   margin-left: auto;
@@ -103,6 +104,13 @@ code {
   flex-direction: column;
   -webkit-align-items: center;
   align-items: center;
+}
+
+.HomeButtonWrapper {
+  display: flex;
+  justify-content: center;
+  width: 75%;
+  padding: 40px;
 }
 
 .Project {
@@ -140,6 +148,10 @@ code {
 
 .ProjectBody {
   padding: 20px;
+}
+
+.ModalRow {
+  margin-bottom: 5px;
 }
 
 .User {

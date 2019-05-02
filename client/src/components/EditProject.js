@@ -93,7 +93,7 @@ class EditProject extends Component {
       >
         <Modal.Header closeButton>
           <Modal.Title id="contained-modal-title-vcenter">
-            Edit project
+            Edit project ({this.props.projectId})
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
@@ -109,7 +109,7 @@ class EditProject extends Component {
             </Form.Group>
             {this.state.usersMap.map((shareholder, idx) => (
               <div className="shareholder">
-                <Form.Row controlId="formBasicEmail">
+                <Form.Row className="ModalRow" controlId="formBasicEmail">
                   <Col>
                     <Form.Control
                       type="text"
@@ -133,13 +133,15 @@ class EditProject extends Component {
             <Button variant="primary" onClick={this.handleAddShareholder}>
               Add user
             </Button>
-            <Button variant="primary" type="submit" onClick={this.addProject}>
-              Submit
-            </Button>
           </Form>
         </Modal.Body>
         <Modal.Footer>
-          <Button onClick={this.props.onHide}>Close</Button>
+          <Button variant="success" type="submit" onClick={this.addProject}>
+            Submit
+          </Button>
+          <Button variant="outline-primary" onClick={this.props.onHide}>
+            Close
+          </Button>
         </Modal.Footer>
       </Modal>
     );

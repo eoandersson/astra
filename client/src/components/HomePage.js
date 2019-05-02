@@ -3,6 +3,7 @@ import Button from "react-bootstrap/Button";
 import ButtonToolbar from "react-bootstrap/ButtonToolbar";
 import Project from "./Project";
 import CreateProject from "./CreateProject";
+import HomeNavbar from "./HomeNavbar";
 
 class HomePage extends Component {
   constructor(props) {
@@ -63,21 +64,26 @@ class HomePage extends Component {
     let modalClose = () => this.setState({ modalShow: false });
     return (
       <div className="HomePage">
+        <HomeNavbar />
         <div className="HomeContent">
-          <ButtonToolbar>
-            <Button
-              variant="success"
-              onClick={() => this.setState({ modalShow: true })}
-            >
-              Create Project
-            </Button>
+          <div className="HomeButtonWrapper">
+            <ButtonToolbar>
+              <Button
+                variant="success"
+                onClick={() => this.setState({ modalShow: true })}
+                size="lg"
+              >
+                Create a New Project
+              </Button>
+            </ButtonToolbar>
+          </div>
 
-            <CreateProject
-              show={this.state.modalShow}
-              onHide={modalClose}
-              renderProjects={this.renderProjects}
-            />
-          </ButtonToolbar>
+          <CreateProject
+            show={this.state.modalShow}
+            onHide={modalClose}
+            renderProjects={this.renderProjects}
+          />
+
           {this.state.projects.map(
             project => (
               console.log(this.getId(project.projectId)),
