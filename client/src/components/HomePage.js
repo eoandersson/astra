@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import Button from "react-bootstrap/Button";
 import ButtonToolbar from "react-bootstrap/ButtonToolbar";
-import Project from "./Project";
-import CreateProject from "./CreateProject";
+import Project from "./Projects/Project";
+import CreateProject from "./Projects/CreateProject";
 import HomeNavbar from "./HomeNavbar";
 
 class HomePage extends Component {

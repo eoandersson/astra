@@ -1,16 +1,17 @@
 import React, { Component } from "react";
 import Button from "react-bootstrap/Button";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-import Task from "./Task";
+import Task from "./Tasks/Task";
 import User from "./User";
-import TaskHeader from "./TaskHeader";
+import TaskHeader from "./Tasks/TaskHeader";
 import DeleteProjectButton from "./DeleteProjectButton";
 import EditProject from "./EditProject";
+import CreateTask from "./Tasks/CreateTask";
 
 class Project extends Component {
   constructor(props) {
     super(props);
-    this.state = { modalShow: false };
+    this.state = { editModalShow: false, createTaskModalShow: false };
     this.edit = this.edit.bind(this);
     this.delete = this.delete.bind(this);
   }
@@ -25,7 +26,9 @@ class Project extends Component {
   }
 
   render() {
-    let modalClose = () => this.setState({ modalShow: false });
+    let editModalClose = () => this.setState({ editModalShow: false });
+    let createTaskModalClose = () =>
+      this.setState({ createTaskModalShow: false });
 
     return (
       <div className="Project">
@@ -41,14 +44,14 @@ class Project extends Component {
             <Button
               variant="primary"
               type="submit"
-              onClick={() => this.setState({ modalShow: true })}
+              onClick={() => this.setState({ editModalShow: true })}
             >
               Edit
             </Button>
 
             <EditProject
-              show={this.state.modalShow}
-              onHide={modalClose}
+              show={this.state.editModalShow}
+              onHide={editModalClose}
               projectId={this.props.projectId}
               renderProjects={this.props.renderProjects}
               projectName={this.props.project.projectName}
@@ -69,8 +72,25 @@ class Project extends Component {
           <div className="ProjectTasks">
             <TaskHeader />
             {this.props.project.tasks.map(task => (
-              <Task task={task} key={task.name} />
+              <Task
+                task={task}
+                projectId={this.props.projectId}
+                key={task.name}
+                renderProjects={this.props.renderProjects}
+              />
             ))}
+            <Button
+              variant="success"
+              onClick={() => this.setState({ createTaskModalShow: true })}
+            >
+              Create Task
+            </Button>
+            <CreateTask
+              show={this.state.createTaskModalShow}
+              projectId={this.props.projectId}
+              renderProjects={this.props.renderProjects}
+              onHide={createTaskModalClose}
+            />
           </div>
         </div>
       </div>

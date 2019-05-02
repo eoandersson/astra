@@ -213,14 +213,18 @@ code {
   background-color: #f9f9f9;
 }
 
-.TaskLeft {
-  width: 30%;
+.NameColumn {
+  width: 20%;
 }
 
-.TaskCenter {
-  width: 55%;
+.DescriptionColumn {
+  width: 50%;
 }
 
-.TaskRight {
+.StatusColumn {
+  width: 15%;
+}
+
+.DeleteColumn {
   width: 15%;
 }
