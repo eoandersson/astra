@@ -1,0 +1,10 @@
+sling_project/project_service/model/ProjectTaskRequest.class
+sling_project/project_service/service/MongoProjectService.class
+sling_project/project_service/model/Projects.class
+sling_project/project_service/controller/ProjectController.class
+sling_project/project_service/model/Tasks.class
+sling_project/project_service/repository/UsersRepository.class
+sling_project/project_service/repository/ProjectsRepository.class
+sling_project/project_service/ProjectApplication.class
+sling_project/project_service/model/UserProjectRequest.class
+sling_project/project_service/model/Users.class

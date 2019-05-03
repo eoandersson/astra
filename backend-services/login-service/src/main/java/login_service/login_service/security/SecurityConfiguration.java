@@ -28,6 +28,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 		http.cors().and().csrf().disable()
 			.authorizeRequests()
 			.antMatchers(HttpMethod.POST, "/api/users/register").permitAll()
+			.antMatchers(HttpMethod.POST, "/api/users/login").permitAll()
 			.anyRequest().authenticated()
 			.and()
 			.addFilter(getAuthenticationFilter())
@@ -58,6 +59,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 	protected UsernamePasswordAuthenticationFilter getAuthenticationFilter() throws Exception {
 		JWTAuthenticationFilter jwtAuthenticationFilter = new JWTAuthenticationFilter(this.authenticationManagerBean());
 		jwtAuthenticationFilter.setAuthenticationManager(this.authenticationManagerBean());
+		jwtAuthenticationFilter.setFilterProcessesUrl("/api/users/login");
 		return jwtAuthenticationFilter;
 	}
 	

@@ -1,0 +1,10 @@
+/home/elila927/My Documents/TDDD27/tddd27_2019_project_management/backend-services/project-service/src/main/java/sling_project/project_service/repository/ProjectsRepository.java
+/home/elila927/My Documents/TDDD27/tddd27_2019_project_management/backend-services/project-service/src/main/java/sling_project/project_service/controller/ProjectController.java
+/home/elila927/My Documents/TDDD27/tddd27_2019_project_management/backend-services/project-service/src/main/java/sling_project/project_service/model/ProjectTaskRequest.java
+/home/elila927/My Documents/TDDD27/tddd27_2019_project_management/backend-services/project-service/src/main/java/sling_project/project_service/ProjectApplication.java
+/home/elila927/My Documents/TDDD27/tddd27_2019_project_management/backend-services/project-service/src/main/java/sling_project/project_service/service/MongoProjectService.java
+/home/elila927/My Documents/TDDD27/tddd27_2019_project_management/backend-services/project-service/src/main/java/sling_project/project_service/model/Projects.java
+/home/elila927/My Documents/TDDD27/tddd27_2019_project_management/backend-services/project-service/src/main/java/sling_project/project_service/repository/UsersRepository.java
+/home/elila927/My Documents/TDDD27/tddd27_2019_project_management/backend-services/project-service/src/main/java/sling_project/project_service/model/Users.java
+/home/elila927/My Documents/TDDD27/tddd27_2019_project_management/backend-services/project-service/src/main/java/sling_project/project_service/model/UserProjectRequest.java
+/home/elila927/My Documents/TDDD27/tddd27_2019_project_management/backend-services/project-service/src/main/java/sling_project/project_service/model/Tasks.java
