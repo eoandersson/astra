@@ -3,12 +3,12 @@ import Button from "react-bootstrap/Button";
 import ButtonToolbar from "react-bootstrap/ButtonToolbar";
 import Project from "./Projects/Project";
 import CreateProject from "./Projects/CreateProject";
+import EditProject from "./Projects/EditProject";
 import HomeNavbar from "./HomeNavbar";
 
 class HomePage extends Component {
   constructor(props) {
     super(props);
-
     this.state = { projects: [], modalShow: false };
     this.renderProjects = this.renderProjects.bind(this);
     this.getId = this.getId.bind(this);
@@ -83,6 +83,8 @@ class HomePage extends Component {
             onHide={modalClose}
             renderProjects={this.renderProjects}
           />
+
+          <EditProject renderProjects={this.renderProjects} />
 
           {this.state.projects.map(
             project => (

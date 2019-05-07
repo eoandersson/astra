@@ -5,6 +5,10 @@ import Landing from "./components/Landing";
 import RegisterPage from "./components/RegisterPage";
 import HomePage from "./components/HomePage";
 
+import store from "./store";
+
+const unsubscribe = store.subscribe(() => console.log(store.getState()));
+
 class App extends Component {
   render() {
     return (

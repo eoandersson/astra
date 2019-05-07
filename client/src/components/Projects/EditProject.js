@@ -4,11 +4,15 @@ import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
 import Col from "react-bootstrap/Col";
+import store from "./../../store";
+import { showEditProject, hideEditProject } from "../../actions/index.js";
 
 class EditProject extends Component {
   constructor(props) {
     super(props);
+
     this.state = {
+      show: false,
       projectId: this.props.projectId,
       projectName: this.props.projectName,
       usersMap: [],
@@ -16,12 +20,21 @@ class EditProject extends Component {
       tasks: this.props.tasks
     };
 
-    this.props.users.map(user => {
-      this.state.usersMap.push({ name: user });
+    console.log(this.state.show);
+    store.subscribe(() => {
+      this.setState({
+        show: store.getState().editProject.visibility,
+        projectId: store.getState().editProject.projectId,
+        projectName: store.getState().editProject.projectName,
+        usersMap: store.getState().editProject.usersMap,
+        users: store.getState().editProject.users,
+        tasks: store.getState().editProject.tasks
+      });
     });
 
     this.addProject = this.addProject.bind(this);
     this.handleProjectNameChange = this.handleProjectNameChange.bind(this);
+    this.handleClose = this.handleClose.bind(this);
   }
 
   addProject(event) {
@@ -83,6 +96,10 @@ class EditProject extends Component {
     });
   };
 
+  handleClose() {
+    store.dispatch(hideEditProject());
+  }
+
   render() {
     return (
       <Modal
@@ -90,10 +107,12 @@ class EditProject extends Component {
         size="lg"
         aria-labelledby="contained-modal-title-vcenter"
         centered
+        show={this.state.show}
+        onHide={this.handleClose}
       >
         <Modal.Header closeButton>
           <Modal.Title id="contained-modal-title-vcenter">
-            Edit project ({this.props.projectId})
+            Edit project ({this.state.projectId})
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
@@ -139,7 +158,7 @@ class EditProject extends Component {
           <Button variant="success" type="submit" onClick={this.addProject}>
             Submit
           </Button>
-          <Button variant="outline-primary" onClick={this.props.onHide}>
+          <Button variant="outline-primary" onClick={this.handleClose}>
             Close
           </Button>
         </Modal.Footer>

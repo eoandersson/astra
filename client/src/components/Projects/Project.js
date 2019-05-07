@@ -5,8 +5,9 @@ import Task from "./Tasks/Task";
 import User from "./User";
 import TaskHeader from "./Tasks/TaskHeader";
 import DeleteProjectButton from "./DeleteProjectButton";
-import EditProject from "./EditProject";
 import CreateTask from "./Tasks/CreateTask";
+import store from "./../../store";
+import { showEditProject } from "../../actions/index.js";
 
 class Project extends Component {
   constructor(props) {
@@ -17,7 +18,13 @@ class Project extends Component {
   }
 
   edit(event) {
-    event.preventDefault();
+    const project = {
+      projectId: this.props.projectId,
+      projectName: this.props.project.projectName,
+      users: this.props.project.users,
+      tasks: this.props.project.tasks
+    };
+    store.dispatch(showEditProject(project));
   }
 
   delete(event) {
@@ -41,23 +48,9 @@ class Project extends Component {
               projectId={this.props.projectId}
               renderProjects={this.props.renderProjects}
             />
-            <Button
-              variant="primary"
-              type="submit"
-              onClick={() => this.setState({ editModalShow: true })}
-            >
+            <Button variant="primary" type="submit" onClick={this.edit}>
               Edit
             </Button>
-
-            <EditProject
-              show={this.state.editModalShow}
-              onHide={editModalClose}
-              projectId={this.props.projectId}
-              renderProjects={this.props.renderProjects}
-              projectName={this.props.project.projectName}
-              users={this.props.project.users}
-              tasks={this.props.project.tasks}
-            />
           </div>
         </div>
         <div className="ProjectBody">
