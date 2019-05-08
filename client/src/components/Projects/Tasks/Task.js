@@ -1,14 +1,8 @@
 import React, { Component } from "react";
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-import Button from "react-bootstrap/Button";
 import DeleteTaskButton from "./DeleteTaskButton";
 import TaskStatusButton from "./TaskStatusButton";
 
 class Task extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     return (
       <div className="Task">
@@ -18,14 +12,14 @@ class Task extends Component {
           <TaskStatusButton
             projectId={this.props.projectId}
             task={this.props.task}
-            renderProjects={this.props.renderProjects}
+            project={this.props.project}
           />
         </div>
         <div className="DeleteColumn">
           <DeleteTaskButton
             projectId={this.props.projectId}
             task={this.props.task}
-            renderProjects={this.props.renderProjects}
+            project={this.props.project}
           />
         </div>
       </div>

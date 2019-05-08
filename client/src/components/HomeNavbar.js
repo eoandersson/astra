@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
 import { Nav, Navbar, NavDropdown } from "react-bootstrap";
 
 class HomeNavbar extends Component {
@@ -10,7 +9,7 @@ class HomeNavbar extends Component {
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="mr-auto">
-            <Nav.Link exact to="/home">
+            <Nav.Link exact="true" to="/home">
               Projects
             </Nav.Link>
             <Nav.Link href="#pricing">Profile</Nav.Link>

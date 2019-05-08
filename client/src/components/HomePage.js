@@ -6,12 +6,23 @@ import CreateProject from "./Projects/CreateProject";
 import EditProject from "./Projects/EditProject";
 import HomeNavbar from "./HomeNavbar";
 import store from "./../store";
-import { showCreateProject } from "../actions/index.js";
+import { showCreateProject, handleAddProjectList } from "../actions/index.js";
 
 class HomePage extends Component {
   constructor(props) {
     super(props);
-    this.state = { projects: [], modalShow: false };
+    this.state = {
+      projects: []
+    };
+
+    this.renderProjects();
+
+    store.subscribe(() => {
+      this.setState({
+        projects: store.getState().handleProject.projects
+      });
+    });
+
     this.renderProjects = this.renderProjects.bind(this);
     this.getId = this.getId.bind(this);
     this.pad0 = this.pad0.bind(this);
@@ -36,10 +47,6 @@ class HomePage extends Component {
     return str;
   }
 
-  componentDidMount() {
-    this.renderProjects();
-  }
-
   renderProjects() {
     fetch("/api/projects", {
       method: "GET",
@@ -49,8 +56,6 @@ class HomePage extends Component {
         Authorization: "Bearer " + localStorage.getItem("JWT")
       }
     })
-      //.then(response => console.log("Bearer " + localStorage.getItem("JWT")))
-      //.then(response => console.log(response))
       .then(response => response.json())
       .then(responseJson => {
         const projects = responseJson;
@@ -58,7 +63,7 @@ class HomePage extends Component {
         for (var i = 0; i < projects.length; i++) {
           outputArr[i] = projects[i];
         }
-        this.setState({ projects: outputArr });
+        store.dispatch(handleAddProjectList(outputArr));
       });
   }
 
@@ -67,7 +72,6 @@ class HomePage extends Component {
   }
 
   render() {
-    let modalClose = () => this.setState({ modalShow: false });
     return (
       <div className="HomePage">
         <HomeNavbar />
@@ -80,23 +84,17 @@ class HomePage extends Component {
             </ButtonToolbar>
           </div>
 
-          <CreateProject renderProjects={this.renderProjects} />
+          <CreateProject />
 
-          <EditProject renderProjects={this.renderProjects} />
+          <EditProject />
 
-          {this.state.projects.map(
-            project => (
-              console.log(this.getId(project.projectId)),
-              (
-                <Project
-                  project={project}
-                  key={this.getId(project.projectId)}
-                  projectId={this.getId(project.projectId)}
-                  renderProjects={this.renderProjects}
-                />
-              )
-            )
-          )}
+          {this.state.projects.map(project => (
+            <Project
+              project={project}
+              key={this.getId(project.projectId)}
+              projectId={this.getId(project.projectId)}
+            />
+          ))}
         </div>
       </div>
     );

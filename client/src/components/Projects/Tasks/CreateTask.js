@@ -2,9 +2,8 @@ import React, { Component } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import store from "./../../../store";
-import { hideCreateTask } from "../../../actions/index.js";
+import { addTask, hideCreateTask } from "../../../actions/index.js";
 
 class CreateTask extends Component {
   constructor() {
@@ -14,14 +13,15 @@ class CreateTask extends Component {
       projectId: "",
       name: "",
       description: "",
-      state: false
+      state: false,
+      project: {}
     };
 
-    console.log(this.state.show);
     store.subscribe(() => {
       this.setState({
-        show: store.getState().createTask.visibility,
-        projectId: store.getState().createTask.projectId
+        show: store.getState().taskModalVisibility.visibility,
+        projectId: store.getState().taskModalVisibility.projectId,
+        project: store.getState().taskModalVisibility.project
       });
     });
 
@@ -48,9 +48,17 @@ class CreateTask extends Component {
         }
       })
     }).then(response => {
-      console.log(response.status);
-      if (response.status == 200) {
-        this.props.renderProjects();
+      if (response.status === 200) {
+        var payload = {
+          project: this.state.project,
+          task: {
+            name: this.state.name,
+            description: this.state.description,
+            state: this.state.state
+          }
+        };
+        store.dispatch(addTask(payload));
+
         this.handleClose();
       } else {
         console.log("Error");

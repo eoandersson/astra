@@ -1,11 +1,10 @@
 import React, { Component } from "react";
 import Button from "react-bootstrap/Button";
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
 import Col from "react-bootstrap/Col";
 import store from "./../../store";
-import { hideCreateProject } from "../../actions/index.js";
+import { hideCreateProject, handleAddProject } from "../../actions/index.js";
 
 class CreateProject extends Component {
   constructor() {
@@ -14,16 +13,17 @@ class CreateProject extends Component {
       show: false,
       projectName: "",
       usersMap: [],
-      users: []
+      users: [],
+      projects: []
     };
 
-    console.log(this.state.show);
     store.subscribe(() => {
       this.setState({
         show: store.getState().createProject.visibility,
         projectName: store.getState().createProject.projectName,
         usersMap: store.getState().createProject.usersMap,
-        users: store.getState().createProject.users
+        users: store.getState().createProject.users,
+        projects: store.getState().handleProject.projects
       });
     });
 
@@ -38,7 +38,6 @@ class CreateProject extends Component {
     this.state.usersMap.map(user => {
       this.state.users.push(user.name);
     });
-    console.log(this.state.users);
     fetch("/api/projects", {
       method: "POST",
       headers: {
@@ -50,15 +49,18 @@ class CreateProject extends Component {
         users: this.state.users,
         tasks: []
       })
-    }).then(response => {
-      console.log(response.status);
-      if (response.status == 200) {
-        this.props.renderProjects();
+    })
+      .then(response => {
+        if (response.ok) {
+          return response.json();
+        } else {
+          throw new Error("Something went wrong ...");
+        }
+      })
+      .then(data => {
+        store.dispatch(handleAddProject({ project: data }));
         this.handleClose();
-      } else {
-        console.log("Error");
-      }
-    });
+      });
   }
 
   clearFields() {
@@ -73,13 +75,13 @@ class CreateProject extends Component {
     this.setState({ projectName: event.target.value });
   }
 
-  handleShareholderNameChange = idx => evt => {
-    const newShareholders = this.state.usersMap.map((shareholder, sidx) => {
-      if (idx !== sidx) return shareholder;
-      return { ...shareholder, name: evt.target.value };
+  handleUserNameChange = idx => evt => {
+    const newUsers = this.state.usersMap.map((user, sidx) => {
+      if (idx !== sidx) return user;
+      return { ...user, name: evt.target.value };
     });
 
-    this.setState({ usersMap: newShareholders });
+    this.setState({ usersMap: newUsers });
   };
 
   handleSubmit = evt => {
@@ -87,13 +89,13 @@ class CreateProject extends Component {
     alert(`Incorporated: ${projectName} with ${usersMap.length} usersMap`);
   };
 
-  handleAddShareholder = () => {
+  handleAddUser = () => {
     this.setState({
       usersMap: this.state.usersMap.concat([{ name: "" }])
     });
   };
 
-  handleRemoveShareholder = idx => () => {
+  handleRemoveUser = idx => () => {
     this.setState({
       usersMap: this.state.usersMap.filter((s, sidx) => idx !== sidx)
     });
@@ -128,21 +130,21 @@ class CreateProject extends Component {
                 onChange={this.handleProjectNameChange}
               />
             </Form.Group>
-            {this.state.usersMap.map((shareholder, idx) => (
-              <div className="shareholder">
+            {this.state.usersMap.map((user, idx) => (
+              <div className="user">
                 <Form.Row className="ModalRow" controlId="formBasicEmail">
                   <Col>
                     <Form.Control
                       type="text"
                       placeholder={"User #" + (idx + 1)}
-                      value={shareholder.name}
-                      onChange={this.handleShareholderNameChange(idx)}
+                      value={user.name}
+                      onChange={this.handleUserNameChange(idx)}
                     />
                   </Col>
                   <Col>
                     <Button
                       variant="danger"
-                      onClick={this.handleRemoveShareholder(idx)}
+                      onClick={this.handleRemoveUser(idx)}
                       className="small"
                     >
                       -
@@ -151,7 +153,7 @@ class CreateProject extends Component {
                 </Form.Row>
               </div>
             ))}
-            <Button variant="primary" onClick={this.handleAddShareholder}>
+            <Button variant="primary" onClick={this.handleAddUser}>
               Add user
             </Button>
           </Form>

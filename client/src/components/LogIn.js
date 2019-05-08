@@ -35,7 +35,7 @@ class LogIn extends Component {
         password: this.state.password
       })
     }).then(response => {
-      if (response.status == 200) {
+      if (response.status === 200) {
         var jwt = response.headers.get("Authorization");
         var jwtArr = jwt.split(" ");
         jwt = jwtArr[1];

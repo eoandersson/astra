@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Button from "react-bootstrap/Button";
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import store from "./../../store";
+import { handleDeleteProject } from "../../actions/index.js";
 
 class DeleteProjectButton extends Component {
   constructor(props) {
@@ -23,9 +24,9 @@ class DeleteProjectButton extends Component {
       })
     }).then(response => {
       console.log(response.status);
-      if (response.status == 204) {
+      if (response.status === 204) {
         console.log("Removed");
-        this.props.renderProjects();
+        store.dispatch(handleDeleteProject({ project: this.props.project }));
       } else {
         console.log("Error");
       }

@@ -1,4 +1,5 @@
 const initialState = {
+  project: {},
   visibility: false,
   projectId: "",
   projectName: "",
@@ -17,6 +18,7 @@ export default function editProject(state = initialState, action) {
 
       return Object.assign({}, state, {
         visibility: true,
+        project: action.payload.project,
         projectId: action.payload.projectId,
         projectName: action.payload.projectName,
         usersMap: usersMapObject,

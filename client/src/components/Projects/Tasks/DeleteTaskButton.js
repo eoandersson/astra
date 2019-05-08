@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Button from "react-bootstrap/Button";
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import store from "./../../../store";
+import { deleteTask } from "../../../actions/index.js";
 
 class DeleteTaskButton extends Component {
   constructor(props) {
@@ -27,8 +28,12 @@ class DeleteTaskButton extends Component {
       })
     }).then(response => {
       console.log(response.status);
-      if (response.status == 200) {
-        this.props.renderProjects();
+      if (response.status === 200) {
+        var payload = {
+          project: this.props.project,
+          name: this.props.task.name
+        };
+        store.dispatch(deleteTask(payload));
       } else {
         console.log("Error");
       }

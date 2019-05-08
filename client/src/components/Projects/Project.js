@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import Button from "react-bootstrap/Button";
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import Task from "./Tasks/Task";
 import User from "./User";
 import TaskHeader from "./Tasks/TaskHeader";
@@ -14,15 +13,15 @@ class Project extends Component {
     super(props);
     this.state = { editModalShow: false, createTaskModalShow: false };
     this.edit = this.edit.bind(this);
-    this.delete = this.delete.bind(this);
     this.createTask = this.createTask.bind(this);
   }
 
   createTask(event) {
-    const project = {
-      projectId: this.props.projectId
+    const payload = {
+      projectId: this.props.projectId,
+      project: this.props.project
     };
-    store.dispatch(showCreateTask(project));
+    store.dispatch(showCreateTask(payload));
   }
 
   edit(event) {
@@ -30,21 +29,13 @@ class Project extends Component {
       projectId: this.props.projectId,
       projectName: this.props.project.projectName,
       users: this.props.project.users,
-      tasks: this.props.project.tasks
+      tasks: this.props.project.tasks,
+      project: this.props.project
     };
     store.dispatch(showEditProject(project));
   }
 
-  delete(event) {
-    event.preventDefault();
-    alert(this.props.projectId);
-  }
-
   render() {
-    let editModalClose = () => this.setState({ editModalShow: false });
-    let createTaskModalClose = () =>
-      this.setState({ createTaskModalShow: false });
-
     return (
       <div className="Project">
         <div className="ProjectHeader">
@@ -53,8 +44,8 @@ class Project extends Component {
           </div>
           <div className="ProjectButtons">
             <DeleteProjectButton
+              project={this.props.project}
               projectId={this.props.projectId}
-              renderProjects={this.props.renderProjects}
             />
             <Button variant="primary" type="submit" onClick={this.edit}>
               Edit
@@ -76,14 +67,14 @@ class Project extends Component {
               <Task
                 task={task}
                 projectId={this.props.projectId}
+                project={this.props.project}
                 key={task.name}
-                renderProjects={this.props.renderProjects}
               />
             ))}
             <Button variant="success" onClick={this.createTask}>
               Create Task
             </Button>
-            <CreateTask renderProjects={this.props.renderProjects} />
+            <CreateTask />
           </div>
         </div>
       </div>

@@ -1,13 +1,9 @@
 import React, { Component } from "react";
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Route } from "react-router-dom";
 
 import Landing from "./components/Landing";
 import RegisterPage from "./components/RegisterPage";
 import HomePage from "./components/HomePage";
-
-import store from "./store";
-
-const unsubscribe = store.subscribe(() => console.log(store.getState()));
 
 class App extends Component {
   render() {

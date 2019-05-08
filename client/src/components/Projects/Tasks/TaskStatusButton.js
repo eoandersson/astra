@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Button from "react-bootstrap/Button";
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import store from "./../../../store";
+import { editTask } from "../../../actions/index.js";
 
 class TaskStatusButton extends Component {
   constructor(props) {
@@ -27,8 +28,13 @@ class TaskStatusButton extends Component {
       })
     }).then(response => {
       console.log(response.status);
-      if (response.status == 200) {
-        this.props.renderProjects();
+      if (response.status === 200) {
+        var payload = {
+          project: this.props.project,
+          name: this.props.task.name,
+          state: !this.props.task.state
+        };
+        store.dispatch(editTask(payload));
       } else {
         console.log("Error");
       }

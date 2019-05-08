@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-import Col from "react-bootstrap/Col";
 
 class RegisterPage extends Component {
   constructor(props) {
@@ -36,7 +35,7 @@ class RegisterPage extends Component {
       })
     }).then(response => {
       console.log(response.status);
-      if (response.status == 200) {
+      if (response.status === 200) {
         this.props.history.push("/");
       } else {
         console.log("Error");

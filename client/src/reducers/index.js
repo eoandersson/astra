@@ -1,10 +1,12 @@
 import { combineReducers } from "redux";
-import editProject from "./editProject";
+import editModalVisibility from "./editModalVisibility";
 import createProject from "./createProject";
-import createTask from "./createTask";
+import taskModalVisibility from "./taskModalVisibility";
+import handleProject from "./handleProject";
 
 export default combineReducers({
-  editProject,
+  editModalVisibility,
   createProject,
-  createTask
+  taskModalVisibility,
+  handleProject
 });

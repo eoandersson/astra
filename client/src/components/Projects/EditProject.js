@@ -1,11 +1,10 @@
 import React, { Component } from "react";
 import Button from "react-bootstrap/Button";
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
 import Col from "react-bootstrap/Col";
 import store from "./../../store";
-import { showEditProject, hideEditProject } from "../../actions/index.js";
+import { hideEditProject, handleEditProject } from "../../actions/index.js";
 
 class EditProject extends Component {
   constructor(props) {
@@ -15,20 +14,21 @@ class EditProject extends Component {
       show: false,
       projectId: this.props.projectId,
       projectName: this.props.projectName,
+      project: {},
       usersMap: [],
       users: [],
       tasks: this.props.tasks
     };
 
-    console.log(this.state.show);
     store.subscribe(() => {
       this.setState({
-        show: store.getState().editProject.visibility,
-        projectId: store.getState().editProject.projectId,
-        projectName: store.getState().editProject.projectName,
-        usersMap: store.getState().editProject.usersMap,
-        users: store.getState().editProject.users,
-        tasks: store.getState().editProject.tasks
+        show: store.getState().editModalVisibility.visibility,
+        projectId: store.getState().editModalVisibility.projectId,
+        projectName: store.getState().editModalVisibility.projectName,
+        project: store.getState().editModalVisibility.project,
+        usersMap: store.getState().editModalVisibility.usersMap,
+        users: store.getState().editModalVisibility.users,
+        tasks: store.getState().editModalVisibility.tasks
       });
     });
 
@@ -42,7 +42,6 @@ class EditProject extends Component {
     this.state.usersMap.map(user => {
       this.state.users.push(user.name);
     });
-    console.log(this.state.users);
     fetch("/api/projects", {
       method: "PUT",
       headers: {
@@ -56,10 +55,14 @@ class EditProject extends Component {
         tasks: this.state.tasks
       })
     }).then(response => {
-      console.log(response.status);
-      if (response.status == 200) {
-        this.props.renderProjects();
-        this.props.onHide();
+      if (response.status === 200) {
+        var payload = {
+          project: this.state.project,
+          projectName: this.state.projectName,
+          users: this.state.users
+        };
+        store.dispatch(handleEditProject(payload));
+        this.handleClose();
       } else {
         console.log("Error");
       }
