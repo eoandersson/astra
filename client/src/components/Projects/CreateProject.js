@@ -4,24 +4,38 @@ import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
 import Col from "react-bootstrap/Col";
+import store from "./../../store";
+import { hideCreateProject } from "../../actions/index.js";
 
 class CreateProject extends Component {
   constructor() {
     super();
     this.state = {
+      show: false,
       projectName: "",
-      shareholders: [{ name: "" }],
+      usersMap: [],
       users: []
     };
+
+    console.log(this.state.show);
+    store.subscribe(() => {
+      this.setState({
+        show: store.getState().createProject.visibility,
+        projectName: store.getState().createProject.projectName,
+        usersMap: store.getState().createProject.usersMap,
+        users: store.getState().createProject.users
+      });
+    });
 
     this.addProject = this.addProject.bind(this);
     this.handleProjectNameChange = this.handleProjectNameChange.bind(this);
     this.clearFields = this.clearFields.bind(this);
+    this.handleClose = this.handleClose.bind(this);
   }
 
   addProject(event) {
     event.preventDefault();
-    this.state.shareholders.map(user => {
+    this.state.usersMap.map(user => {
       this.state.users.push(user.name);
     });
     console.log(this.state.users);
@@ -39,9 +53,8 @@ class CreateProject extends Component {
     }).then(response => {
       console.log(response.status);
       if (response.status == 200) {
-        this.clearFields();
         this.props.renderProjects();
-        this.props.onHide();
+        this.handleClose();
       } else {
         console.log("Error");
       }
@@ -51,7 +64,7 @@ class CreateProject extends Component {
   clearFields() {
     this.setState({
       projectName: "",
-      shareholders: [{ name: "" }],
+      usersMap: [{ name: "" }],
       users: []
     });
   }
@@ -61,32 +74,34 @@ class CreateProject extends Component {
   }
 
   handleShareholderNameChange = idx => evt => {
-    const newShareholders = this.state.shareholders.map((shareholder, sidx) => {
+    const newShareholders = this.state.usersMap.map((shareholder, sidx) => {
       if (idx !== sidx) return shareholder;
       return { ...shareholder, name: evt.target.value };
     });
 
-    this.setState({ shareholders: newShareholders });
+    this.setState({ usersMap: newShareholders });
   };
 
   handleSubmit = evt => {
-    const { projectName, shareholders } = this.state;
-    alert(
-      `Incorporated: ${projectName} with ${shareholders.length} shareholders`
-    );
+    const { projectName, usersMap } = this.state;
+    alert(`Incorporated: ${projectName} with ${usersMap.length} usersMap`);
   };
 
   handleAddShareholder = () => {
     this.setState({
-      shareholders: this.state.shareholders.concat([{ name: "" }])
+      usersMap: this.state.usersMap.concat([{ name: "" }])
     });
   };
 
   handleRemoveShareholder = idx => () => {
     this.setState({
-      shareholders: this.state.shareholders.filter((s, sidx) => idx !== sidx)
+      usersMap: this.state.usersMap.filter((s, sidx) => idx !== sidx)
     });
   };
+
+  handleClose() {
+    store.dispatch(hideCreateProject());
+  }
 
   render() {
     return (
@@ -95,6 +110,8 @@ class CreateProject extends Component {
         size="lg"
         aria-labelledby="contained-modal-title-vcenter"
         centered
+        show={this.state.show}
+        onHide={this.handleClose}
       >
         <Modal.Header closeButton>
           <Modal.Title id="contained-modal-title-vcenter">
@@ -111,7 +128,7 @@ class CreateProject extends Component {
                 onChange={this.handleProjectNameChange}
               />
             </Form.Group>
-            {this.state.shareholders.map((shareholder, idx) => (
+            {this.state.usersMap.map((shareholder, idx) => (
               <div className="shareholder">
                 <Form.Row className="ModalRow" controlId="formBasicEmail">
                   <Col>

@@ -5,6 +5,8 @@ import Project from "./Projects/Project";
 import CreateProject from "./Projects/CreateProject";
 import EditProject from "./Projects/EditProject";
 import HomeNavbar from "./HomeNavbar";
+import store from "./../store";
+import { showCreateProject } from "../actions/index.js";
 
 class HomePage extends Component {
   constructor(props) {
@@ -60,6 +62,10 @@ class HomePage extends Component {
       });
   }
 
+  createProject() {
+    store.dispatch(showCreateProject());
+  }
+
   render() {
     let modalClose = () => this.setState({ modalShow: false });
     return (
@@ -68,21 +74,13 @@ class HomePage extends Component {
         <div className="HomeContent">
           <div className="HomeButtonWrapper">
             <ButtonToolbar>
-              <Button
-                variant="success"
-                onClick={() => this.setState({ modalShow: true })}
-                size="lg"
-              >
+              <Button variant="success" onClick={this.createProject} size="lg">
                 Create a New Project
               </Button>
             </ButtonToolbar>
           </div>
 
-          <CreateProject
-            show={this.state.modalShow}
-            onHide={modalClose}
-            renderProjects={this.renderProjects}
-          />
+          <CreateProject renderProjects={this.renderProjects} />
 
           <EditProject renderProjects={this.renderProjects} />
 

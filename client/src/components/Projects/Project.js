@@ -7,7 +7,7 @@ import TaskHeader from "./Tasks/TaskHeader";
 import DeleteProjectButton from "./DeleteProjectButton";
 import CreateTask from "./Tasks/CreateTask";
 import store from "./../../store";
-import { showEditProject } from "../../actions/index.js";
+import { showEditProject, showCreateTask } from "../../actions/index.js";
 
 class Project extends Component {
   constructor(props) {
@@ -15,6 +15,14 @@ class Project extends Component {
     this.state = { editModalShow: false, createTaskModalShow: false };
     this.edit = this.edit.bind(this);
     this.delete = this.delete.bind(this);
+    this.createTask = this.createTask.bind(this);
+  }
+
+  createTask(event) {
+    const project = {
+      projectId: this.props.projectId
+    };
+    store.dispatch(showCreateTask(project));
   }
 
   edit(event) {
@@ -72,18 +80,10 @@ class Project extends Component {
                 renderProjects={this.props.renderProjects}
               />
             ))}
-            <Button
-              variant="success"
-              onClick={() => this.setState({ createTaskModalShow: true })}
-            >
+            <Button variant="success" onClick={this.createTask}>
               Create Task
             </Button>
-            <CreateTask
-              show={this.state.createTaskModalShow}
-              projectId={this.props.projectId}
-              renderProjects={this.props.renderProjects}
-              onHide={createTaskModalClose}
-            />
+            <CreateTask renderProjects={this.props.renderProjects} />
           </div>
         </div>
       </div>

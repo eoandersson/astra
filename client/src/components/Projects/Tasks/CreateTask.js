@@ -3,18 +3,32 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import store from "./../../../store";
+import { hideCreateTask } from "../../../actions/index.js";
 
 class CreateTask extends Component {
   constructor() {
     super();
     this.state = {
+      show: false,
+      projectId: "",
       name: "",
       description: "",
       state: false
     };
+
+    console.log(this.state.show);
+    store.subscribe(() => {
+      this.setState({
+        show: store.getState().createTask.visibility,
+        projectId: store.getState().createTask.projectId
+      });
+    });
+
     this.addTask = this.addTask.bind(this);
     this.handleTaskNameChange = this.handleTaskNameChange.bind(this);
     this.handleDescriptionChange = this.handleDescriptionChange.bind(this);
+    this.handleClose = this.handleClose.bind(this);
   }
 
   addTask(event) {
@@ -26,7 +40,7 @@ class CreateTask extends Component {
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        projectId: this.props.projectId,
+        projectId: this.state.projectId,
         task: {
           name: this.state.name,
           description: this.state.description,
@@ -37,7 +51,7 @@ class CreateTask extends Component {
       console.log(response.status);
       if (response.status == 200) {
         this.props.renderProjects();
-        this.props.onHide();
+        this.handleClose();
       } else {
         console.log("Error");
       }
@@ -52,6 +66,10 @@ class CreateTask extends Component {
     this.setState({ description: event.target.value });
   }
 
+  handleClose() {
+    store.dispatch(hideCreateTask());
+  }
+
   render() {
     return (
       <Modal
@@ -59,6 +77,8 @@ class CreateTask extends Component {
         size="lg"
         aria-labelledby="contained-modal-title-vcenter"
         centered
+        show={this.state.show}
+        onHide={this.handleClose}
       >
         <Modal.Header closeButton>
           <Modal.Title id="contained-modal-title-vcenter">
