@@ -3,10 +3,16 @@ import editModalVisibility from "./editModalVisibility";
 import createProject from "./createProject";
 import taskModalVisibility from "./taskModalVisibility";
 import handleProject from "./handleProject";
+import handleNews from "./handleNews";
+import createNewsItem from "./createNewsItem";
+import editNewsItem from "./editNewsItem";
 
 export default combineReducers({
   editModalVisibility,
   createProject,
   taskModalVisibility,
-  handleProject
+  handleProject,
+  handleNews,
+  createNewsItem,
+  editNewsItem
 });

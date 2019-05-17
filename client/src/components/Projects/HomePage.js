@@ -1,12 +1,15 @@
 import React, { Component } from "react";
 import Button from "react-bootstrap/Button";
 import ButtonToolbar from "react-bootstrap/ButtonToolbar";
-import Project from "./Projects/Project";
-import CreateProject from "./Projects/CreateProject";
-import EditProject from "./Projects/EditProject";
-import HomeNavbar from "./HomeNavbar";
-import store from "./../store";
-import { showCreateProject, handleAddProjectList } from "../actions/index.js";
+import Project from "./Project";
+import CreateProject from "./CreateProject";
+import EditProject from "./EditProject";
+import HomeNavbar from "./../HomeNavbar";
+import store from "./../../store";
+import {
+  showCreateProject,
+  handleAddProjectList
+} from "../../actions/index.js";
 
 class HomePage extends Component {
   constructor(props) {

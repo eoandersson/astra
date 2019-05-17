@@ -49,3 +49,36 @@ export function handleDeleteProject(project) {
 export function handleAddProjectList(projects) {
   return { type: "ADD-PROJECT-LIST", payload: projects };
 }
+
+export function handleAddNewsItem(newsItem) {
+  return { type: "ADD-NEWS-ITEM", payload: newsItem };
+}
+
+export function handleEditNewsItems(newsItem) {
+  return { type: "EDIT-NEWS-ITEM", payload: newsItem };
+}
+
+export function handleDeleteNewsItem(newsItem) {
+  return { type: "DELETE-NEWS-ITEM", payload: newsItem };
+}
+
+export function handleAddNewsItemList(newsItems) {
+  return { type: "ADD-NEWS-ITEM-LIST", payload: newsItems };
+}
+
+export function showCreateNewsItem() {
+  return { type: "SHOW-CREATE-NEWS-ITEM" };
+}
+
+export function hideCreateNewsItem() {
+  return { type: "HIDE-CREATE-NEWS-ITEM" };
+}
+
+export function showEditNewsItem(newsItem) {
+  console.log(newsItem);
+  return { type: "SHOW-EDIT-NEWS-ITEM", payload: newsItem };
+}
+
+export function hideEditNewsItem() {
+  return { type: "HIDE-EDIT-NEWS-ITEM" };
+}

@@ -13,8 +13,7 @@ class CreateProject extends Component {
       show: false,
       projectName: "",
       usersMap: [],
-      users: [],
-      projects: []
+      users: []
     };
 
     store.subscribe(() => {
@@ -22,8 +21,7 @@ class CreateProject extends Component {
         show: store.getState().createProject.visibility,
         projectName: store.getState().createProject.projectName,
         usersMap: store.getState().createProject.usersMap,
-        users: store.getState().createProject.users,
-        projects: store.getState().handleProject.projects
+        users: store.getState().createProject.users
       });
     });
 
