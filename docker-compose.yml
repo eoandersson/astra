@@ -53,3 +53,8 @@ services:
       SERVER_PORT: 8090
       EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka-server:8761/eureka
       EUREKA_INSTANCE_PREFER_IP_ADDRESS: 'true'
+
+  react-client:
+    build: ./client
+    ports:
+      - 3000:3000
