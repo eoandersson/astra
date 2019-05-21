@@ -51,7 +51,7 @@ class HomePage extends Component {
   }
 
   renderProjects() {
-    fetch("/api/projects", {
+    fetch("/project-service/projects", {
       method: "GET",
       headers: {
         Accept: "application/json",

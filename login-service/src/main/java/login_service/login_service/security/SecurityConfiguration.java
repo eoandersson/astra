@@ -27,18 +27,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 	protected void configure(HttpSecurity http) throws Exception {
 		http.cors().and().csrf().disable()
 			.authorizeRequests()
-			.antMatchers(HttpMethod.POST, "/api/users/register").permitAll()
-			.antMatchers(HttpMethod.POST, "/api/users/login").permitAll()
+			.antMatchers(HttpMethod.POST, "/users/register").permitAll()
+			.antMatchers(HttpMethod.POST, "/users/login").permitAll()
 			.anyRequest().authenticated()
 			.and()
 			.addFilter(getAuthenticationFilter())
 			.addFilter(new JWTAuthorizationFilter(authenticationManager()))
 			.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-			/*
-			.authorizeRequests().anyRequest().authenticated()
-			//.and().httpBasic()
-			.and().sessionManagement().disable();
-			*/
 	}
 	@Bean
 	public PasswordEncoder passwordEncoder() {
@@ -59,7 +54,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 	protected UsernamePasswordAuthenticationFilter getAuthenticationFilter() throws Exception {
 		JWTAuthenticationFilter jwtAuthenticationFilter = new JWTAuthenticationFilter(this.authenticationManagerBean());
 		jwtAuthenticationFilter.setAuthenticationManager(this.authenticationManagerBean());
-		jwtAuthenticationFilter.setFilterProcessesUrl("/api/users/login");
+		jwtAuthenticationFilter.setFilterProcessesUrl("/users/login");
 		return jwtAuthenticationFilter;
 	}
 	

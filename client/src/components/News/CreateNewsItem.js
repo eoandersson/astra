@@ -33,7 +33,7 @@ class CreateNewsItem extends Component {
 
   addNewsItem(event) {
     event.preventDefault();
-    fetch("/news", {
+    fetch("/news-service/news", {
       method: "POST",
       headers: {
         Accept: "application/json",

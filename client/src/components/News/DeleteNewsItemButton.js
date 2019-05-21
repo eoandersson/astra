@@ -11,7 +11,7 @@ class DeleteNewsItemButton extends Component {
 
   delete(event) {
     event.preventDefault();
-    fetch("/news/" + this.props.newsId, {
+    fetch("/news-service/news/" + this.props.newsId, {
       method: "DELETE",
       headers: {
         Accept: "application/json",

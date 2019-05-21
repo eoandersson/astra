@@ -33,7 +33,7 @@ class CreateTask extends Component {
 
   addTask(event) {
     event.preventDefault();
-    fetch("/api/projects/task", {
+    fetch("/project-service/projects/task", {
       method: "POST",
       headers: {
         Accept: "application/json",

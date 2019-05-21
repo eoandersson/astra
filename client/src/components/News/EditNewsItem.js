@@ -39,7 +39,7 @@ class EditNewsItem extends Component {
   editNewsItem(event) {
     event.preventDefault();
     console.log(this.state.newsId);
-    fetch("/news", {
+    fetch("/news-service/news", {
       method: "PUT",
       headers: {
         Accept: "application/json",

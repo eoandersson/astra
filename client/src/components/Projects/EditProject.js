@@ -42,7 +42,7 @@ class EditProject extends Component {
     this.state.usersMap.map(user => {
       this.state.users.push(user.name);
     });
-    fetch("/api/projects", {
+    fetch("/project-service/projects", {
       method: "PUT",
       headers: {
         Accept: "application/json",

@@ -23,7 +23,7 @@ class RegisterPage extends Component {
 
   register(event) {
     event.preventDefault();
-    fetch("/api/users/register", {
+    fetch("/login-service/users/register", {
       method: "POST",
       headers: {
         Accept: "application/json",

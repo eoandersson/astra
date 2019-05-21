@@ -73,12 +73,17 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 	@Override
 	protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain,
 			Authentication authResult) throws IOException, ServletException {
-
+		
+		System.out.println("Creating token...");
 		String token = JWT.create()
 				.withSubject(((User) authResult.getPrincipal()).getUsername())
 				.withExpiresAt(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
 				.sign(HMAC512(SECRET.getBytes()));
 		response.addHeader(HEADER_STRING, TOKEN_PREFIX + token);
+		System.out.println("Token: " + token);
+		System.out.println("Header String: " + HEADER_STRING);
+		System.out.println("Token Prefix: " + TOKEN_PREFIX);
+		System.out.println("Response Headers: " + response.getHeaderNames());
 	}
 	
 	

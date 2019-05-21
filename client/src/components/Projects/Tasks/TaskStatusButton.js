@@ -12,7 +12,7 @@ class TaskStatusButton extends Component {
 
   changeTaskStatus(event) {
     event.preventDefault();
-    fetch("/api/projects/task", {
+    fetch("/project-service/projects/task", {
       method: "PUT",
       headers: {
         Accept: "application/json",

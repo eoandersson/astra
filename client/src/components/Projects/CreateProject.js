@@ -36,7 +36,7 @@ class CreateProject extends Component {
     this.state.usersMap.map(user => {
       this.state.users.push(user.name);
     });
-    fetch("/api/projects", {
+    fetch("/project-service/projects", {
       method: "POST",
       headers: {
         Accept: "application/json",

@@ -22,7 +22,6 @@ import login_service.login_service.model.Users;
 import login_service.login_service.repository.UsersRespository;
 
 @RestController
-@RequestMapping("/api")
 public class UsersController {
 	@Autowired
 	private UsersRespository usersRespository;
@@ -61,16 +60,4 @@ public class UsersController {
 		usersRespository.save(user);
 		return user;
 	}
-	/*
-	@RequestMapping(value = "/users/login", method = RequestMethod.POST)
-	public ResponseEntity<?> loginUser(@Valid @RequestBody Users user) {
-		Users storedUser = usersRespository.findByUsername(user.getUsername());
-		boolean correctPassword = passwordEncoder.matches(user.getPassword(), storedUser.getPassword());
-		if(!correctPassword) {
-			return new ResponseEntity(HttpStatus.UNAUTHORIZED);
-		} else {
-			return new ResponseEntity(HttpStatus.OK);
-		}
-	}
-	*/
 }

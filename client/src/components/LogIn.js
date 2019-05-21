@@ -24,7 +24,7 @@ class LogIn extends Component {
 
   login(event) {
     event.preventDefault();
-    fetch("/api/users/login", {
+    fetch("/login-service/users/login", {
       method: "POST",
       headers: {
         Accept: "application/json",

@@ -50,7 +50,7 @@ class NewsPage extends Component {
   }
 
   renderProjects() {
-    fetch("/news", {
+    fetch("/news-service/news", {
       method: "GET",
       headers: {
         Accept: "application/json",

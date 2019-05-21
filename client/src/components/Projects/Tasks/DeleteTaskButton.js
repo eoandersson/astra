@@ -12,7 +12,7 @@ class DeleteTaskButton extends Component {
 
   deleteTask(event) {
     event.preventDefault();
-    fetch("/api/projects/task", {
+    fetch("/project-service/projects/task", {
       method: "DELETE",
       headers: {
         Accept: "application/json",

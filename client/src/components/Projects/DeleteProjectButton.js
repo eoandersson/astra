@@ -12,7 +12,7 @@ class DeleteProjectButton extends Component {
 
   delete(event) {
     event.preventDefault();
-    fetch("/api/projects", {
+    fetch("/project-service/projects", {
       method: "DELETE",
       headers: {
         Accept: "application/json",

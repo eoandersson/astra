@@ -23,7 +23,6 @@ import sling_project.project_service.repository.ProjectsRepository;
 import sling_project.project_service.service.MongoProjectService;
 
 @RestController
-@RequestMapping("/api")
 public class ProjectController {
 	
 	@Autowired
