@@ -1,0 +1,55 @@
+version: '3'
+
+services:
+  eureka-server:
+    build: ./eureka-server
+    ports:
+      - 8761:8761
+
+  zuul-proxy:
+    build: ./zuul-proxy
+    ports:
+      - 8762:8762
+    depends_on:
+      - eureka-server
+    environment:
+      SPRING_APPLICATION_NAME: zuul-proxy
+      SERVER_PORT: 8762
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka-server:8761/eureka
+      EUREKA_INSTANCE_PREFER_IP_ADDRESS: 'true'
+
+  project-service:
+    build: ./project-service
+    ports:
+      - 8080:8080
+    depends_on:
+      - eureka-server
+    environment:
+      SPRING_APPLICATION_NAME: project-service
+      SERVER_PORT: 8080
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka-server:8761/eureka
+      EUREKA_INSTANCE_PREFER_IP_ADDRESS: 'true'
+
+  login-service:
+    build: ./login-service
+    ports:
+      - 8070:8070
+    depends_on:
+      - eureka-server
+    environment:
+      SPRING_APPLICATION_NAME: login-service
+      SERVER_PORT: 8070
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka-server:8761/eureka
+      EUREKA_INSTANCE_PREFER_IP_ADDRESS: 'true'
+
+  news-service:
+    build: ./newsfeed-service
+    ports:
+      - 8090:8090
+    depends_on:
+      - eureka-server
+    environment:
+      SPRING_APPLICATION_NAME: news-service
+      SERVER_PORT: 8090
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka-server:8761/eureka
+      EUREKA_INSTANCE_PREFER_IP_ADDRESS: 'true'
