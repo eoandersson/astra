@@ -4,7 +4,6 @@ import Task from "./Tasks/Task";
 import User from "./User";
 import TaskHeader from "./Tasks/TaskHeader";
 import DeleteProjectButton from "./DeleteProjectButton";
-import CreateTask from "./Tasks/CreateTask";
 import store from "./../../store";
 import { showEditProject, showCreateTask } from "../../actions/index.js";
 
@@ -71,10 +70,11 @@ class Project extends Component {
                 key={task.name}
               />
             ))}
-            <Button variant="success" onClick={this.createTask}>
-              Create Task
-            </Button>
-            <CreateTask />
+            <div className="ProjectFooter">
+              <Button variant="success" onClick={this.createTask}>
+                Add Task
+              </Button>
+            </div>
           </div>
         </div>
       </div>

@@ -4,6 +4,7 @@ import ButtonToolbar from "react-bootstrap/ButtonToolbar";
 import Project from "./Project";
 import CreateProject from "./CreateProject";
 import EditProject from "./EditProject";
+import CreateTask from "./Tasks/CreateTask";
 import HomeNavbar from "./../HomeNavbar";
 import store from "./../../store";
 import {
@@ -88,8 +89,8 @@ class HomePage extends Component {
           </div>
 
           <CreateProject />
-
           <EditProject />
+          <CreateTask />
 
           {this.state.projects.map(project => (
             <Project

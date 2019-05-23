@@ -150,6 +150,15 @@ code {
   padding: 20px;
 }
 
+.ProjectFooter {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 50px;
+  padding-right: 50px;
+  justify-content: center;
+  display: flex;
+}
+
 .ModalRow {
   margin-bottom: 5px;
 }
