@@ -76,22 +76,24 @@ class NewsPage extends Component {
   render() {
     return (
       <div className="NewsPage">
-        <div className="HomeButtonWrapper">
-          <ButtonToolbar>
-            <Button variant="success" onClick={this.createNewsItem} size="lg">
-              Create a New Article
-            </Button>
-          </ButtonToolbar>
+        <div className="NewsContent">
+          <div className="NewsButtonWrapper">
+            <ButtonToolbar>
+              <Button variant="success" onClick={this.createNewsItem} size="lg">
+                Post a New Article
+              </Button>
+            </ButtonToolbar>
+          </div>
+          <CreateNewsItem />
+          <EditNewsItem />
+          {this.state.newsItems.map(newsItem => (
+            <NewsItem
+              newsItem={newsItem}
+              key={this.getId(newsItem.newsId)}
+              newsId={this.getId(newsItem.newsId)}
+            />
+          ))}
         </div>
-        <CreateNewsItem />
-        <EditNewsItem />
-        {this.state.newsItems.map(newsItem => (
-          <NewsItem
-            newsItem={newsItem}
-            key={this.getId(newsItem.newsId)}
-            newsId={this.getId(newsItem.newsId)}
-          />
-        ))}
       </div>
     );
   }

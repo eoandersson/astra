@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import Button from "react-bootstrap/Button";
-import ButtonToolbar from "react-bootstrap/ButtonToolbar";
 import DeleteNewsItemButton from "./DeleteNewsItemButton";
 import { showEditNewsItem } from "../../actions/index.js";
 import store from "./../../store";
@@ -24,17 +23,23 @@ class NewsItem extends Component {
   render() {
     return (
       <div className="NewsItem">
-        <h3>{this.props.newsItem.title}</h3>
-        <p>{this.props.newsItem.body}</p>
-        <ButtonToolbar>
-          <Button variant="primary" onClick={this.editNewsItem} size="lg">
-            Edit
-          </Button>
-        </ButtonToolbar>
-        <DeleteNewsItemButton
-          newsItem={this.props.newsItem}
-          newsId={this.props.newsId}
-        />
+        <div className="NewsHeader">
+          <div className="NewsTitle">
+            <h3>{this.props.newsItem.title}</h3>
+          </div>
+          <div className="NewsButtons">
+            <Button variant="primary" onClick={this.editNewsItem}>
+              Edit
+            </Button>
+            <DeleteNewsItemButton
+              newsItem={this.props.newsItem}
+              newsId={this.props.newsId}
+            />
+          </div>
+        </div>
+        <div className="NewsBody">
+          <p>{this.props.newsItem.body}</p>
+        </div>
       </div>
     );
   }
