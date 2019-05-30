@@ -15,7 +15,15 @@ class CreateNewsItem extends Component {
       author: "Karl"
     };
 
-    store.subscribe(() => {
+    this.addNewsItem = this.addNewsItem.bind(this);
+    this.handleTitleChange = this.handleTitleChange.bind(this);
+    this.handleBodyChange = this.handleBodyChange.bind(this);
+    this.clearFields = this.clearFields.bind(this);
+    this.handleClose = this.handleClose.bind(this);
+  }
+
+  componentDidMount() {
+    this.unsubscribe = store.subscribe(() => {
       this.setState({
         show: store.getState().createNewsItem.visibility,
         title: store.getState().createNewsItem.title,
@@ -23,12 +31,10 @@ class CreateNewsItem extends Component {
         author: store.getState().createNewsItem.author
       });
     });
+  }
 
-    this.addNewsItem = this.addNewsItem.bind(this);
-    this.handleTitleChange = this.handleTitleChange.bind(this);
-    this.handleBodyChange = this.handleBodyChange.bind(this);
-    this.clearFields = this.clearFields.bind(this);
-    this.handleClose = this.handleClose.bind(this);
+  componentWillUnmount() {
+    this.unsubscribe();
   }
 
   addNewsItem(event) {

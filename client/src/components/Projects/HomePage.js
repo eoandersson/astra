@@ -21,15 +21,21 @@ class HomePage extends Component {
 
     this.renderProjects();
 
-    store.subscribe(() => {
+    this.renderProjects = this.renderProjects.bind(this);
+    this.getId = this.getId.bind(this);
+    this.pad0 = this.pad0.bind(this);
+  }
+
+  componentDidMount() {
+    this.unsubscribe = store.subscribe(() => {
       this.setState({
         projects: store.getState().handleProject.projects
       });
     });
+  }
 
-    this.renderProjects = this.renderProjects.bind(this);
-    this.getId = this.getId.bind(this);
-    this.pad0 = this.pad0.bind(this);
+  componentWillUnmount() {
+    this.unsubscribe();
   }
 
   getId(mongoId) {

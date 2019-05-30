@@ -17,18 +17,24 @@ class CreateTask extends Component {
       project: {}
     };
 
-    store.subscribe(() => {
+    this.addTask = this.addTask.bind(this);
+    this.handleTaskNameChange = this.handleTaskNameChange.bind(this);
+    this.handleDescriptionChange = this.handleDescriptionChange.bind(this);
+    this.handleClose = this.handleClose.bind(this);
+  }
+
+  componentDidMount() {
+    this.unsubscribe = store.subscribe(() => {
       this.setState({
         show: store.getState().taskModalVisibility.visibility,
         projectId: store.getState().taskModalVisibility.projectId,
         project: store.getState().taskModalVisibility.project
       });
     });
+  }
 
-    this.addTask = this.addTask.bind(this);
-    this.handleTaskNameChange = this.handleTaskNameChange.bind(this);
-    this.handleDescriptionChange = this.handleDescriptionChange.bind(this);
-    this.handleClose = this.handleClose.bind(this);
+  componentWillUnmount() {
+    this.unsubscribe();
   }
 
   addTask(event) {

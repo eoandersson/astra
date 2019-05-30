@@ -20,7 +20,13 @@ class EditProject extends Component {
       tasks: this.props.tasks
     };
 
-    store.subscribe(() => {
+    this.addProject = this.addProject.bind(this);
+    this.handleProjectNameChange = this.handleProjectNameChange.bind(this);
+    this.handleClose = this.handleClose.bind(this);
+  }
+
+  componentDidMount() {
+    this.unsubscribe = store.subscribe(() => {
       this.setState({
         show: store.getState().editModalVisibility.visibility,
         projectId: store.getState().editModalVisibility.projectId,
@@ -31,10 +37,10 @@ class EditProject extends Component {
         tasks: store.getState().editModalVisibility.tasks
       });
     });
+  }
 
-    this.addProject = this.addProject.bind(this);
-    this.handleProjectNameChange = this.handleProjectNameChange.bind(this);
-    this.handleClose = this.handleClose.bind(this);
+  componentWillUnmount() {
+    this.unsubscribe();
   }
 
   addProject(event) {

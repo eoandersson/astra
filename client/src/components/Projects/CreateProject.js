@@ -16,7 +16,14 @@ class CreateProject extends Component {
       users: []
     };
 
-    store.subscribe(() => {
+    this.addProject = this.addProject.bind(this);
+    this.handleProjectNameChange = this.handleProjectNameChange.bind(this);
+    this.clearFields = this.clearFields.bind(this);
+    this.handleClose = this.handleClose.bind(this);
+  }
+
+  componentDidMount() {
+    this.unsubscribe = store.subscribe(() => {
       this.setState({
         show: store.getState().createProject.visibility,
         projectName: store.getState().createProject.projectName,
@@ -24,11 +31,10 @@ class CreateProject extends Component {
         users: store.getState().createProject.users
       });
     });
+  }
 
-    this.addProject = this.addProject.bind(this);
-    this.handleProjectNameChange = this.handleProjectNameChange.bind(this);
-    this.clearFields = this.clearFields.bind(this);
-    this.handleClose = this.handleClose.bind(this);
+  componentWillUnmount() {
+    this.unsubscribe();
   }
 
   addProject(event) {

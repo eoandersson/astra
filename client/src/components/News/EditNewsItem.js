@@ -18,7 +18,15 @@ class EditNewsItem extends Component {
       author: "Karl"
     };
 
-    store.subscribe(() => {
+    this.editNewsItem = this.editNewsItem.bind(this);
+    this.handleTitleChange = this.handleTitleChange.bind(this);
+    this.handleBodyChange = this.handleBodyChange.bind(this);
+    this.clearFields = this.clearFields.bind(this);
+    this.handleClose = this.handleClose.bind(this);
+  }
+
+  componentDidMount() {
+    this.unsubscribe = store.subscribe(() => {
       this.setState({
         show: store.getState().editNewsItem.visibility,
         title: store.getState().editNewsItem.title,
@@ -28,12 +36,10 @@ class EditNewsItem extends Component {
         newsId: store.getState().editNewsItem.newsId
       });
     });
+  }
 
-    this.editNewsItem = this.editNewsItem.bind(this);
-    this.handleTitleChange = this.handleTitleChange.bind(this);
-    this.handleBodyChange = this.handleBodyChange.bind(this);
-    this.clearFields = this.clearFields.bind(this);
-    this.handleClose = this.handleClose.bind(this);
+  componentWillUnmount() {
+    this.unsubscribe();
   }
 
   editNewsItem(event) {
