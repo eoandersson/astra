@@ -87,6 +87,9 @@ public class MongoProjectService {
 	
 
 	public ResponseEntity<?> updateProject(Projects project) {
+		if(projectsRepository.findByProjectId(project.get_id()) == null) {
+			return new ResponseEntity(HttpStatus.NOT_FOUND);
+		}
 		projectsRepository.save(project);
 		return new ResponseEntity(HttpStatus.OK);
 	}
