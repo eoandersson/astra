@@ -20,7 +20,7 @@ class EditProject extends Component {
       tasks: this.props.tasks
     };
 
-    this.addProject = this.addProject.bind(this);
+    this.updateProject = this.updateProject.bind(this);
     this.handleProjectNameChange = this.handleProjectNameChange.bind(this);
     this.handleClose = this.handleClose.bind(this);
   }
@@ -33,7 +33,6 @@ class EditProject extends Component {
         projectName: store.getState().editModalVisibility.projectName,
         project: store.getState().editModalVisibility.project,
         usersMap: store.getState().editModalVisibility.usersMap,
-        users: store.getState().editModalVisibility.users,
         tasks: store.getState().editModalVisibility.tasks
       });
     });
@@ -43,10 +42,11 @@ class EditProject extends Component {
     this.unsubscribe();
   }
 
-  addProject(event) {
+  updateProject(event) {
     event.preventDefault();
+    var users = [];
     this.state.usersMap.map(user => {
-      this.state.users.push(user.name);
+      users.push(user.name);
     });
     fetch("/project-service/projects", {
       method: "PUT",
@@ -57,7 +57,7 @@ class EditProject extends Component {
       body: JSON.stringify({
         projectId: this.state.projectId,
         projectName: this.state.projectName,
-        users: this.state.users,
+        users: users,
         tasks: this.state.tasks
       })
     }).then(response => {
@@ -65,7 +65,7 @@ class EditProject extends Component {
         var payload = {
           project: this.state.project,
           projectName: this.state.projectName,
-          users: this.state.users
+          users: users
         };
         store.dispatch(handleEditProject(payload));
         this.handleClose();
@@ -79,13 +79,13 @@ class EditProject extends Component {
     this.setState({ projectName: event.target.value });
   }
 
-  handleShareholderNameChange = idx => evt => {
-    const newShareholders = this.state.usersMap.map((shareholder, sidx) => {
-      if (idx !== sidx) return shareholder;
-      return { ...shareholder, name: evt.target.value };
+  handleUserNameChange = idx => evt => {
+    const newUsers = this.state.usersMap.map((user, sidx) => {
+      if (idx !== sidx) return user;
+      return { ...user, name: evt.target.value };
     });
 
-    this.setState({ usersMap: newShareholders });
+    this.setState({ usersMap: newUsers });
   };
 
   handleSubmit = evt => {
@@ -93,13 +93,13 @@ class EditProject extends Component {
     alert(`Incorporated: ${projectName} with ${usersMap.length} usersMap`);
   };
 
-  handleAddShareholder = () => {
+  handleAddUser = () => {
     this.setState({
       usersMap: this.state.usersMap.concat([{ name: "" }])
     });
   };
 
-  handleRemoveShareholder = idx => () => {
+  handleRemoveUser = idx => () => {
     this.setState({
       usersMap: this.state.usersMap.filter((s, sidx) => idx !== sidx)
     });
@@ -126,7 +126,7 @@ class EditProject extends Component {
         </Modal.Header>
         <Modal.Body>
           <Form>
-            <Form.Group controlId="formBasicProjectName">
+            <Form.Group>
               <Form.Label>Project name</Form.Label>
               <Form.Control
                 type="text"
@@ -135,21 +135,21 @@ class EditProject extends Component {
                 value={this.state.projectName}
               />
             </Form.Group>
-            {this.state.usersMap.map((shareholder, idx) => (
-              <div className="shareholder">
-                <Form.Row className="ModalRow" controlId="formBasicEmail">
+            {this.state.usersMap.map((user, idx) => (
+              <div className="edit-user">
+                <Form.Row className="ModalRow">
                   <Col>
                     <Form.Control
                       type="text"
                       placeholder={"User #" + (idx + 1)}
-                      value={shareholder.name}
-                      onChange={this.handleShareholderNameChange(idx)}
+                      value={user.name}
+                      onChange={this.handleUserNameChange(idx)}
                     />
                   </Col>
                   <Col>
                     <Button
                       variant="danger"
-                      onClick={this.handleRemoveShareholder(idx)}
+                      onClick={this.handleRemoveUser(idx)}
                       className="small"
                     >
                       -
@@ -158,13 +158,13 @@ class EditProject extends Component {
                 </Form.Row>
               </div>
             ))}
-            <Button variant="primary" onClick={this.handleAddShareholder}>
+            <Button variant="primary" onClick={this.handleAddUser}>
               Add user
             </Button>
           </Form>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="success" type="submit" onClick={this.addProject}>
+          <Button variant="success" type="submit" onClick={this.updateProject}>
             Submit
           </Button>
           <Button variant="outline-primary" onClick={this.handleClose}>

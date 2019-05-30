@@ -4,7 +4,6 @@ const initialState = {
   projectId: "",
   projectName: "",
   usersMap: [],
-  users: [],
   tasks: []
 };
 
@@ -22,7 +21,6 @@ export default function editProject(state = initialState, action) {
         projectId: action.payload.projectId,
         projectName: action.payload.projectName,
         usersMap: usersMapObject,
-        users: action.payload.users,
         tasks: action.payload.tasks
       });
     case "HIDE-EDIT":
