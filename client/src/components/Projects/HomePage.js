@@ -6,7 +6,7 @@ import Project from "./Project";
 import CreateProject from "./CreateProject";
 import EditProject from "./EditProject";
 import CreateTask from "./Tasks/CreateTask";
-import HomeNavbar from "./../HomeNavbar";
+import SiteNavbar from "../SiteNavbar";
 import store from "./../../store";
 import {
   showCreateProject,
@@ -95,7 +95,7 @@ class HomePage extends Component {
   render() {
     return (
       <div className="HomePage">
-        <HomeNavbar />
+        <SiteNavbar />
         <div className="HomeContent">
           <div className="HomeButtonWrapper">
             <ButtonToolbar>

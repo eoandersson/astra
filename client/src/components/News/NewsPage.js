@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { withRouter } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import ButtonToolbar from "react-bootstrap/ButtonToolbar";
 import NewsItem from "./NewsItem";
@@ -9,6 +10,7 @@ import {
   handleAddNewsItemList,
   showCreateNewsItem
 } from "../../actions/index.js";
+import SiteNavbar from "../SiteNavbar";
 
 class NewsPage extends Component {
   constructor(props) {
@@ -25,6 +27,10 @@ class NewsPage extends Component {
   }
 
   componentDidMount() {
+    if (store.getState().userAuthentication.signedIn === false) {
+      this.props.history.push("/");
+    }
+
     this.unsubscribe = store.subscribe(() => {
       this.setState({
         newsItems: store.getState().handleNews.newsItems
@@ -82,6 +88,7 @@ class NewsPage extends Component {
   render() {
     return (
       <div className="NewsPage">
+        <SiteNavbar />
         <div className="NewsContent">
           <div className="NewsButtonWrapper">
             <ButtonToolbar>
@@ -105,4 +112,4 @@ class NewsPage extends Component {
   }
 }
 
-export default NewsPage;
+export default withRouter(NewsPage);
