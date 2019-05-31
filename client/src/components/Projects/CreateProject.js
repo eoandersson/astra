@@ -12,8 +12,7 @@ class CreateProject extends Component {
     this.state = {
       show: false,
       projectName: "",
-      usersMap: [],
-      users: []
+      usersMap: []
     };
 
     this.addProject = this.addProject.bind(this);
@@ -27,8 +26,7 @@ class CreateProject extends Component {
       this.setState({
         show: store.getState().createProject.visibility,
         projectName: store.getState().createProject.projectName,
-        usersMap: store.getState().createProject.usersMap,
-        users: store.getState().createProject.users
+        usersMap: store.getState().createProject.usersMap
       });
     });
   }
@@ -39,8 +37,9 @@ class CreateProject extends Component {
 
   addProject(event) {
     event.preventDefault();
+    var users = [];
     this.state.usersMap.map(user => {
-      this.state.users.push(user.name);
+      users.push(user.name);
     });
     fetch("/project-service/projects", {
       method: "POST",
@@ -50,7 +49,7 @@ class CreateProject extends Component {
       },
       body: JSON.stringify({
         projectName: this.state.projectName,
-        users: this.state.users,
+        users: users,
         tasks: []
       })
     })
@@ -70,8 +69,7 @@ class CreateProject extends Component {
   clearFields() {
     this.setState({
       projectName: "",
-      usersMap: [{ name: "" }],
-      users: []
+      usersMap: [{ name: "" }]
     });
   }
 
