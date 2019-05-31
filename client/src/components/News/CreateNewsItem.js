@@ -12,7 +12,7 @@ class CreateNewsItem extends Component {
       show: false,
       title: "",
       body: "",
-      author: "Karl"
+      author: ""
     };
 
     this.addNewsItem = this.addNewsItem.bind(this);
@@ -28,7 +28,7 @@ class CreateNewsItem extends Component {
         show: store.getState().createNewsItem.visibility,
         title: store.getState().createNewsItem.title,
         body: store.getState().createNewsItem.body,
-        author: store.getState().createNewsItem.author
+        author: store.getState().userAuthentication.username
       });
     });
   }

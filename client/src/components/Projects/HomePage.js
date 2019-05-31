@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { withRouter } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import ButtonToolbar from "react-bootstrap/ButtonToolbar";
 import Project from "./Project";
@@ -16,10 +17,9 @@ class HomePage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      projects: []
+      projects: [],
+      username: ""
     };
-
-    this.renderProjects();
 
     this.renderProjects = this.renderProjects.bind(this);
     this.getId = this.getId.bind(this);
@@ -27,11 +27,18 @@ class HomePage extends Component {
   }
 
   componentDidMount() {
+    if (store.getState().userAuthentication.signedIn === false) {
+      this.props.history.push("/");
+    }
     this.unsubscribe = store.subscribe(() => {
       this.setState({
-        projects: store.getState().handleProject.projects
+        projects: store.getState().handleProject.projects,
+        username: store.getState().userAuthentication.username
       });
+      console.log(store.getState());
     });
+
+    this.renderProjects();
   }
 
   componentWillUnmount() {
@@ -58,14 +65,18 @@ class HomePage extends Component {
   }
 
   renderProjects() {
-    fetch("/project-service/projects", {
-      method: "GET",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-        Authorization: "Bearer " + localStorage.getItem("JWT")
+    fetch(
+      "/project-service/projects/user/" +
+        store.getState().userAuthentication.username,
+      {
+        method: "GET",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + localStorage.getItem("JWT")
+        }
       }
-    })
+    )
       .then(response => response.json())
       .then(responseJson => {
         const projects = responseJson;
@@ -89,7 +100,7 @@ class HomePage extends Component {
           <div className="HomeButtonWrapper">
             <ButtonToolbar>
               <Button variant="success" onClick={this.createProject} size="lg">
-                Create a New Project
+                Create a Project
               </Button>
             </ButtonToolbar>
           </div>
@@ -111,4 +122,4 @@ class HomePage extends Component {
   }
 }
 
-export default HomePage;
+export default withRouter(HomePage);

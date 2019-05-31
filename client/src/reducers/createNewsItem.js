@@ -2,7 +2,7 @@ const initialState = {
   visibility: false,
   title: "",
   body: "",
-  author: "Karl"
+  author: ""
 };
 
 export default function createNewsItem(state = initialState, action) {

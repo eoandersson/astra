@@ -4,7 +4,7 @@ const initialState = {
   visibility: false,
   title: "",
   body: "",
-  author: "Karl"
+  author: ""
 };
 
 export default function editNewsItem(state = initialState, action) {
@@ -17,7 +17,7 @@ export default function editNewsItem(state = initialState, action) {
         newsId: action.payload.newsId,
         title: action.payload.title,
         body: action.payload.body,
-        author: "Karl"
+        author: action.payload.author
       });
     case "HIDE-EDIT-NEWS-ITEM":
       return initialState;

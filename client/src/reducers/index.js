@@ -6,6 +6,7 @@ import handleProject from "./handleProject";
 import handleNews from "./handleNews";
 import createNewsItem from "./createNewsItem";
 import editNewsItem from "./editNewsItem";
+import userAuthentication from "./userAuthentication";
 
 export default combineReducers({
   editModalVisibility,
@@ -14,5 +15,6 @@ export default combineReducers({
   handleProject,
   handleNews,
   createNewsItem,
-  editNewsItem
+  editNewsItem,
+  userAuthentication
 });

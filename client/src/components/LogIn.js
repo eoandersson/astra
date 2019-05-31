@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
+import { userSignIn } from "./../actions/index.js";
+import store from "./../store.js";
 
 class LogIn extends Component {
   constructor(props) {
@@ -12,6 +14,7 @@ class LogIn extends Component {
     this.handleUsernameChange = this.handleUsernameChange.bind(this);
     this.handlePasswordChange = this.handlePasswordChange.bind(this);
     this.login = this.login.bind(this);
+    this.userAuthenticated = this.userAuthenticated.bind(this);
   }
 
   handleUsernameChange(event) {
@@ -40,12 +43,21 @@ class LogIn extends Component {
         var jwtArr = jwt.split(" ");
         jwt = jwtArr[1];
         localStorage.setItem("JWT", jwt);
-        this.props.history.push("/home");
+        console.log("Log in: " + this.state.username);
+        store.dispatch(userSignIn(this.state.username));
+        setTimeout(() => {
+          this.props.history.push("/home");
+        }, 2000);
       } else {
         console.log(response.status);
       }
     });
   }
+
+  userAuthenticated = (username, dispatch) =>
+    new Promise((resolve, reject) => {
+      resolve();
+    });
 
   render() {
     return (

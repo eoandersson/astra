@@ -20,7 +20,7 @@ class DeleteProjectButton extends Component {
       },
       body: JSON.stringify({
         projectId: this.props.projectId,
-        username: "Karl"
+        username: store.getState().userAuthentication.username
       })
     }).then(response => {
       console.log(response.status);

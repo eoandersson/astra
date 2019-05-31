@@ -15,8 +15,12 @@ class NewsItem extends Component {
       newsId: this.props.newsId,
       title: this.props.newsItem.title,
       body: this.props.newsItem.body,
-      newsItem: this.props.newsItem
+      newsItem: this.props.newsItem,
+      author: store.getState().userAuthentication.username
     };
+    console.log("NewsItem");
+    console.log(store.getState());
+    console.log(newsItem);
     store.dispatch(showEditNewsItem(newsItem));
   }
 

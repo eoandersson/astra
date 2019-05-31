@@ -82,3 +82,8 @@ export function showEditNewsItem(newsItem) {
 export function hideEditNewsItem() {
   return { type: "HIDE-EDIT-NEWS-ITEM" };
 }
+
+export function userSignIn(username) {
+  console.log("Action: " + username);
+  return { type: "USER-SIGN-IN", payload: username };
+}

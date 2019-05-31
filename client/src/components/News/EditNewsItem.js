@@ -15,7 +15,7 @@ class EditNewsItem extends Component {
       newsId: "",
       title: "",
       body: "",
-      author: "Karl"
+      author: ""
     };
 
     this.editNewsItem = this.editNewsItem.bind(this);
