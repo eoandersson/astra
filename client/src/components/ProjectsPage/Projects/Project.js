@@ -1,11 +1,12 @@
 import React, { Component } from "react";
+import "./Project.css";
 import Button from "react-bootstrap/Button";
 import Task from "./Tasks/Task";
 import User from "./User";
 import TaskHeader from "./Tasks/TaskHeader";
 import DeleteProjectButton from "./DeleteProjectButton";
-import store from "./../../store";
-import { showEditProject, showCreateTask } from "../../actions/index.js";
+import store from "../../../store";
+import { showEditProject, showCreateTask } from "../../../actions/index.js";
 
 class Project extends Component {
   constructor(props) {

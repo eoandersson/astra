@@ -1,13 +1,18 @@
 import React, { Component } from "react";
 import "./ProjectsPage.css";
 import { withRouter } from "react-router-dom";
+
 import Button from "react-bootstrap/Button";
 import ButtonToolbar from "react-bootstrap/ButtonToolbar";
-import Project from "./Project";
-import CreateProject from "./CreateProject";
-import EditProject from "./EditProject";
-import CreateTask from "./Tasks/CreateTask";
+
+import Project from "./Projects/Project";
+
+import CreateProject from "./Modals/CreateProject";
+import EditProject from "./Modals/EditProject";
+import CreateTask from "./Modals/CreateTask";
+
 import SiteNavbar from "../SiteNavbar";
+
 import store from "./../../store";
 import {
   showCreateProject,

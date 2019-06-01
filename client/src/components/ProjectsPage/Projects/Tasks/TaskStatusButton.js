@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Button from "react-bootstrap/Button";
-import store from "./../../../store";
-import { editTask } from "../../../actions/index.js";
+import store from "../../../../store";
+import { editTask } from "../../../../actions/index.js";
 
 class TaskStatusButton extends Component {
   constructor(props) {

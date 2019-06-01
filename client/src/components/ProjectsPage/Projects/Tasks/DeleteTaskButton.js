@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Button from "react-bootstrap/Button";
-import store from "./../../../store";
-import { deleteTask } from "../../../actions/index.js";
+import store from "../../../../store";
+import { deleteTask } from "../../../../actions/";
 
 class DeleteTaskButton extends Component {
   constructor(props) {
