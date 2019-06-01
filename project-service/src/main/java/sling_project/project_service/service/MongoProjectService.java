@@ -1,7 +1,10 @@
 package sling_project.project_service.service;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -85,14 +88,49 @@ public class MongoProjectService {
 		return false;
 	}
 	
-
 	public ResponseEntity<?> updateProject(Projects project) {
-		if(projectsRepository.findByProjectId(project.get_id()) == null) {
+		Projects oldProject = projectsRepository.findByProjectId(project.get_id());
+		if(oldProject == null) {
 			return new ResponseEntity(HttpStatus.NOT_FOUND);
 		}
+		
+		Set<String> oldUsers = new HashSet<String>(oldProject.getUsers());
+		Set<String> newUsers = new HashSet<String>(project.getUsers());
+		
+		for(String username : oldUsers) {
+			if(!newUsers.contains(username)) {
+				removeProjectFromUser(username, project.get_id());
+			}
+		}
+		
+		for(String username : newUsers) {
+			if(!oldUsers.contains(username)) {
+				addProjectToUser(username, project.get_id());
+			}
+		}
+		
 		projectsRepository.save(project);
 		return new ResponseEntity(HttpStatus.OK);
 	}
+	
+	private void removeProjectFromUser(String username, ObjectId projectId) {
+		Users user = usersRepository.findByUsername(username);
+		if(user == null) return;
+		
+		user.removeProject(projectId);
+		usersRepository.save(user);
+	}
+	
+	private void addProjectToUser(String username, ObjectId projectId) {
+		Users user = usersRepository.findByUsername(username);
+		if(user == null) {
+			user = new Users(username);
+		}
+		
+		user.addProject(projectId);
+		usersRepository.save(user);
+	}
+	
 	
 	public ResponseEntity<?> createTask(ProjectTaskRequest request) {
 		Projects project = projectsRepository.findByProjectId(request.getProjectId());
