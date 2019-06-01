@@ -1,3 +1,8 @@
+import {
+  SHOW_CREATE_NEWS_ITEM,
+  HIDE_CREATE_NEWS_ITEM
+} from "../actions/ActionTypes";
+
 const initialState = {
   visibility: false,
   title: "",
@@ -7,11 +12,11 @@ const initialState = {
 
 export default function createNewsItem(state = initialState, action) {
   switch (action.type) {
-    case "SHOW-CREATE-NEWS-ITEM":
+    case SHOW_CREATE_NEWS_ITEM:
       return Object.assign({}, state, {
         visibility: true
       });
-    case "HIDE-CREATE-NEWS-ITEM":
+    case HIDE_CREATE_NEWS_ITEM:
       return initialState;
     default:
       return state;

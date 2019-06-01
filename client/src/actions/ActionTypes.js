@@ -1,0 +1,32 @@
+export const ADD_TASK = "ADD_TASK";
+export const EDIT_TASK = "EDIT_TASK";
+export const DELETE_TASK = "DELETE_TASK";
+
+export const ADD_PROJECT = "ADD_PROJECT";
+export const EDIT_PROJECT = "EDIT_PROJECT";
+export const DELETE_PROJECT = "DELETE_PROJECT";
+export const ADD_PROJECT_LIST = "ADD_PROJECT_LIST";
+
+export const ADD_NEWS_ITEM = "ADD_NEWS_ITEM";
+export const EDIT_NEWS_ITEM = "EDIT_NEWS_ITEM";
+export const DELETE_NEWS_ITEM = "DELETE_NEWS_ITEM";
+export const ADD_NEWS_ITEM_LIST = "ADD_NEWS_ITEM_LIST";
+
+// Action types for showing and hiding modals
+export const SHOW_CREATE_PROJECT = "SHOW_CREATE_PROJECT";
+export const HIDE_CREATE_PROJECT = "HIDE_CREATE_PROJECT";
+
+export const SHOW_EDIT_PROJECT = "SHOW_EDIT_PROJECT";
+export const HIDE_EDIT_PROJECT = "HIDE_EDIT_PROJECT";
+
+export const SHOW_CREATE_TASK = "SHOW_CREATE_TASK";
+export const HIDE_CREATE_TASK = "HIDE_CREATE_TASK";
+
+export const SHOW_CREATE_NEWS_ITEM = "SHOW_CREATE_NEWS_ITEM";
+export const HIDE_CREATE_NEWS_ITEM = "HIDE_CREATE_NEWS_ITEM";
+
+export const SHOW_EDIT_NEWS_ITEM = "SHOW_EDIT_NEWS_ITEM";
+export const HIDE_EDIT_NEWS_ITEM = "HIDE_EDIT_NEWS_ITEM";
+
+export const USER_SIGN_IN = "USER_SIGN_IN";
+export const USER_SIGN_OUT = "USER_SIGN_OUT";

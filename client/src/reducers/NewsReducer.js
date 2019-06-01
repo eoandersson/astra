@@ -1,3 +1,10 @@
+import {
+  ADD_NEWS_ITEM,
+  EDIT_NEWS_ITEM,
+  DELETE_NEWS_ITEM,
+  ADD_NEWS_ITEM_LIST
+} from "../actions/ActionTypes";
+
 const initialState = {
   newsItems: []
 };
@@ -27,14 +34,14 @@ export default function handleNewsItems(state = initialState, action) {
   };
 
   switch (action.type) {
-    case "ADD-NEWS-ITEM":
+    case ADD_NEWS_ITEM:
       newsItemList = state.newsItems;
       newsItemList.push(action.payload.newsItem);
 
       return Object.assign({}, state, {
         newsItems: newsItemList
       });
-    case "EDIT-NEWS-ITEM":
+    case EDIT_NEWS_ITEM:
       newsItemList = state.newsItems;
       newsItemIndex = getEqualNewsItem();
 
@@ -44,7 +51,7 @@ export default function handleNewsItems(state = initialState, action) {
       return Object.assign({}, state, {
         newsItems: newsItemList
       });
-    case "DELETE-NEWS-ITEM":
+    case DELETE_NEWS_ITEM:
       newsItemList = state.newsItems;
       newsItemIndex = getEqualNewsItem();
       if (newsItemIndex !== -1) {
@@ -53,7 +60,7 @@ export default function handleNewsItems(state = initialState, action) {
       return Object.assign({}, state, {
         newsItems: newsItemList
       });
-    case "ADD-NEWS-ITEM-LIST":
+    case ADD_NEWS_ITEM_LIST:
       return Object.assign({}, state, {
         newsItems: action.payload
       });

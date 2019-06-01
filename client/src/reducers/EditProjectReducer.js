@@ -1,3 +1,5 @@
+import { SHOW_EDIT_PROJECT, HIDE_EDIT_PROJECT } from "../actions/ActionTypes";
+
 const initialState = {
   project: {},
   visibility: false,
@@ -9,7 +11,7 @@ const initialState = {
 
 export default function editProject(state = initialState, action) {
   switch (action.type) {
-    case "SHOW-EDIT":
+    case SHOW_EDIT_PROJECT:
       var usersMapObject = [];
       action.payload.users.map(user => {
         usersMapObject.push({ name: user });
@@ -23,7 +25,7 @@ export default function editProject(state = initialState, action) {
         usersMap: usersMapObject,
         tasks: action.payload.tasks
       });
-    case "HIDE-EDIT":
+    case HIDE_EDIT_PROJECT:
       return initialState;
     default:
       return state;

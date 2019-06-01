@@ -1,12 +1,12 @@
 import { combineReducers } from "redux";
-import editModalVisibility from "./editModalVisibility";
-import createProject from "./createProject";
-import taskModalVisibility from "./taskModalVisibility";
-import handleProject from "./handleProject";
-import handleNews from "./handleNews";
-import createNewsItem from "./createNewsItem";
-import editNewsItem from "./editNewsItem";
-import userAuthentication from "./userAuthentication";
+import editModalVisibility from "./EditProjectReducer";
+import createProject from "./CreateProjectReducer";
+import taskModalVisibility from "./CreateTaskReducer";
+import handleProject from "./ProjectReducer";
+import handleNews from "./NewsReducer";
+import createNewsItem from "./CreateNewsItemReducer";
+import editNewsItem from "./EditNewsItemReducer";
+import userAuthentication from "./AuthenticationReducer";
 
 export default combineReducers({
   editModalVisibility,

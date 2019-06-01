@@ -1,3 +1,8 @@
+import {
+  SHOW_EDIT_NEWS_ITEM,
+  HIDE_EDIT_NEWS_ITEM
+} from "../actions/ActionTypes";
+
 const initialState = {
   newsItem: {},
   newsId: "",
@@ -9,7 +14,7 @@ const initialState = {
 
 export default function editNewsItem(state = initialState, action) {
   switch (action.type) {
-    case "SHOW-EDIT-NEWS-ITEM":
+    case SHOW_EDIT_NEWS_ITEM:
       console.log(action.payload);
       return Object.assign({}, state, {
         visibility: true,
@@ -19,7 +24,7 @@ export default function editNewsItem(state = initialState, action) {
         body: action.payload.body,
         author: action.payload.author
       });
-    case "HIDE-EDIT-NEWS-ITEM":
+    case HIDE_EDIT_NEWS_ITEM:
       return initialState;
     default:
       return state;

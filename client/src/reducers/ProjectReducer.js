@@ -1,3 +1,13 @@
+import {
+  ADD_PROJECT,
+  EDIT_PROJECT,
+  DELETE_PROJECT,
+  ADD_PROJECT_LIST,
+  ADD_TASK,
+  EDIT_TASK,
+  DELETE_TASK
+} from "../actions/ActionTypes";
+
 const initialState = {
   projects: []
 };
@@ -7,7 +17,7 @@ export default function handleProject(state = initialState, action) {
   var projectIndex = 0,
     taskIndex = 0;
 
-  var getEqualProject = function() {
+  var getProjectIndex = function() {
     projectList = state.projects;
     var timeStamp = action.payload.project.projectId.timeStamp;
     var machineIdentifier = action.payload.project.projectId.machineIdentifier;
@@ -27,7 +37,7 @@ export default function handleProject(state = initialState, action) {
     return -1;
   };
 
-  var getEqualTask = function(projectIndex) {
+  var getTaskIndex = function(projectIndex) {
     projectList = state.projects;
     var tasks = projectList[projectIndex].tasks;
 
@@ -40,16 +50,16 @@ export default function handleProject(state = initialState, action) {
   };
 
   switch (action.type) {
-    case "ADD-PROJECT":
+    case ADD_PROJECT:
       projectList = state.projects;
       projectList.push(action.payload.project);
 
       return Object.assign({}, state, {
         projects: projectList
       });
-    case "EDIT-PROJECT":
+    case EDIT_PROJECT:
       projectList = state.projects;
-      projectIndex = getEqualProject();
+      projectIndex = getProjectIndex();
 
       projectList[projectIndex].projectName = action.payload.projectName;
       projectList[projectIndex].users = action.payload.users;
@@ -57,32 +67,32 @@ export default function handleProject(state = initialState, action) {
       return Object.assign({}, state, {
         projects: projectList
       });
-    case "DELETE-PROJECT":
+    case DELETE_PROJECT:
       projectList = state.projects;
-      projectIndex = getEqualProject();
+      projectIndex = getProjectIndex();
       if (projectIndex !== -1) {
         projectList.splice(projectIndex, 1);
       }
       return Object.assign({}, state, {
         projects: projectList
       });
-    case "ADD-PROJECT-LIST":
+    case ADD_PROJECT_LIST:
       return Object.assign({}, state, {
         projects: action.payload
       });
-    case "ADD-TASK":
+    case ADD_TASK:
       projectList = state.projects;
-      projectIndex = getEqualProject();
+      projectIndex = getProjectIndex();
 
       projectList[projectIndex].tasks.push(action.payload.task);
       return Object.assign({}, state, {
         projects: projectList
       });
 
-    case "EDIT-TASK":
+    case EDIT_TASK:
       projectList = state.projects;
-      projectIndex = getEqualProject();
-      taskIndex = getEqualTask(projectIndex);
+      projectIndex = getProjectIndex();
+      taskIndex = getTaskIndex(projectIndex);
 
       var newState = !projectList[projectIndex].tasks[taskIndex].state;
       projectList[projectIndex].tasks[taskIndex].state = newState;
@@ -90,10 +100,10 @@ export default function handleProject(state = initialState, action) {
       return Object.assign({}, state, {
         projects: projectList
       });
-    case "DELETE-TASK":
+    case DELETE_TASK:
       projectList = state.projects;
-      projectIndex = getEqualProject();
-      taskIndex = getEqualTask(projectIndex);
+      projectIndex = getProjectIndex();
+      taskIndex = getTaskIndex(projectIndex);
 
       if (taskIndex !== -1) {
         projectList[projectIndex].tasks.splice(taskIndex, 1);
