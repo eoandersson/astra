@@ -123,7 +123,7 @@ class CreateTask extends Component {
           <Button variant="success" type="submit" onClick={this.addTask}>
             Submit
           </Button>
-          <Button variant="outline-primary" onClick={this.props.onHide}>
+          <Button variant="outline-primary" onClick={this.handleClose}>
             Close
           </Button>
         </Modal.Footer>
