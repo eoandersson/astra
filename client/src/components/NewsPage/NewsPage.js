@@ -24,8 +24,6 @@ class NewsPage extends Component {
       isLoading: false
     };
 
-    this.renderNews();
-
     this.renderNews = this.renderNews.bind(this);
     this.getId = this.getId.bind(this);
     this.pad0 = this.pad0.bind(this);
@@ -41,6 +39,8 @@ class NewsPage extends Component {
         newsItems: store.getState().handleNews.newsItems
       });
     });
+
+    this.renderNews();
   }
 
   componentWillUnmount() {
