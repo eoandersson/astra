@@ -16,7 +16,8 @@ class DeleteTaskButton extends Component {
       method: "DELETE",
       headers: {
         Accept: "application/json",
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + localStorage.getItem("JWT")
       },
       body: JSON.stringify({
         projectId: this.props.projectId,

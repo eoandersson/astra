@@ -52,7 +52,8 @@ class EditProject extends Component {
       method: "PUT",
       headers: {
         Accept: "application/json",
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + localStorage.getItem("JWT")
       },
       body: JSON.stringify({
         projectId: this.state.projectId,

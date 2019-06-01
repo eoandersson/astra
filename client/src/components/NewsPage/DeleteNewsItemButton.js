@@ -15,7 +15,8 @@ class DeleteNewsItemButton extends Component {
       method: "DELETE",
       headers: {
         Accept: "application/json",
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + localStorage.getItem("JWT")
       },
       body: JSON.stringify({
         newsId: this.props.newsId

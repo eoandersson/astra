@@ -49,7 +49,8 @@ class EditNewsItem extends Component {
       method: "PUT",
       headers: {
         Accept: "application/json",
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + localStorage.getItem("JWT")
       },
       body: JSON.stringify({
         newsId: this.state.newsId,

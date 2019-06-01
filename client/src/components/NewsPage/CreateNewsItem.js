@@ -43,7 +43,8 @@ class CreateNewsItem extends Component {
       method: "POST",
       headers: {
         Accept: "application/json",
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + localStorage.getItem("JWT")
       },
       body: JSON.stringify({
         title: this.state.title,
