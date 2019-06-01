@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
-import Col from "react-bootstrap/Col";
 import store from "../../store";
 import { hideEditNewsItem, handleEditNewsItems } from "../../actions/index.js";
 
