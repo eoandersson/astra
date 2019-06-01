@@ -1,0 +1,33 @@
+.landing-page {
+  height: 100%;
+  width: 100%;
+  display: flex;
+}
+
+.login-title {
+  height: 100%;
+  width: 50%;
+  background: #ad5389;
+  background: -webkit-linear-gradient(to right, #3c1053, #ad5389);
+  background: linear-gradient(to right, #3c1053, #ad5389);
+}
+
+.login-wrapper {
+  background-color: #ffffff;
+  width: 50%;
+  height: 100%;
+  z-index: 99;
+  -webkit-box-shadow: -10 5px 10px 2px rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: -10 5px 10px 2px rgba(0, 0, 0, 0.2);
+  box-shadow: -10px 0px 10px 2px rgba(0, 0, 0, 0.2);
+  align-content: center;
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.login-content {
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+}

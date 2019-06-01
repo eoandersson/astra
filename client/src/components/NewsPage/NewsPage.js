@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import "./NewsPage.css";
 import { withRouter } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import ButtonToolbar from "react-bootstrap/ButtonToolbar";
@@ -87,10 +88,10 @@ class NewsPage extends Component {
 
   render() {
     return (
-      <div className="NewsPage">
+      <div className="news-page">
         <SiteNavbar />
-        <div className="NewsContent">
-          <div className="NewsButtonWrapper">
+        <div className="news-content">
+          <div className="news-button-wrapper">
             <ButtonToolbar>
               <Button variant="success" onClick={this.createNewsItem} size="lg">
                 Post a New Article

@@ -26,12 +26,12 @@ class NewsItem extends Component {
 
   render() {
     return (
-      <div className="NewsItem">
-        <div className="NewsHeader">
-          <div className="NewsTitle">
+      <div className="news-item">
+        <div className="news-header">
+          <div className="news-title">
             <h3>{this.props.newsItem.title}</h3>
           </div>
-          <div className="NewsButtons">
+          <div className="news-buttons">
             <Button variant="primary" onClick={this.editNewsItem}>
               Edit
             </Button>
@@ -41,7 +41,7 @@ class NewsItem extends Component {
             />
           </div>
         </div>
-        <div className="NewsBody">
+        <div className="news-item-body">
           <p>{this.props.newsItem.body}</p>
         </div>
       </div>

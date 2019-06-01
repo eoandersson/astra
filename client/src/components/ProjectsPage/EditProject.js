@@ -137,7 +137,7 @@ class EditProject extends Component {
             </Form.Group>
             {this.state.usersMap.map((user, idx) => (
               <div className="edit-user">
-                <Form.Row className="ModalRow">
+                <Form.Row className="modal-row">
                   <Col>
                     <Form.Control
                       type="text"

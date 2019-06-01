@@ -36,12 +36,12 @@ class Project extends Component {
 
   render() {
     return (
-      <div className="Project">
-        <div className="ProjectHeader">
-          <div className="ProjectName">
+      <div className="project">
+        <div className="project-header">
+          <div className="project-name">
             <h3>{this.props.project.projectName}</h3>
           </div>
-          <div className="ProjectButtons">
+          <div className="project-buttons">
             <DeleteProjectButton
               project={this.props.project}
               projectId={this.props.projectId}
@@ -51,8 +51,8 @@ class Project extends Component {
             </Button>
           </div>
         </div>
-        <div className="ProjectBody">
-          <div className="ProjectUsers">
+        <div className="project-body">
+          <div className="project-users">
             <h5>Project Members</h5>
             <p>
               {this.props.project.users.map(user => (
@@ -60,7 +60,7 @@ class Project extends Component {
               ))}
             </p>
           </div>
-          <div className="ProjectTasks">
+          <div className="project-tasks">
             <TaskHeader />
             {this.props.project.tasks.map(task => (
               <Task
@@ -70,7 +70,7 @@ class Project extends Component {
                 key={task.name}
               />
             ))}
-            <div className="ProjectFooter">
+            <div className="project-footer">
               <Button variant="success" onClick={this.createTask}>
                 Add Task
               </Button>

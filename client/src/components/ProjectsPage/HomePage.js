@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import "./ProjectsPage.css";
 import { withRouter } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import ButtonToolbar from "react-bootstrap/ButtonToolbar";
@@ -94,10 +95,10 @@ class HomePage extends Component {
 
   render() {
     return (
-      <div className="HomePage">
+      <div className="home-page">
         <SiteNavbar />
-        <div className="HomeContent">
-          <div className="HomeButtonWrapper">
+        <div className="home-content">
+          <div className="home-button-wrapper">
             <ButtonToolbar>
               <Button variant="success" onClick={this.createProject} size="lg">
                 Create a Project

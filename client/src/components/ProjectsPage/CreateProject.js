@@ -134,7 +134,7 @@ class CreateProject extends Component {
             </Form.Group>
             {this.state.usersMap.map((user, idx) => (
               <div className="user">
-                <Form.Row className="ModalRow" controlId="formBasicEmail">
+                <Form.Row className="modal-row" controlId="formBasicEmail">
                   <Col>
                     <Form.Control
                       type="text"

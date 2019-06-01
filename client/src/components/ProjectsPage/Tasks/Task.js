@@ -5,17 +5,17 @@ import TaskStatusButton from "./TaskStatusButton";
 class Task extends Component {
   render() {
     return (
-      <div className="Task">
-        <p className="NameColumn">{this.props.task.name}</p>
-        <p className="DescriptionColumn">{this.props.task.description}</p>
-        <div className="StatusColumn">
+      <div className="task">
+        <p className="task-name-column">{this.props.task.name}</p>
+        <p className="task-description-column">{this.props.task.description}</p>
+        <div className="task-status-column">
           <TaskStatusButton
             projectId={this.props.projectId}
             task={this.props.task}
             project={this.props.project}
           />
         </div>
-        <div className="DeleteColumn">
+        <div className="task-delete-column">
           <DeleteTaskButton
             projectId={this.props.projectId}
             task={this.props.task}
