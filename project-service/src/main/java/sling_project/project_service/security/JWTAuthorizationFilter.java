@@ -1,4 +1,4 @@
-package login_service.login_service.security;
+package sling_project.project_service.security;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -16,10 +16,9 @@ import org.springframework.security.web.authentication.www.BasicAuthenticationFi
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 
-import static login_service.login_service.security.SecurityConstants.EXPIRATION_TIME;
-import static login_service.login_service.security.SecurityConstants.HEADER_STRING;
-import static login_service.login_service.security.SecurityConstants.SECRET;
-import static login_service.login_service.security.SecurityConstants.TOKEN_PREFIX;
+import static sling_project.project_service.security.SecurityConstants.HEADER_STRING;
+import static sling_project.project_service.security.SecurityConstants.SECRET;
+import static sling_project.project_service.security.SecurityConstants.TOKEN_PREFIX;
 
 public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
 	
@@ -32,7 +31,6 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
 			throws IOException, ServletException {
 		// TODO Auto-generated method stub
 		String header = request.getHeader(HEADER_STRING);
-		
 		if (header == null || !header.startsWith(TOKEN_PREFIX)) {
 			chain.doFilter(request, response);
 			return;

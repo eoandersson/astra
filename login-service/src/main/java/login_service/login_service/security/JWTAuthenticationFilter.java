@@ -48,24 +48,18 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 			throw new RuntimeException();
 		}
 			
-			
-			System.out.println(creds.getUsername());
-			System.out.println(creds.getPassword());
-			
-			UsernamePasswordAuthenticationToken userToken = new UsernamePasswordAuthenticationToken(
-					creds.getUsername(), 
-					creds.getPassword(),
-					new ArrayList());
-			
-			System.out.println(userToken);
-			
-			return authenticationManager.authenticate(
-					new UsernamePasswordAuthenticationToken(
-							creds.getUsername(), 
-							creds.getPassword(),
-							new ArrayList()
-					)
-			);
+		UsernamePasswordAuthenticationToken userToken = new UsernamePasswordAuthenticationToken(
+				creds.getUsername(), 
+				creds.getPassword(),
+				new ArrayList());
+		
+		return authenticationManager.authenticate(
+				new UsernamePasswordAuthenticationToken(
+						creds.getUsername(), 
+						creds.getPassword(),
+						new ArrayList()
+				)
+		);
 			
 		
 	}
@@ -74,16 +68,12 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 	protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain,
 			Authentication authResult) throws IOException, ServletException {
 		
-		System.out.println("Creating token...");
 		String token = JWT.create()
 				.withSubject(((User) authResult.getPrincipal()).getUsername())
 				.withExpiresAt(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
 				.sign(HMAC512(SECRET.getBytes()));
 		response.addHeader(HEADER_STRING, TOKEN_PREFIX + token);
-		System.out.println("Token: " + token);
-		System.out.println("Header String: " + HEADER_STRING);
-		System.out.println("Token Prefix: " + TOKEN_PREFIX);
-		System.out.println("Response Headers: " + response.getHeaderNames());
+
 	}
 	
 	
