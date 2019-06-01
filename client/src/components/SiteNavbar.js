@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { Nav, Navbar, NavDropdown } from "react-bootstrap";
 import { Link, withRouter } from "react-router-dom";
+import { userSignOut } from "../actions";
+import store from "../store";
 
 class SiteNavbar extends Component {
   constructor(props) {
@@ -11,6 +13,7 @@ class SiteNavbar extends Component {
   logoutFunction(e) {
     e.preventDefault();
     localStorage.removeItem("JWT");
+    store.dispatch(userSignOut());
     this.props.history.push("/");
   }
 
@@ -34,7 +37,7 @@ class SiteNavbar extends Component {
           </Nav>
           <Nav>
             <NavDropdown
-              title="Dropdown"
+              title={store.getState().userAuthentication.username}
               id="collasible-nav-dropdown"
               alignRight
             >
