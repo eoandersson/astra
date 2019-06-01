@@ -17,12 +17,13 @@ class NewsPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      newsItems: []
+      newsItems: [],
+      isLoading: false
     };
 
-    this.renderProjects();
+    this.renderNews();
 
-    this.renderProjects = this.renderProjects.bind(this);
+    this.renderNews = this.renderNews.bind(this);
     this.getId = this.getId.bind(this);
     this.pad0 = this.pad0.bind(this);
   }
@@ -62,7 +63,8 @@ class NewsPage extends Component {
     return str;
   }
 
-  renderProjects() {
+  renderNews() {
+    this.setState({ isLoading: true });
     fetch("/news-service/news", {
       method: "GET",
       headers: {
@@ -78,6 +80,7 @@ class NewsPage extends Component {
         for (var i = 0; i < newsItems.length; i++) {
           outputArr[i] = newsItems[i];
         }
+        this.setState({ isLoading: false });
         store.dispatch(handleAddNewsItemList(outputArr));
       });
   }
@@ -100,13 +103,22 @@ class NewsPage extends Component {
           </div>
           <CreateNewsItem />
           <EditNewsItem />
-          {this.state.newsItems.map(newsItem => (
-            <NewsItem
-              newsItem={newsItem}
-              key={this.getId(newsItem.newsId)}
-              newsId={this.getId(newsItem.newsId)}
+          {this.state.isLoading ? (
+            <Spinner
+              as="span"
+              animation="border"
+              role="status"
+              aria-hidden="true"
             />
-          ))}
+          ) : (
+            this.state.newsItems.map(newsItem => (
+              <NewsItem
+                newsItem={newsItem}
+                key={this.getId(newsItem.newsId)}
+                newsId={this.getId(newsItem.newsId)}
+              />
+            ))
+          )}
         </div>
       </div>
     );

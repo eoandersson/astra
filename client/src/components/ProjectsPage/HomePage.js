@@ -4,6 +4,7 @@ import { withRouter } from "react-router-dom";
 
 import Button from "react-bootstrap/Button";
 import ButtonToolbar from "react-bootstrap/ButtonToolbar";
+import Spinner from "react-bootstrap/Spinner";
 
 import Project from "./Projects/Project";
 
@@ -24,7 +25,8 @@ class HomePage extends Component {
     super(props);
     this.state = {
       projects: [],
-      username: ""
+      username: "",
+      isLoading: false
     };
 
     this.renderProjects = this.renderProjects.bind(this);
@@ -71,6 +73,7 @@ class HomePage extends Component {
   }
 
   renderProjects() {
+    this.setState({ isLoading: true });
     fetch(
       "/project-service/projects/user/" +
         store.getState().userAuthentication.username,
@@ -90,6 +93,7 @@ class HomePage extends Component {
         for (var i = 0; i < projects.length; i++) {
           outputArr[i] = projects[i];
         }
+        this.setState({ isLoading: false });
         store.dispatch(handleAddProjectList(outputArr));
       });
   }
@@ -115,13 +119,22 @@ class HomePage extends Component {
           <EditProject />
           <CreateTask />
 
-          {this.state.projects.map(project => (
-            <Project
-              project={project}
-              key={this.getId(project.projectId)}
-              projectId={this.getId(project.projectId)}
+          {this.state.isLoading ? (
+            <Spinner
+              as="span"
+              animation="border"
+              role="status"
+              aria-hidden="true"
             />
-          ))}
+          ) : (
+            this.state.projects.map(project => (
+              <Project
+                project={project}
+                key={this.getId(project.projectId)}
+                projectId={this.getId(project.projectId)}
+              />
+            ))
+          )}
         </div>
       </div>
     );
