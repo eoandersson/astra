@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
+import Spinner from "react-bootstrap/Spinner";
 import { userSignIn } from "../../actions/index.js";
 import store from "../../store.js";
 
@@ -9,7 +10,7 @@ class LoginForm extends Component {
   constructor(props) {
     super(props);
 
-    this.state = { username: "", password: "" };
+    this.state = { username: "", password: "", isLoading: false };
 
     this.handleUsernameChange = this.handleUsernameChange.bind(this);
     this.handlePasswordChange = this.handlePasswordChange.bind(this);
@@ -27,6 +28,7 @@ class LoginForm extends Component {
 
   login(event) {
     event.preventDefault();
+    this.setState({ isLoading: true });
     fetch("/login-service/users/login", {
       method: "POST",
       headers: {
@@ -46,9 +48,11 @@ class LoginForm extends Component {
         console.log("Log in: " + this.state.username);
         store.dispatch(userSignIn(this.state.username));
         setTimeout(() => {
+          this.setState({ isLoading: false });
           this.props.history.push("/home");
         }, 2000);
       } else {
+        this.setState({ isLoading: false });
         console.log(response.status);
       }
     });
@@ -82,8 +86,23 @@ class LoginForm extends Component {
               onChange={this.handlePasswordChange}
             />
           </Form.Group>
-          <Button variant="secondary" type="submit" onClick={this.login}>
-            Submit
+          <Button
+            variant="success"
+            type="submit"
+            onClick={this.login}
+            disabled={this.state.isLoading}
+          >
+            Sign In
+            {this.state.isLoading ? (
+              <Spinner
+                as="span"
+                animation="border"
+                size="sm"
+                role="status"
+                aria-hidden="true"
+                className="button-spinner"
+              />
+            ) : null}
           </Button>
         </Form>
       </div>
