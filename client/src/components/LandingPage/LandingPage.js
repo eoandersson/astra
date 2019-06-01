@@ -1,7 +1,6 @@
 import React, { Component } from "react";
-import LogIn from "./LogIn";
-import ThirdPart from "./ThirdPart";
-import Register from "./Register";
+import LoginForm from "./LoginForm";
+import RegisterLink from "./RegisterLink";
 
 class Landing extends Component {
   render() {
@@ -11,9 +10,8 @@ class Landing extends Component {
         <div className="LoginContent">
           <div className="LoginForm">
             <h3>Login</h3>
-            <LogIn />
-            <ThirdPart />
-            <Register />
+            <LoginForm />
+            <RegisterLink />
           </div>
         </div>
       </div>

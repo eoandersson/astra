@@ -1,22 +1,20 @@
 import React, { Component } from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 
-import Landing from "./components/Landing";
+import LandingPage from "./components/LandingPage";
 import RegisterPage from "./components/RegisterPage";
-import HomePage from "./components/Projects/HomePage";
-import NewsPage from "./components/News/NewsPage";
+import HomePage from "./components/ProjectsPage";
+import NewsPage from "./components/NewsPage";
 
 class App extends Component {
   render() {
     return (
       <Router>
         <div className="App">
-          <Route exact path="/" component={Landing} />
+          <Route exact path="/" component={LandingPage} />
           <Route path="/register" component={RegisterPage} />
           <Route path="/home" component={HomePage} />
           <Route path="/news" component={NewsPage} />
-          <Route path="/home/create-project" />
-          <Route path="/home/edit-project" />
         </div>
       </Router>
     );

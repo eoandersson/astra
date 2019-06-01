@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 
-class Register extends Component {
+class RegisterLink extends Component {
   render() {
     return (
       <div className="Register" style={{ marginTop: "10px" }}>
@@ -11,4 +11,4 @@ class Register extends Component {
   }
 }
 
-export default Register;
+export default RegisterLink;

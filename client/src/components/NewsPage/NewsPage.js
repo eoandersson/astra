@@ -5,7 +5,7 @@ import ButtonToolbar from "react-bootstrap/ButtonToolbar";
 import NewsItem from "./NewsItem";
 import CreateNewsItem from "./CreateNewsItem";
 import EditNewsItem from "./EditNewsItem";
-import store from "./../../store";
+import store from "../../store";
 import {
   handleAddNewsItemList,
   showCreateNewsItem

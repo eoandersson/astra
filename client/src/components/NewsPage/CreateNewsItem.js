@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
-import store from "./../../store";
+import store from "../../store";
 import { hideCreateNewsItem, handleAddNewsItem } from "../../actions/index.js";
 
 class CreateNewsItem extends Component {

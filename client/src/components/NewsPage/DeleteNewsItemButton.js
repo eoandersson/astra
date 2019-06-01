@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Button from "react-bootstrap/Button";
-import store from "./../../store";
+import store from "../../store";
 import { handleDeleteNewsItem } from "../../actions/index.js";
 
 class DeleteNewsItemButton extends Component {

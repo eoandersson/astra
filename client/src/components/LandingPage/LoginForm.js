@@ -2,10 +2,10 @@ import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-import { userSignIn } from "./../actions/index.js";
-import store from "./../store.js";
+import { userSignIn } from "../../actions/index.js";
+import store from "../../store.js";
 
-class LogIn extends Component {
+class LoginForm extends Component {
   constructor(props) {
     super(props);
 
@@ -91,4 +91,4 @@ class LogIn extends Component {
   }
 }
 
-export default withRouter(LogIn);
+export default withRouter(LoginForm);

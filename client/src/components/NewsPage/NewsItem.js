@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import Button from "react-bootstrap/Button";
 import DeleteNewsItemButton from "./DeleteNewsItemButton";
 import { showEditNewsItem } from "../../actions/index.js";
-import store from "./../../store";
+import store from "../../store";
 
 class NewsItem extends Component {
   constructor(props) {
