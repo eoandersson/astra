@@ -1,6 +1,6 @@
 # Sling Project Management
 
-**Sling** is a project management tool where users can define projects as well as 
+**Sling** is a project management tool where users can define projects, as well as 
 tasks which allow users to track their progress. Projects can also be shared with 
 several memebers, allowing for collaborative project management across teams.
 
@@ -9,7 +9,8 @@ For technical speficiations, see the [Built With](#built-with) section.
 
 ## Getting Started
 
-Lorem ipsum.
+These instructions will get you a copy of the project up and running on your 
+local machine for development and testing purposes.
 
 ### Prerequisites
 
@@ -30,6 +31,8 @@ To build and install the project run the following command:
 ```
 mvn install
 ```
+
+### Running the Project
 
 After the project has been built using maven, the project can then easily be started 
 by using the following command in the root folder of the project:
@@ -64,28 +67,28 @@ The following tools and frameworks are used in this project:
 
 ### Front-end
 
-* [React]() - Front-end Framework
-* [Redux]() - Application State Management
-* [React-Bootstrap]() Styled Components
+* [React](https://reactjs.org) - Front-end Framework
+* [Redux](https://redux.js.org) - Application State Management
+* [React-Bootstrap](https://react-bootstrap.github.io) Styled Components
 
 ### Back-end
 
-* [Java Spring Suite]() - Backend Services
-  * [Netflix Zuul]() - API Gateway
-  * [Netflix Eureka]() - Service Discovery
-  * [Spring Security]() - Authentication & Authorization
-  * [Spring Data]() - Database Access
+* [Java Spring Suite](https://spring.io) - Backend Services
+  * [Netflix Zuul](https://github.com/Netflix/zuul) - API Gateway
+  * [Netflix Eureka](https://github.com/Netflix/eureka) - Service Discovery
+  * [Spring Security](https://spring.io/projects/spring-security) - Authentication & Authorization
+  * [Spring Data](https://spring.io/projects/spring-data) - Database Access
 * [Maven](https://maven.apache.org/) - Dependency Management & Build Tool
 
 ### Data Storage
 
-* [MongoDB]() - Data Storage
-  * [MongoDB Atlas]() - Hosted Databases
+* [MongoDB](https://www.mongodb.com) - Data Storage
+  * [MongoDB Atlas](https://www.mongodb.com/cloud/atlas) - Hosted Databases
 
 ### Additional Tools and Frameworks
 
-* [Docker]() - Service Containerization
-* [Docker-Compose]() - Running Multi-Container Docker Applications
+* [Docker](https://www.docker.com) - Service Containerization
+* [Docker-Compose](https://docs.docker.com/compose/) - Running Multi-Container Docker Applications
 
 ## Contributing
 
