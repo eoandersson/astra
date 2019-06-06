@@ -47,6 +47,7 @@ class TaskStatusButton extends Component {
       <Button
         variant={this.props.task.state ? "success" : "outline-success"}
         onClick={this.changeTaskStatus}
+        className="task-button"
       >
         {this.props.task.state ? "Finishied" : "Unfinished"}
       </Button>

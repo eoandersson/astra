@@ -1,14 +1,20 @@
 import React, { Component } from "react";
+import { Grid } from "semantic-ui-react";
 
 class TaskHeader extends Component {
   render() {
     return (
-      <div className="task-header">
-        <p className="task-name-column">Task Name</p>
-        <p className="task-description-column">Description</p>
-        <p className="task-status-column">Status</p>
-        <p className="task-delete-column" />
-      </div>
+      <Grid columns={16} className="task-header" divided>
+        <Grid.Row verticalAlign="middle">
+          <Grid.Column width={4} textAlign="center">
+            Task Name
+          </Grid.Column>
+          <Grid.Column width={9}>Description</Grid.Column>
+          <Grid.Column width={3} textAlign="center">
+            Status
+          </Grid.Column>
+        </Grid.Row>
+      </Grid>
     );
   }
 }

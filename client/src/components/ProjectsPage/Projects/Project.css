@@ -1,5 +1,5 @@
 .project {
-  width: 75%;
+  width: 90%;
   margin-left: auto;
   margin-right: auto;
   margin-bottom: 60px;
@@ -40,7 +40,7 @@
   margin-top: 40px;
   margin-left: auto;
   margin-right: auto;
-  border-radius: 20px;
+  border-radius: 10px;
   overflow: hidden;
   box-shadow: 0px 10px 16px 0px rgba(0, 0, 0, 0.05);
 }
@@ -73,20 +73,10 @@
 }
 
 .task-header {
-  display: -webkit-flex;
-  display: flex;
   background-color: #ecf0f1;
-  -webkit-flex-direction: row;
-  flex-direction: row;
-  -webkit-justify-content: space-between;
-  justify-content: space-between;
-  margin-left: auto;
-  margin-right: auto;
   font-weight: bold;
   font-size: 20px;
-  padding-left: 50px;
-  padding-right: 50px;
-  padding-top: 20px;
+  margin-top: 0 !important;
 }
 
 .task {
@@ -99,22 +89,21 @@
   padding-bottom: 20px;
 }
 
-.task:nth-child(odd) {
+.task-grid:nth-child(odd) {
   background-color: #f9f9f9;
 }
 
-.task-name-column {
-  width: 20%;
+.row {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  margin-left: 0;
+  margin-right: 0;
 }
 
-.task-description-column {
-  width: 50%;
+.task-button {
+  margin-right: 10px;
 }
 
-.task-status-column {
-  width: 15%;
-}
-
-.task-delete-column {
-  width: 15%;
+.project-tasks > .ui.grid + .grid {
+  margin-top: 0;
 }

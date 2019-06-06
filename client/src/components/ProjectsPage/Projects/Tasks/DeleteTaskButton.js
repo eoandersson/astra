@@ -43,7 +43,12 @@ class DeleteTaskButton extends Component {
 
   render() {
     return (
-      <Button variant="danger" type="submit" onClick={this.deleteTask}>
+      <Button
+        className="task-button"
+        variant="danger"
+        type="submit"
+        onClick={this.deleteTask}
+      >
         Delete
       </Button>
     );

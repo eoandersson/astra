@@ -7,6 +7,7 @@ import TaskHeader from "./Tasks/TaskHeader";
 import DeleteProjectButton from "./DeleteProjectButton";
 import store from "../../../store";
 import { showEditProject, showCreateTask } from "../../../actions/index.js";
+import TaskFooter from "./Tasks/TaskFooter";
 
 class Project extends Component {
   constructor(props) {
@@ -40,7 +41,7 @@ class Project extends Component {
       <div className="project">
         <div className="project-header">
           <div className="project-name">
-            <h3>{this.props.project.projectName}</h3>
+            <h2>{this.props.project.projectName}</h2>
           </div>
           <div className="project-buttons">
             <DeleteProjectButton
@@ -54,7 +55,7 @@ class Project extends Component {
         </div>
         <div className="project-body">
           <div className="project-users">
-            <h5>Project Members</h5>
+            <h4>Project Members</h4>
             <p>
               {this.props.project.users.map(user => (
                 <User user={user} key={user} />
@@ -71,11 +72,10 @@ class Project extends Component {
                 key={task.name}
               />
             ))}
-            <div className="project-footer">
-              <Button variant="success" onClick={this.createTask}>
-                Add Task
-              </Button>
-            </div>
+            <TaskFooter
+              projectId={this.props.projectId}
+              project={this.props.project}
+            />
           </div>
         </div>
       </div>
