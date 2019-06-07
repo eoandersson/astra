@@ -1,9 +1,9 @@
 import React, { Component } from "react";
-import Button from "react-bootstrap/Button";
-import store from "../../../store";
-import { handleDeleteProject } from "../../../actions/index.js";
+import store from "../../../../store";
+import { handleDeleteProject } from "../../../../actions/index.js";
+import { Dropdown } from "semantic-ui-react";
 
-class DeleteProjectButton extends Component {
+class DeleteProjectOption extends Component {
   constructor(props) {
     super(props);
 
@@ -24,23 +24,19 @@ class DeleteProjectButton extends Component {
         username: store.getState().userAuthentication.username
       })
     }).then(response => {
-      console.log(response.status);
       if (response.status === 204) {
-        console.log("Removed");
         store.dispatch(handleDeleteProject({ project: this.props.project }));
       } else {
-        console.log("Error");
+        console.log("Error: " + response.status);
       }
     });
   }
 
   render() {
     return (
-      <Button variant="danger" type="submit" onClick={this.delete}>
-        Delete
-      </Button>
+      <Dropdown.Item icon="trash" text="Delete Project" onClick={this.delete} />
     );
   }
 }
 
-export default DeleteProjectButton;
+export default DeleteProjectOption;
