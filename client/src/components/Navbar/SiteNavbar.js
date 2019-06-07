@@ -1,8 +1,9 @@
 import React, { Component } from "react";
-import { Icon, Menu, Sidebar } from "semantic-ui-react";
+import "./SiteNavbar.css";
+import { Icon, Menu, Sidebar, Segment } from "semantic-ui-react";
 import { Link, withRouter } from "react-router-dom";
-import { userSignOut } from "../actions";
-import store from "../store";
+import { userSignOut } from "../../actions";
+import store from "../../store";
 
 class SiteNavbar extends Component {
   constructor(props) {
@@ -29,6 +30,10 @@ class SiteNavbar extends Component {
         width="thin"
         class="site-sidebar"
       >
+        <Segment className="sidebar-header">
+          <Icon name="user" className="sidebar-header-icon" />
+          {store.getState().userAuthentication.username}
+        </Segment>
         <Menu.Item
           as={Link}
           to="/home"
@@ -54,37 +59,6 @@ class SiteNavbar extends Component {
           Logout
         </Menu.Item>
       </Sidebar>
-      /*
-      <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
-        <Navbar.Brand>
-          <Link to="/home" className="navbar-brand">
-            Sling
-          </Link>
-        </Navbar.Brand>
-        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-        <Navbar.Collapse id="responsive-navbar-nav">
-          <Nav className="mr-auto">
-            <Link className="nav-link" to="/home">
-              Projects
-            </Link>
-            <Link className="nav-link" to="/news">
-              News
-            </Link>
-          </Nav>
-          <Nav>
-            <NavDropdown
-              title={store.getState().userAuthentication.username}
-              id="collasible-nav-dropdown"
-              alignRight
-            >
-              <NavDropdown.Item onClick={this.logoutFunction}>
-                Log Out
-              </NavDropdown.Item>
-            </NavDropdown>
-          </Nav>
-        </Navbar.Collapse>
-      </Navbar>
-      */
     );
   }
 }

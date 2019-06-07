@@ -12,7 +12,7 @@ import CreateProject from "./Modals/CreateProject";
 import EditProject from "./Modals/EditProject";
 import CreateTask from "./Modals/CreateTask";
 
-import SiteNavbar from "../SiteNavbar";
+import SiteNavbar from "../Navbar";
 
 import store from "./../../store";
 import {

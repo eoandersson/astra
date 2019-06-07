@@ -14,7 +14,7 @@ import {
   handleAddNewsItemList,
   showCreateNewsItem
 } from "../../actions/index.js";
-import SiteNavbar from "../SiteNavbar";
+import SiteNavbar from "../Navbar";
 
 class NewsPage extends Component {
   constructor(props) {
