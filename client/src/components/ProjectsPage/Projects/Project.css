@@ -44,7 +44,6 @@
   margin-left: auto;
   margin-right: auto;
   border-radius: 10px;
-  overflow: hidden;
   box-shadow: 0px 10px 16px 0px rgba(0, 0, 0, 0.05);
   border-width: thin;
   border-style: solid;
@@ -86,6 +85,7 @@
   border-bottom: lightgray;
   border-bottom-style: solid;
   border-bottom-width: thin;
+  border-radius: 10px 10px 0 0;
 }
 
 .task {
@@ -108,17 +108,28 @@
   border-top-width: thin;
   margin-top: 1rem !important;
   margin-bottom: 0rem !important;
+  border-radius: 0 0 10px 10px;
 }
 
 .row {
-  margin-left: 0;
-  margin-right: 0;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
 }
 
 .task-button {
   margin-right: 10px;
 }
 
+.danger {
+  color: #c0392b;
+  cursor: pointer;
+}
+
 .project-tasks > .ui.grid + .grid {
   margin-top: 1rem;
+}
+
+.ui.grid {
+  margin-left: 0 !important;
+  margin-right: 0 !important;
 }

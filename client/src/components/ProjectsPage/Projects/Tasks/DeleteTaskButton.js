@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import Button from "react-bootstrap/Button";
+import { Icon } from "semantic-ui-react";
 import store from "../../../../store";
 import { deleteTask } from "../../../../actions/";
 
@@ -43,14 +43,12 @@ class DeleteTaskButton extends Component {
 
   render() {
     return (
-      <Button
-        className="task-button"
-        variant="danger"
-        type="submit"
+      <Icon
+        className="task-button danger"
+        name="delete"
         onClick={this.deleteTask}
-      >
-        Delete
-      </Button>
+        onMouseOver=""
+      />
     );
   }
 }

@@ -6,13 +6,14 @@ class TaskHeader extends Component {
     return (
       <Grid columns={16} className="task-header" divided>
         <Grid.Row verticalAlign="middle">
-          <Grid.Column width={4} textAlign="center">
+          <Grid.Column width={3} textAlign="center">
             Task Name
           </Grid.Column>
           <Grid.Column width={9}>Description</Grid.Column>
           <Grid.Column width={3} textAlign="center">
             Status
           </Grid.Column>
+          <Grid.Column width={1} textAlign="center" />
         </Grid.Row>
       </Grid>
     );
