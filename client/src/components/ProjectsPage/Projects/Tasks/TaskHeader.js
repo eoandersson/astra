@@ -9,11 +9,13 @@ class TaskHeader extends Component {
           <Grid.Column width={3} textAlign="center">
             Task Name
           </Grid.Column>
-          <Grid.Column width={9}>Description</Grid.Column>
+          <Grid.Column width={8}>Description</Grid.Column>
           <Grid.Column width={3} textAlign="center">
             Status
           </Grid.Column>
-          <Grid.Column width={1} textAlign="center" />
+          <Grid.Column width={2} textAlign="center">
+            Options
+          </Grid.Column>
         </Grid.Row>
       </Grid>
     );

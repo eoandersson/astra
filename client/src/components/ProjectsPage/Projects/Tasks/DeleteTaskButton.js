@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Icon } from "semantic-ui-react";
+import { Popup, Button } from "semantic-ui-react";
 import store from "../../../../store";
 import { deleteTask } from "../../../../actions/";
 
@@ -43,11 +43,10 @@ class DeleteTaskButton extends Component {
 
   render() {
     return (
-      <Icon
-        className="task-button danger"
-        name="delete"
-        onClick={this.deleteTask}
-        onMouseOver=""
+      <Popup
+        content="Delete Task"
+        trigger={<Button negative icon="delete" onClick={this.deleteTask} />}
+        position="top center"
       />
     );
   }
