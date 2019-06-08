@@ -1,8 +1,6 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
-import Form from "react-bootstrap/Form";
-import Button from "react-bootstrap/Button";
-import Spinner from "react-bootstrap/Spinner";
+import { Form, Button } from "semantic-ui-react";
 import { userSignIn } from "../../actions/index.js";
 import store from "../../store.js";
 
@@ -67,42 +65,32 @@ class LoginForm extends Component {
     return (
       <div className="login-form">
         <Form>
-          <Form.Group controlId="formBasicEmail">
-            <Form.Label>Username</Form.Label>
-            <Form.Control
+          <Form.Field>
+            <label>Username</label>
+            <input
               type="text"
               placeholder="Enter username"
               value={this.state.username}
               onChange={this.handleUsernameChange}
             />
-          </Form.Group>
+          </Form.Field>
 
-          <Form.Group controlId="formBasicPassword">
-            <Form.Label>Password</Form.Label>
-            <Form.Control
+          <Form.Field>
+            <label>Password</label>
+            <input
               type="password"
               placeholder="Password"
               value={this.state.password}
               onChange={this.handlePasswordChange}
             />
-          </Form.Group>
+          </Form.Field>
           <Button
-            variant="success"
+            positive
             type="submit"
             onClick={this.login}
-            disabled={this.state.isLoading}
+            loading={this.state.isLoading}
           >
             Sign In
-            {this.state.isLoading ? (
-              <Spinner
-                as="span"
-                animation="border"
-                size="sm"
-                role="status"
-                aria-hidden="true"
-                className="button-spinner"
-              />
-            ) : null}
           </Button>
         </Form>
       </div>

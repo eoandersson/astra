@@ -4,3 +4,7 @@
   background-color: #e6ecf0;
   overflow: scroll;
 }
+
+.page-loader {
+  position: relative !important;
+}

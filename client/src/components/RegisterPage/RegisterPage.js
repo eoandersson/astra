@@ -1,6 +1,5 @@
 import React, { Component } from "react";
-import Form from "react-bootstrap/Form";
-import Button from "react-bootstrap/Button";
+import { Button, Form } from "semantic-ui-react";
 import "./RegisterPage.css";
 
 class RegisterPage extends Component {
@@ -52,27 +51,27 @@ class RegisterPage extends Component {
             <h3>Register</h3>
             <hr />
             <Form>
-              <Form.Group controlId="formGridEmail">
-                <Form.Label>Username</Form.Label>
-                <Form.Control
+              <Form.Field>
+                <label>Username</label>
+                <input
                   type="text"
                   placeholder="Enter username"
                   value={this.state.username}
                   onChange={this.handleUsernameChange}
                 />
-              </Form.Group>
+              </Form.Field>
 
-              <Form.Group controlId="formGridPassword">
-                <Form.Label>Password</Form.Label>
-                <Form.Control
+              <Form.Field controlId="formGridPassword">
+                <label>Password</label>
+                <input
                   type="password"
                   placeholder="Password"
                   value={this.state.password}
                   onChange={this.handlePasswordChange}
                 />
-              </Form.Group>
+              </Form.Field>
 
-              <Button variant="primary" type="submit" onClick={this.register}>
+              <Button positive type="submit" onClick={this.register}>
                 Submit
               </Button>
             </Form>

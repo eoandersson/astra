@@ -1,9 +1,9 @@
 import React, { Component } from "react";
-import Button from "react-bootstrap/Button";
-import store from "../../store";
-import { handleDeleteNewsItem } from "../../actions/index.js";
+import { Dropdown } from "semantic-ui-react";
+import { handleDeleteNewsItem } from "../../../../actions";
+import store from "../../../../store";
 
-class DeleteNewsItemButton extends Component {
+class DeleteNewsOption extends Component {
   constructor(props) {
     super(props);
     this.delete = this.delete.bind(this);
@@ -34,11 +34,13 @@ class DeleteNewsItemButton extends Component {
 
   render() {
     return (
-      <Button variant="danger" type="submit" onClick={this.delete}>
-        Delete
-      </Button>
+      <Dropdown.Item
+        icon="trash"
+        text="Delete News Article"
+        onClick={this.delete}
+      />
     );
   }
 }
 
-export default DeleteNewsItemButton;
+export default DeleteNewsOption;

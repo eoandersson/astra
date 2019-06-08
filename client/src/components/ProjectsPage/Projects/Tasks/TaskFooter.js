@@ -1,6 +1,5 @@
 import React, { Component } from "react";
-import { Grid } from "semantic-ui-react";
-import Button from "react-bootstrap/Button";
+import { Grid, Button } from "semantic-ui-react";
 import store from "../../../../store";
 import { showCreateTask } from "../../../../actions/index.js";
 
@@ -23,7 +22,7 @@ class TaskFooter extends Component {
       <Grid columns={16} className="task-footer" divided>
         <Grid.Row verticalAlign="middle">
           <Grid.Column width={16} textAlign="center">
-            <Button variant="success" onClick={this.createTask}>
+            <Button positive onClick={this.createTask}>
               Add Task
             </Button>
           </Grid.Column>

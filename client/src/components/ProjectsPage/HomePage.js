@@ -2,9 +2,7 @@ import React, { Component } from "react";
 import "./ProjectsPage.css";
 import { withRouter } from "react-router-dom";
 
-import Button from "react-bootstrap/Button";
-import ButtonToolbar from "react-bootstrap/ButtonToolbar";
-import Spinner from "react-bootstrap/Spinner";
+import { Button, Loader } from "semantic-ui-react";
 
 import Project from "./Projects/Project";
 
@@ -108,11 +106,9 @@ class HomePage extends Component {
         <SiteNavbar />
         <div className="home-content">
           <div className="home-button-wrapper">
-            <ButtonToolbar>
-              <Button variant="success" onClick={this.createProject} size="lg">
-                Create a Project
-              </Button>
-            </ButtonToolbar>
+            <Button positive onClick={this.createProject}>
+              Create a Project
+            </Button>
           </div>
 
           <CreateProject />
@@ -120,12 +116,11 @@ class HomePage extends Component {
           <CreateTask />
 
           {this.state.isLoading ? (
-            <Spinner
-              as="span"
-              animation="border"
-              role="status"
-              aria-hidden="true"
-            />
+            <div>
+              <Loader className="page-loader" active={this.state.isLoading}>
+                Loading
+              </Loader>
+            </div>
           ) : (
             this.state.projects.map(project => (
               <Project
