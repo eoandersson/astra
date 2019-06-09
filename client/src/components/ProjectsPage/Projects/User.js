@@ -1,8 +1,14 @@
 import React, { Component } from "react";
+import { Label, Icon } from "semantic-ui-react";
 
 class User extends Component {
   render() {
-    return <span className="user">{this.props.user}</span>;
+    return (
+      <Label as="a" color="blue" image>
+        <Icon name="user" />
+        {this.props.user}
+      </Label>
+    );
   }
 }
 

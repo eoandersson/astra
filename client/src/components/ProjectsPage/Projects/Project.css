@@ -59,24 +59,6 @@
   display: flex;
 }
 
-.user {
-  border: 0px solid rgba(174, 136, 173, 0.2);
-  background-color: #ecf0f1;
-  border-radius: 100px;
-  font-family: Karla, Helvetica, sans-serif;
-  font-weight: bold;
-  font-size: 16px;
-  color: #3498db;
-  letter-spacing: 0.3px;
-  line-height: 12px;
-  padding: 5px 10px;
-  display: inline-block;
-  margin-top: -3px;
-  margin-left: 8px;
-  vertical-align: middle;
-  box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.3);
-}
-
 .task-header {
   background-color: #ecf0f1;
   font-weight: bold;
