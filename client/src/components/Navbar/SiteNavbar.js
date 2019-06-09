@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "./SiteNavbar.css";
-import { Icon, Menu, Sidebar, Segment } from "semantic-ui-react";
+import { Icon, Menu, Sidebar, Segment, Dropdown } from "semantic-ui-react";
 import { Link, withRouter } from "react-router-dom";
 import { userSignOut } from "../../actions";
 import store from "../../store";
@@ -28,30 +28,29 @@ class SiteNavbar extends Component {
         vertical
         visible
         width="thin"
-        class="site-sidebar"
+        className="site-sidebar"
       >
         <Segment className="sidebar-header">
           <Icon name="user" className="sidebar-header-icon" />
           {store.getState().userAuthentication.username}
         </Segment>
         <Menu.Item
+          className="sidebar-item"
           as={Link}
           to="/home"
           active={this.props.location.pathname === "/home"}
         >
-          <Icon name="home" />
           Current Projects
         </Menu.Item>
-        <Menu.Item as={Link}>
-          <Icon name="folder" />
+        <Menu.Item className="sidebar-item" as={Link}>
           Completed Projects
         </Menu.Item>
         <Menu.Item
+          className="sidebar-item"
           as={Link}
           to="/news"
           active={this.props.location.pathname === "/news"}
         >
-          <Icon name="newspaper" />
           News
         </Menu.Item>
         <Menu.Item className="logout-button" onClick={this.logoutFunction}>
