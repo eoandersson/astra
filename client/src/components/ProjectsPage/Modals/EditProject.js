@@ -1,8 +1,5 @@
 import React, { Component } from "react";
-import Button from "react-bootstrap/Button";
-import Modal from "react-bootstrap/Modal";
-import Form from "react-bootstrap/Form";
-import Col from "react-bootstrap/Col";
+import { Modal, Form, Input, Button, Icon, Divider } from "semantic-ui-react";
 import store from "../../../store";
 import { hideEditProject, handleEditProject } from "../../../actions/index.js";
 
@@ -113,65 +110,54 @@ class EditProject extends Component {
   render() {
     return (
       <Modal
-        {...this.props}
-        size="lg"
-        aria-labelledby="contained-modal-title-vcenter"
-        centered
-        show={this.state.show}
-        onHide={this.handleClose}
+        closeIcon
+        className="site-modal"
+        open={this.state.show}
+        onClose={this.handleClose}
       >
-        <Modal.Header closeButton>
-          <Modal.Title id="contained-modal-title-vcenter">
-            Edit project ({this.state.projectId})
-          </Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
+        <Modal.Header>Edit project ({this.state.projectId})</Modal.Header>
+        <Modal.Content>
           <Form>
-            <Form.Group>
-              <Form.Label>Project name</Form.Label>
-              <Form.Control
-                type="text"
-                placeholder="Enter project name"
-                onChange={this.handleProjectNameChange}
-                value={this.state.projectName}
-              />
-            </Form.Group>
+            <Form.Field
+              label="Project Name"
+              control={Input}
+              placeholder="Enter Project Name"
+              onChange={this.handleProjectNameChange}
+              value={this.state.projectName}
+            />
+            <Divider />
             {this.state.usersMap.map((user, idx) => (
               <div className="edit-user">
-                <Form.Row className="modal-row">
-                  <Col>
-                    <Form.Control
-                      type="text"
-                      placeholder={"User #" + (idx + 1)}
-                      value={user.name}
-                      onChange={this.handleUserNameChange(idx)}
-                    />
-                  </Col>
-                  <Col>
-                    <Button
-                      variant="danger"
-                      onClick={this.handleRemoveUser(idx)}
-                      className="small"
-                    >
-                      -
-                    </Button>
-                  </Col>
-                </Form.Row>
+                <Form.Group className="modal-row">
+                  <Form.Input
+                    placeholder={"User #" + (idx + 1)}
+                    value={user.name}
+                    onChange={this.handleUserNameChange(idx)}
+                    width={6}
+                  />
+                  <Button
+                    negative
+                    icon="delete"
+                    onClick={this.handleRemoveUser(idx)}
+                    size="small"
+                  />
+                </Form.Group>
               </div>
             ))}
-            <Button variant="primary" onClick={this.handleAddUser}>
-              Add user
+            <Button color="blue" onClick={this.handleAddUser}>
+              <Icon name="add" />
+              Add Another User
             </Button>
           </Form>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="success" type="submit" onClick={this.updateProject}>
-            Submit
+        </Modal.Content>
+        <Modal.Actions>
+          <Button negative onClick={this.handleClose}>
+            <Icon name="remove" /> Close
           </Button>
-          <Button variant="outline-primary" onClick={this.handleClose}>
-            Close
+          <Button positive type="submit" onClick={this.updateProject}>
+            <Icon name="checkmark" /> Save
           </Button>
-        </Modal.Footer>
+        </Modal.Actions>
       </Modal>
     );
   }
