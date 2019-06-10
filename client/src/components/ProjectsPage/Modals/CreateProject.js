@@ -110,7 +110,7 @@ class CreateProject extends Component {
         open={this.state.show}
         onClose={this.handleClose}
       >
-        <Modal.Header closeButton>Create project</Modal.Header>
+        <Modal.Header>Create project</Modal.Header>
         <Modal.Content>
           <Form>
             <Form.Field
@@ -124,7 +124,7 @@ class CreateProject extends Component {
               <i>Note: You will automatically be added to the project.</i>
             </p>
             {this.state.usersMap.map((user, idx) => (
-              <div className="modal-user">
+              <div className="modal-user" key={user.name}>
                 <Form.Group className="modal-row">
                   <Form.Input
                     placeholder={"User #" + (idx + 2)}

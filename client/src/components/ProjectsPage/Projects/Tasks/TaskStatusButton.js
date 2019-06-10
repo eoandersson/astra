@@ -53,7 +53,7 @@ class TaskStatusButton extends Component {
 
   render() {
     return (
-      <Button.Group color={this.props.task.state ? "green" : ""}>
+      <Button.Group color={this.props.task.state ? "green" : null}>
         <Button>{this.props.task.state ? "Finishied" : "Not Started"}</Button>
         <Dropdown className="button icon" floating trigger={<React.Fragment />}>
           <Dropdown.Menu>
