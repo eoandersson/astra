@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "./SiteNavbar.css";
-import { Icon, Menu, Sidebar, Segment, Dropdown } from "semantic-ui-react";
+import { Icon, Menu, Sidebar, Segment, Divider } from "semantic-ui-react";
 import { Link, withRouter } from "react-router-dom";
 import { userSignOut } from "../../actions";
 import store from "../../store";
@@ -34,6 +34,9 @@ class SiteNavbar extends Component {
           <Icon name="user" className="sidebar-header-icon" />
           {store.getState().userAuthentication.username}
         </Segment>
+        <Divider inverted horizontal>
+          Navigation
+        </Divider>
         <Menu.Item
           className="sidebar-item"
           as={Link}
@@ -42,7 +45,7 @@ class SiteNavbar extends Component {
         >
           Current Projects
         </Menu.Item>
-        <Menu.Item className="sidebar-item" as={Link}>
+        <Menu.Item className="sidebar-item" as={Link} to="/home">
           Completed Projects
         </Menu.Item>
         <Menu.Item
