@@ -34,6 +34,22 @@
   margin-left: 5px;
 }
 
+.project-content-header {
+  display: flex;
+  width: 95%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.project-description {
+  width: 50%;
+  padding-right: 25px;
+}
+
+.project-users {
+  width: 50%;
+}
+
 .project-body {
   padding: 20px;
 }

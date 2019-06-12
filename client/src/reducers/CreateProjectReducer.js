@@ -6,6 +6,7 @@ import {
 const initialState = {
   visibility: false,
   projectName: "",
+  projectDescription: "",
   users: [],
   usersMap: []
 };
