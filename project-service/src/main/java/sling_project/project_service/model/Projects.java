@@ -1,7 +1,7 @@
 package sling_project.project_service.model;
 
 import java.util.ArrayList;
-import java.util.HashSet;
+import sling_project.project_service.model.Tasks;
 
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
@@ -12,6 +12,8 @@ public class Projects {
 	public ObjectId projectId;
 	
 	private String projectName;
+	private String projectDescription;
+
 	private ArrayList<String> users;
 	private ArrayList<Tasks> tasks;
 	
@@ -50,7 +52,7 @@ public class Projects {
 			if (curName.equals(name)) {
 				Tasks curTask = tasks.get(i);
 				curTask.setDescription(task.getDescription());
-				curTask.setState(task.getState());
+				curTask.setStatus(task.getStatus());
 				break;
 			}
 		}
@@ -88,6 +90,13 @@ public class Projects {
 		this.projectName = projectName;
 	}
 	
+	public String getProjectDescription() {
+		return projectDescription;
+	}
+
+	public void setProjectDescription(String projectDescription) {
+		this.projectDescription = projectDescription;
+	}
 	
 
 }
