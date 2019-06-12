@@ -4,7 +4,7 @@ public class Tasks {
 	
 	private String name;
 	private String description;
-	private boolean state;
+	private int status;
 	
 	public Tasks() {
 		
@@ -22,11 +22,11 @@ public class Tasks {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	public boolean getState() {
-		return state;
+	public int getStatus() {
+		return status;
 	}
-	public void setState(boolean state) {
-		this.state = state;
+	public void setStatus(int status) {
+		this.status = status;
 	}
 	
 	
