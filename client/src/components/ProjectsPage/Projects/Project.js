@@ -55,13 +55,19 @@ class Project extends Component {
           </div>
         </Accordion.Title>
         <Accordion.Content active={this.state.active}>
-          <div className="project-users">
-            <h4>Project Members</h4>
-            <p>
-              {this.props.project.users.map(user => (
-                <User user={user} key={user} />
-              ))}
-            </p>
+          <div className="project-content-header">
+            <div className="project-description">
+              <h4>Project Description</h4>
+              <p>{this.props.project.projectDescription}</p>
+            </div>
+            <div className="project-users">
+              <h4>Project Members</h4>
+              <p>
+                {this.props.project.users.map(user => (
+                  <User user={user} key={user} />
+                ))}
+              </p>
+            </div>
           </div>
           <div className="project-tasks">
             <TaskHeader />

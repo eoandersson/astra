@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Modal, Form, Input, Button, Icon, Divider } from "semantic-ui-react";
+import { Modal, Form, Input, Button, Icon, Divider, TextArea } from "semantic-ui-react";
 import store from "../../../store";
 import { hideEditProject, handleEditProject } from "../../../actions/index.js";
 
@@ -11,6 +11,7 @@ class EditProject extends Component {
       show: false,
       projectId: this.props.projectId,
       projectName: this.props.projectName,
+      projectDescription: this.props.projectDescription,
       project: {},
       usersMap: [],
       users: [],
@@ -19,6 +20,7 @@ class EditProject extends Component {
 
     this.updateProject = this.updateProject.bind(this);
     this.handleProjectNameChange = this.handleProjectNameChange.bind(this);
+    this.handleProjectDescriptionChange = this.handleProjectDescriptionChange.bind(this);
     this.handleClose = this.handleClose.bind(this);
   }
 
@@ -28,6 +30,7 @@ class EditProject extends Component {
         show: store.getState().editModalVisibility.visibility,
         projectId: store.getState().editModalVisibility.projectId,
         projectName: store.getState().editModalVisibility.projectName,
+        projectDescription: store.getState().editModalVisibility.projectDescription,
         project: store.getState().editModalVisibility.project,
         usersMap: store.getState().editModalVisibility.usersMap,
         tasks: store.getState().editModalVisibility.tasks
@@ -55,6 +58,7 @@ class EditProject extends Component {
       body: JSON.stringify({
         projectId: this.state.projectId,
         projectName: this.state.projectName,
+        projectDescription: this.state.projectDescription,
         users: users,
         tasks: this.state.tasks
       })
@@ -63,6 +67,7 @@ class EditProject extends Component {
         var payload = {
           project: this.state.project,
           projectName: this.state.projectName,
+          projectDescription: this.state.projectDescription,
           users: users
         };
         store.dispatch(handleEditProject(payload));
@@ -77,6 +82,10 @@ class EditProject extends Component {
     this.setState({ projectName: event.target.value });
   }
 
+  handleProjectDescriptionChange(event) {
+    this.setState({ projectDescription: event.target.value });
+  }
+
   handleUserNameChange = idx => evt => {
     const newUsers = this.state.usersMap.map((user, sidx) => {
       if (idx !== sidx) return user;
@@ -84,11 +93,6 @@ class EditProject extends Component {
     });
 
     this.setState({ usersMap: newUsers });
-  };
-
-  handleSubmit = evt => {
-    const { projectName, usersMap } = this.state;
-    alert(`Incorporated: ${projectName} with ${usersMap.length} usersMap`);
   };
 
   handleAddUser = () => {
@@ -124,6 +128,14 @@ class EditProject extends Component {
               placeholder="Enter Project Name"
               onChange={this.handleProjectNameChange}
               value={this.state.projectName}
+            />
+            <Divider />
+            <Form.Field
+              label="Project Description"
+              control={TextArea}
+              placeholder="Enter Project Description"
+              onChange={this.handleProjectDescriptionChange}
+              value={this.state.projectDescription}
             />
             <Divider />
             {this.state.usersMap.map((user, idx) => (

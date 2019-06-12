@@ -5,6 +5,7 @@ const initialState = {
   visibility: false,
   projectId: "",
   projectName: "",
+  projectDescription: "",
   usersMap: [],
   tasks: []
 };
@@ -22,6 +23,7 @@ export default function editProject(state = initialState, action) {
         project: action.payload.project,
         projectId: action.payload.projectId,
         projectName: action.payload.projectName,
+        projectDescription: action.payload.projectDescription,
         usersMap: usersMapObject,
         tasks: action.payload.tasks
       });
