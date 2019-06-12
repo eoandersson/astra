@@ -1,7 +1,5 @@
 import React, { Component } from "react";
-import Button from "react-bootstrap/Button";
-import Modal from "react-bootstrap/Modal";
-import Form from "react-bootstrap/Form";
+import { Modal, Form, Input, TextArea, Button, Icon } from "semantic-ui-react";
 import store from "../../store";
 import { hideEditNewsItem, handleEditNewsItems } from "../../actions/index.js";
 
@@ -95,49 +93,38 @@ class EditNewsItem extends Component {
   render() {
     return (
       <Modal
-        {...this.props}
-        size="lg"
-        aria-labelledby="contained-modal-title-vcenter"
-        centered
-        show={this.state.show}
-        onHide={this.handleClose}
+        closeIcon
+        className="site-modal"
+        open={this.state.show}
+        onClose={this.handleClose}
       >
-        <Modal.Header closeButton>
-          <Modal.Title id="contained-modal-title-vcenter">
-            {this.state.title}
-          </Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
+        <Modal.Header>{this.state.title}</Modal.Header>
+        <Modal.Content>
           <Form>
-            <Form.Group controlId="formBasicTitle">
-              <Form.Label>Title</Form.Label>
-              <Form.Control
-                type="text"
-                placeholder="Enter title"
-                onChange={this.handleTitleChange}
-                value={this.state.title}
-              />
-            </Form.Group>
-            <Form.Group controlId="formBasicBody">
-              <Form.Label>Body</Form.Label>
-              <Form.Control
-                as="textarea"
-                rows="4"
-                placeholder="Enter body"
-                onChange={this.handleBodyChange}
-                value={this.state.body}
-              />
-            </Form.Group>
+            <Form.Field
+              label="Title"
+              control={Input}
+              placeholder="Enter Title"
+              onChange={this.handleTitleChange}
+              value={this.state.title}
+            />
+            <Form.Field
+              label="Body"
+              control={TextArea}
+              placeholder="Enter Article Text"
+              onChange={this.handleBodyChange}
+              value={this.state.body}
+            />
           </Form>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="success" type="submit" onClick={this.editNewsItem}>
-            Submit
+        </Modal.Content>
+        <Modal.Actions>
+          <Button negative onClick={this.handleClose}>
+            <Icon name="remove" /> Cancel
           </Button>
-          <Button variant="outline-primary" onClick={this.handleClose}>
-            Close
+          <Button positive type="submit" onClick={this.editNewsItem}>
+            <Icon name="checkmark" /> Save
           </Button>
-        </Modal.Footer>
+        </Modal.Actions>
       </Modal>
     );
   }

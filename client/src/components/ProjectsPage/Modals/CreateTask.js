@@ -1,7 +1,5 @@
 import React, { Component } from "react";
-import Button from "react-bootstrap/Button";
-import Modal from "react-bootstrap/Modal";
-import Form from "react-bootstrap/Form";
+import { Modal, Button, Form, Input, TextArea, Icon } from "semantic-ui-react";
 import store from "./../../../store";
 import { addTask, hideCreateTask } from "../../../actions/index.js";
 
@@ -88,45 +86,36 @@ class CreateTask extends Component {
   render() {
     return (
       <Modal
-        {...this.props}
-        size="lg"
-        aria-labelledby="contained-modal-title-vcenter"
-        centered
-        show={this.state.show}
-        onHide={this.handleClose}
+        closeIcon
+        className="site-modal"
+        open={this.state.show}
+        onClose={this.handleClose}
       >
-        <Modal.Header closeButton>
-          <Modal.Title id="contained-modal-title-vcenter">
-            Create project
-          </Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
+        <Modal.Header>Create project</Modal.Header>
+        <Modal.Content>
           <Form>
-            <Form.Group controlId="exampleForm.ControlInput1">
-              <Form.Label>Task Name</Form.Label>
-              <Form.Control
-                placeholder="Task name"
-                onChange={this.handleTaskNameChange}
-              />
-            </Form.Group>
-            <Form.Group controlId="exampleForm.ControlTextarea1">
-              <Form.Label>Description</Form.Label>
-              <Form.Control
-                as="textarea"
-                rows="3"
-                onChange={this.handleDescriptionChange}
-              />
-            </Form.Group>
+            <Form.Field
+              control={Input}
+              label="Task Name"
+              placeholder="Task Name"
+              onChange={this.handleTaskNameChange}
+            />
+            <Form.Field
+              control={TextArea}
+              label="Description"
+              placeholder="Task Description"
+              onChange={this.handleDescriptionChange}
+            />
           </Form>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="success" type="submit" onClick={this.addTask}>
-            Submit
+        </Modal.Content>
+        <Modal.Actions>
+          <Button negative onClick={this.handleClose}>
+            <Icon name="remove" /> Close
           </Button>
-          <Button variant="outline-primary" onClick={this.handleClose}>
-            Close
+          <Button positive type="submit" onClick={this.addTask}>
+            <Icon name="checkmark" /> Submit
           </Button>
-        </Modal.Footer>
+        </Modal.Actions>
       </Modal>
     );
   }

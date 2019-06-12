@@ -1,8 +1,5 @@
 import React, { Component } from "react";
-import Button from "react-bootstrap/Button";
-import Modal from "react-bootstrap/Modal";
-import Form from "react-bootstrap/Form";
-import Col from "react-bootstrap/Col";
+import { Modal, Button, Icon, Form, Input, Divider } from "semantic-ui-react";
 import store from "../../../store";
 import { hideCreateProject, handleAddProject } from "../../../actions/index.js";
 
@@ -38,6 +35,7 @@ class CreateProject extends Component {
   addProject(event) {
     event.preventDefault();
     var users = [];
+    users.push(store.getState().userAuthentication.username);
     this.state.usersMap.map(user => {
       users.push(user.name);
     });
@@ -87,12 +85,8 @@ class CreateProject extends Component {
     this.setState({ usersMap: newUsers });
   };
 
-  handleSubmit = evt => {
-    const { projectName, usersMap } = this.state;
-    alert(`Incorporated: ${projectName} with ${usersMap.length} usersMap`);
-  };
-
-  handleAddUser = () => {
+  handleAddUser = event => {
+    event.preventDefault();
     this.setState({
       usersMap: this.state.usersMap.concat([{ name: "" }])
     });
@@ -111,64 +105,56 @@ class CreateProject extends Component {
   render() {
     return (
       <Modal
-        {...this.props}
-        size="lg"
-        aria-labelledby="contained-modal-title-vcenter"
-        centered
-        show={this.state.show}
-        onHide={this.handleClose}
+        closeIcon
+        className="site-modal"
+        open={this.state.show}
+        onClose={this.handleClose}
       >
-        <Modal.Header closeButton>
-          <Modal.Title id="contained-modal-title-vcenter">
-            Create project
-          </Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
+        <Modal.Header>Create project</Modal.Header>
+        <Modal.Content>
           <Form>
-            <Form.Group controlId="formBasicProjectName">
-              <Form.Label>Project name</Form.Label>
-              <Form.Control
-                type="text"
-                placeholder="Enter project name"
-                onChange={this.handleProjectNameChange}
-              />
-            </Form.Group>
+            <Form.Field
+              control={Input}
+              label="Project Name"
+              placeholder="Enter Project Name"
+              onChange={this.handleProjectNameChange}
+            />
+            <Divider />
+            <p>
+              <i>Note: You will automatically be added to the project.</i>
+            </p>
             {this.state.usersMap.map((user, idx) => (
-              <div className="modal-user">
-                <Form.Row className="modal-row" controlId="formBasicEmail">
-                  <Col>
-                    <Form.Control
-                      type="text"
-                      placeholder={"User #" + (idx + 1)}
-                      value={user.name}
-                      onChange={this.handleUserNameChange(idx)}
-                    />
-                  </Col>
-                  <Col>
-                    <Button
-                      variant="danger"
-                      onClick={this.handleRemoveUser(idx)}
-                      className="small"
-                    >
-                      -
-                    </Button>
-                  </Col>
-                </Form.Row>
+              <div className="modal-user" key={user.name}>
+                <Form.Group className="modal-row">
+                  <Form.Input
+                    placeholder={"User #" + (idx + 2)}
+                    value={user.name}
+                    onChange={this.handleUserNameChange(idx)}
+                    width={6}
+                  />
+                  <Button
+                    negative
+                    icon="delete"
+                    onClick={this.handleRemoveUser(idx)}
+                    size="small"
+                  />
+                </Form.Group>
               </div>
             ))}
-            <Button variant="primary" onClick={this.handleAddUser}>
-              Add user
+            <Button color="blue" onClick={this.handleAddUser}>
+              <Icon name="add" />
+              Add Another User
             </Button>
           </Form>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="success" type="submit" onClick={this.addProject}>
-            Submit
+        </Modal.Content>
+        <Modal.Actions>
+          <Button negative onClick={this.handleClose}>
+            <Icon name="remove" /> Close
           </Button>
-          <Button variant="outline-primary" onClick={this.handleClose}>
-            Close
+          <Button positive type="submit" onClick={this.addProject}>
+            <Icon name="checkmark" /> Submit
           </Button>
-        </Modal.Footer>
+        </Modal.Actions>
       </Modal>
     );
   }

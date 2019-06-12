@@ -2,11 +2,9 @@ import React, { Component } from "react";
 import "./NewsPage.css";
 import { withRouter } from "react-router-dom";
 
-import Button from "react-bootstrap/Button";
-import ButtonToolbar from "react-bootstrap/ButtonToolbar";
-import Spinner from "react-bootstrap/Spinner";
+import { Button, Loader } from "semantic-ui-react";
 
-import NewsItem from "./NewsItem";
+import NewsItem from "./NewsItem/NewsItem";
 import CreateNewsItem from "./CreateNewsItem";
 import EditNewsItem from "./EditNewsItem";
 import store from "../../store";
@@ -14,7 +12,7 @@ import {
   handleAddNewsItemList,
   showCreateNewsItem
 } from "../../actions/index.js";
-import SiteNavbar from "../SiteNavbar";
+import SiteNavbar from "../Navbar";
 
 class NewsPage extends Component {
   constructor(props) {
@@ -98,21 +96,18 @@ class NewsPage extends Component {
         <SiteNavbar />
         <div className="news-content">
           <div className="news-button-wrapper">
-            <ButtonToolbar>
-              <Button variant="success" onClick={this.createNewsItem} size="lg">
-                Post a New Article
-              </Button>
-            </ButtonToolbar>
+            <Button positive onClick={this.createNewsItem}>
+              Post a New Article
+            </Button>
           </div>
           <CreateNewsItem />
           <EditNewsItem />
           {this.state.isLoading ? (
-            <Spinner
-              as="span"
-              animation="border"
-              role="status"
-              aria-hidden="true"
-            />
+            <div>
+              <Loader className="page-loader" active={this.state.isLoading}>
+                Loading
+              </Loader>
+            </div>
           ) : (
             this.state.newsItems.map(newsItem => (
               <NewsItem

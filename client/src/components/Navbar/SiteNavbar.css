@@ -1,0 +1,30 @@
+.site-sidebar {
+  position: fixed;
+  height: 100vh !important;
+  background: #292e3e !important;
+}
+
+.sidebar-header {
+  border-radius: 0 !important;
+  color: white !important;
+  margin-bottom: 0 !important;
+  background: transparent !important;
+  font-size: medium;
+  font-weight: bold;
+}
+
+.sidebar-header-icon {
+  margin-right: 10px !important;
+}
+
+.sidebar-item {
+  font-size: small;
+}
+
+.logout-button {
+  position: absolute !important;
+  bottom: 0;
+  left: 0;
+  margin-left: 34.5px;
+  margin-bottom: 34.5px;
+}

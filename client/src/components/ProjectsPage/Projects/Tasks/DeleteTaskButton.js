@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import Button from "react-bootstrap/Button";
+import { Popup, Button } from "semantic-ui-react";
 import store from "../../../../store";
 import { deleteTask } from "../../../../actions/";
 
@@ -43,9 +43,11 @@ class DeleteTaskButton extends Component {
 
   render() {
     return (
-      <Button variant="danger" type="submit" onClick={this.deleteTask}>
-        Delete
-      </Button>
+      <Popup
+        content="Delete Task"
+        trigger={<Button negative icon="delete" onClick={this.deleteTask} />}
+        position="top center"
+      />
     );
   }
 }

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import Button from "react-bootstrap/Button";
+import { Button, Dropdown } from "semantic-ui-react";
 import store from "../../../../store";
 import { editTask } from "../../../../actions/index.js";
 
@@ -8,10 +8,19 @@ class TaskStatusButton extends Component {
     super(props);
 
     this.changeTaskStatus = this.changeTaskStatus.bind(this);
+    this.setFinished = this.setFinished.bind(this);
+    this.setUnfinished = this.setUnfinished.bind(this);
   }
 
-  changeTaskStatus(event) {
-    event.preventDefault();
+  setFinished() {
+    this.changeTaskStatus(true);
+  }
+
+  setUnfinished() {
+    this.changeTaskStatus(false);
+  }
+
+  changeTaskStatus(status) {
     fetch("/project-service/projects/task", {
       method: "PUT",
       headers: {
@@ -24,7 +33,7 @@ class TaskStatusButton extends Component {
         task: {
           name: this.props.task.name,
           description: this.props.task.description,
-          state: !this.props.task.state
+          state: status
         }
       })
     }).then(response => {
@@ -33,7 +42,7 @@ class TaskStatusButton extends Component {
         var payload = {
           project: this.props.project,
           name: this.props.task.name,
-          state: !this.props.task.state
+          state: status
         };
         store.dispatch(editTask(payload));
       } else {
@@ -44,12 +53,16 @@ class TaskStatusButton extends Component {
 
   render() {
     return (
-      <Button
-        variant={this.props.task.state ? "success" : "outline-success"}
-        onClick={this.changeTaskStatus}
-      >
-        {this.props.task.state ? "Finishied" : "Unfinished"}
-      </Button>
+      <Button.Group color={this.props.task.state ? "green" : null}>
+        <Button>{this.props.task.state ? "Finishied" : "Not Started"}</Button>
+        <Dropdown className="button icon" floating trigger={<React.Fragment />}>
+          <Dropdown.Menu>
+            <Dropdown.Item text="Not Started" onClick={this.setUnfinished} />
+            <Dropdown.Item text="In Progress" />
+            <Dropdown.Item text="Finished" onClick={this.setFinished} />
+          </Dropdown.Menu>
+        </Dropdown>
+      </Button.Group>
     );
   }
 }

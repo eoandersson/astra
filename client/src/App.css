@@ -4,3 +4,14 @@
   background-color: #e6ecf0;
   overflow: scroll;
 }
+
+.page-loader {
+  position: relative !important;
+}
+
+.site-modal {
+  height: auto !important;
+  margin-top: 0 !important;
+  top: 0 !important;
+  position: relative !important;
+}
