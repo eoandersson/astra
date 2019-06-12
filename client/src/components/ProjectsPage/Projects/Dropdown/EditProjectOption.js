@@ -13,6 +13,7 @@ export default class EditProjectOption extends Component {
     const project = {
       projectId: this.props.projectId,
       projectName: this.props.project.projectName,
+      projectDescription: this.props.project.projectDescription,
       users: this.props.project.users,
       tasks: this.props.project.tasks,
       project: this.props.project

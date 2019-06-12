@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Modal, Button, Icon, Form, Input, Divider } from "semantic-ui-react";
+import { Modal, Button, Icon, Form, Input, Divider, TextArea } from "semantic-ui-react";
 import store from "../../../store";
 import { hideCreateProject, handleAddProject } from "../../../actions/index.js";
 
@@ -9,11 +9,13 @@ class CreateProject extends Component {
     this.state = {
       show: false,
       projectName: "",
+      projectDescription: "",
       usersMap: []
     };
 
     this.addProject = this.addProject.bind(this);
     this.handleProjectNameChange = this.handleProjectNameChange.bind(this);
+    this.handleProjectDescriptionChange = this.handleProjectDescriptionChange.bind(this);
     this.clearFields = this.clearFields.bind(this);
     this.handleClose = this.handleClose.bind(this);
   }
@@ -23,6 +25,7 @@ class CreateProject extends Component {
       this.setState({
         show: store.getState().createProject.visibility,
         projectName: store.getState().createProject.projectName,
+        projectDescription: store.getState().createProject.projectDescription,
         usersMap: store.getState().createProject.usersMap
       });
     });
@@ -48,6 +51,7 @@ class CreateProject extends Component {
       },
       body: JSON.stringify({
         projectName: this.state.projectName,
+        projectDescription: this.state.projectDescription,
         users: users,
         tasks: []
       })
@@ -68,12 +72,17 @@ class CreateProject extends Component {
   clearFields() {
     this.setState({
       projectName: "",
+      projectDescription: "",
       usersMap: [{ name: "" }]
     });
   }
 
   handleProjectNameChange(event) {
     this.setState({ projectName: event.target.value });
+  }
+
+  handleProjectDescriptionChange(event) {
+    this.setState({ projectDescription: event.target.value });
   }
 
   handleUserNameChange = idx => evt => {
@@ -118,6 +127,13 @@ class CreateProject extends Component {
               label="Project Name"
               placeholder="Enter Project Name"
               onChange={this.handleProjectNameChange}
+            />
+            <Divider />
+            <Form.Field
+              control={TextArea}
+              label="Project Description"
+              placeholder="Enter Project Description"
+              onChange={this.handleProjectDescriptionChange}
             />
             <Divider />
             <p>

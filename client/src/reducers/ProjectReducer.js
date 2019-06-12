@@ -62,6 +62,7 @@ export default function handleProject(state = initialState, action) {
       projectIndex = getProjectIndex();
 
       projectList[projectIndex].projectName = action.payload.projectName;
+      projectList[projectIndex].projectDescription = action.payload.projectDescription;
       projectList[projectIndex].users = action.payload.users;
 
       return Object.assign({}, state, {
