@@ -24,7 +24,7 @@ class DeleteTaskButton extends Component {
         task: {
           name: this.props.task.name,
           description: this.props.task.description,
-          state: this.props.task.state
+          status: this.props.task.status
         }
       })
     }).then(response => {
