@@ -3,3 +3,4 @@ env/
 client/.classpath
 client/.project
 client/.settings/
+.env
