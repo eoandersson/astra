@@ -6,7 +6,7 @@ const initialState = {
   projectId: "",
   name: "",
   description: "",
-  state: false
+  status: 0
 };
 
 export default function taskModalVisibility(state = initialState, action) {

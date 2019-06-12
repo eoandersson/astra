@@ -11,7 +11,7 @@ class CreateTask extends Component {
       projectId: "",
       name: "",
       description: "",
-      state: false,
+      state: 0,
       project: {}
     };
 

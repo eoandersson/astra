@@ -94,8 +94,8 @@ export default function handleProject(state = initialState, action) {
       projectIndex = getProjectIndex();
       taskIndex = getTaskIndex(projectIndex);
 
-      var newState = !projectList[projectIndex].tasks[taskIndex].state;
-      projectList[projectIndex].tasks[taskIndex].state = newState;
+      var newState = action.payload.status;
+      projectList[projectIndex].tasks[taskIndex].status = newState;
 
       return Object.assign({}, state, {
         projects: projectList
