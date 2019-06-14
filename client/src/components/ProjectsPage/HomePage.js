@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import "./ProjectsPage.css";
 import { withRouter } from "react-router-dom";
 
-import { Button, Loader } from "semantic-ui-react";
+import { Loader, Icon } from "semantic-ui-react";
 
 import Project from "./Projects/Project";
 
@@ -14,17 +14,24 @@ import SiteNavbar from "../Navbar";
 
 import store from "./../../store";
 import {
-  showCreateProject,
+  showProjectSidebar,
+  hideProjectSidebar,
   handleAddProjectList
 } from "../../actions/index.js";
+import ProjectsSidebar from "./ProjectsSidebar/ProjectsSidebar";
 
 class HomePage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      projects: [],
+      projects: store.getState().handleProject.projects,
       username: "",
-      isLoading: false
+      isLoading: false,
+      visible: store.getState().handleProject.projectSidebarVisibility,
+      currentIndex: store.getState().handleProject.currentProjectIndex,
+      transitionClass: store.getState().handleProject.projectSidebarVisibility
+        ? "home-projects-wrapper padding"
+        : "home-projects-wrapper"
     };
 
     this.renderProjects = this.renderProjects.bind(this);
@@ -39,6 +46,8 @@ class HomePage extends Component {
     this.unsubscribe = store.subscribe(() => {
       this.setState({
         projects: store.getState().handleProject.projects,
+        visible: store.getState().handleProject.projectSidebarVisibility,
+        currentIndex: store.getState().handleProject.currentProjectIndex,
         username: store.getState().userAuthentication.username
       });
       console.log(store.getState());
@@ -84,7 +93,10 @@ class HomePage extends Component {
         }
       }
     )
-      .then(response => response.json())
+      .then(response => {
+        if (!response.ok) throw new Error(response.status);
+        else return response.json();
+      })
       .then(responseJson => {
         const projects = responseJson;
         var outputArr = [];
@@ -93,43 +105,64 @@ class HomePage extends Component {
         }
         this.setState({ isLoading: false });
         store.dispatch(handleAddProjectList(outputArr));
+      })
+      .catch(error => {
+        console.log("error: " + error);
+        this.props.history.push("/");
       });
   }
 
-  createProject() {
-    store.dispatch(showCreateProject());
-  }
+  toggleSidebar = () => {
+    const { visible } = this.state;
+    if (visible) {
+      store.dispatch(hideProjectSidebar());
+      this.setState({
+        transitionClass: "home-projects-wrapper"
+      });
+    } else {
+      store.dispatch(showProjectSidebar());
+      this.setState({
+        transitionClass: "home-projects-wrapper padding"
+      });
+    }
+  };
 
   render() {
+    const { visible, currentIndex, projects, transitionClass } = this.state;
     return (
       <div className="home-page">
+        <CreateProject />
+        <EditProject />
+        <CreateTask />
         <SiteNavbar />
         <div className="home-content">
-          <div className="home-button-wrapper">
-            <Button positive onClick={this.createProject}>
-              Create a Project
-            </Button>
-          </div>
+          <ProjectsSidebar projects={projects} />
+          <div className={transitionClass}>
+            <Icon
+              size="big"
+              onClick={this.toggleSidebar}
+              className="sidebar-toggle"
+              name={
+                visible
+                  ? "caret square left outline"
+                  : "caret square right outline"
+              }
+            />
 
-          <CreateProject />
-          <EditProject />
-          <CreateTask />
-
-          {this.state.isLoading ? (
-            <div>
-              <Loader className="page-loader" active={this.state.isLoading}>
-                Loading
-              </Loader>
-            </div>
-          ) : (
-            this.state.projects.map(project => (
+            {this.state.isLoading && projects.length === 0 ? (
+              <div>
+                <Loader className="page-loader" active={this.state.isLoading}>
+                  Loading
+                </Loader>
+              </div>
+            ) : projects.length > 0 ? (
               <Project
-                project={project}
-                key={this.getId(project.projectId)}
-                projectId={this.getId(project.projectId)}
+                project={projects[currentIndex]}
+                key={this.getId(projects[currentIndex].projectId)}
+                projectId={this.getId(projects[currentIndex].projectId)}
               />
-            ))
-          )}
+            ) : null}
+          </div>
         </div>
       </div>
     );

@@ -2,6 +2,7 @@
   position: fixed;
   height: 100vh !important;
   background: #292e3e !important;
+  z-index: 999 !important;
 }
 
 .sidebar-header {

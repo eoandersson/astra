@@ -3,13 +3,18 @@ import {
   EDIT_PROJECT,
   DELETE_PROJECT,
   ADD_PROJECT_LIST,
+  SHOW_PROJECT_SIDEBAR,
+  HIDE_PROJECT_SIDEBAR,
+  GO_TO_PROJECT,
   ADD_TASK,
   EDIT_TASK,
   DELETE_TASK
 } from "../actions/ActionTypes";
 
 const initialState = {
-  projects: []
+  projects: [],
+  currentProjectIndex: 0,
+  projectSidebarVisibility: true
 };
 
 export default function handleProject(state = initialState, action) {
@@ -55,14 +60,16 @@ export default function handleProject(state = initialState, action) {
       projectList.push(action.payload.project);
 
       return Object.assign({}, state, {
-        projects: projectList
+        projects: projectList,
+        currentProjectIndex: projectList.length - 1
       });
     case EDIT_PROJECT:
       projectList = state.projects;
       projectIndex = getProjectIndex();
 
       projectList[projectIndex].projectName = action.payload.projectName;
-      projectList[projectIndex].projectDescription = action.payload.projectDescription;
+      projectList[projectIndex].projectDescription =
+        action.payload.projectDescription;
       projectList[projectIndex].users = action.payload.users;
 
       return Object.assign({}, state, {
@@ -71,15 +78,32 @@ export default function handleProject(state = initialState, action) {
     case DELETE_PROJECT:
       projectList = state.projects;
       projectIndex = getProjectIndex();
+      var newProjectIndex = 0;
+      if (projectIndex === projectList.length - 1) {
+        newProjectIndex = projectIndex - 1;
+      }
       if (projectIndex !== -1) {
         projectList.splice(projectIndex, 1);
       }
       return Object.assign({}, state, {
-        projects: projectList
+        projects: projectList,
+        currentProjectIndex: newProjectIndex
       });
     case ADD_PROJECT_LIST:
       return Object.assign({}, state, {
         projects: action.payload
+      });
+    case SHOW_PROJECT_SIDEBAR:
+      return Object.assign({}, state, {
+        projectSidebarVisibility: true
+      });
+    case HIDE_PROJECT_SIDEBAR:
+      return Object.assign({}, state, {
+        projectSidebarVisibility: false
+      });
+    case GO_TO_PROJECT:
+      return Object.assign({}, state, {
+        currentProjectIndex: action.payload
       });
     case ADD_TASK:
       projectList = state.projects;
