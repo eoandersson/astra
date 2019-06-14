@@ -18,7 +18,7 @@ class Project extends Component {
     this.state = {
       editModalShow: false,
       createTaskModalShow: false,
-      active: false
+      active: true
     };
     this.createTask = this.createTask.bind(this);
   }
