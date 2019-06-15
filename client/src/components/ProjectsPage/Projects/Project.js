@@ -97,7 +97,7 @@ class Project extends Component {
             </Grid.Row>
           </Grid>
         </Header>
-        <div className="project-content" active={this.state.active}>
+        <div className="project-content">
           <div className="project-content-header">
             <div className="project-description">
               <h4>Project Description</h4>
