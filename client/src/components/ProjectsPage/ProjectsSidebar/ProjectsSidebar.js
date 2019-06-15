@@ -34,6 +34,25 @@ export default class ProjectsSidebar extends Component {
     this.unsubscribe();
   }
 
+  getId = mongoId => {
+    var result =
+      this.pad0(mongoId.timestamp.toString(16), 8) +
+      this.pad0(mongoId.machineIdentifier.toString(16), 6) +
+      this.pad0(mongoId.processIdentifier.toString(16), 4) +
+      this.pad0(mongoId.counter.toString(16), 6);
+
+    return result;
+  };
+
+  pad0 = (str, len) => {
+    var zeros = "00000000000000000000000000";
+    if (str.length < len) {
+      return zeros.substr(0, len - str.length) + str;
+    }
+
+    return str;
+  };
+
   renderProjects = () => {
     const { projects } = this.props;
     const { currentIndex, value } = this.state;
@@ -46,7 +65,8 @@ export default class ProjectsSidebar extends Component {
         });
       }
       const filteredProjects = projects.filter(
-        project => project.projectName.indexOf(value) !== -1
+        project =>
+          project.projectName.toLowerCase().indexOf(value.toLowerCase()) !== -1
       );
 
       if (filteredProjects.length === 0) return "No Matching Projects.";
@@ -55,8 +75,8 @@ export default class ProjectsSidebar extends Component {
         <Menu.Item
           as="a"
           key={project.projectName}
-          active={currentIndex === i}
-          onClick={() => this.goToProject(i)}
+          active={currentIndex === this.getIndex(project.projectId)}
+          onClick={() => this.goToProject(project.projectId)}
         >
           <Menu.Header>{project.projectName}</Menu.Header>
         </Menu.Item>
@@ -69,7 +89,18 @@ export default class ProjectsSidebar extends Component {
     store.dispatch(showCreateProject());
   };
 
-  goToProject = index => {
+  getIndex = projectId => {
+    const { projects } = this.props;
+    for (var i = 0; i < projects.length; i++) {
+      if (this.getId(projects[i].projectId) === this.getId(projectId)) {
+        return i;
+      }
+    }
+    return 0;
+  };
+
+  goToProject = projectId => {
+    const index = this.getIndex(projectId);
     store.dispatch(goToProject(index));
   };
 
