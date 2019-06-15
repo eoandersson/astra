@@ -19,9 +19,9 @@
 .home-projects-wrapper {
   width: 100%;
   position: relative;
-  padding-top: 80px;
   transition: all 0.5s ease;
   overflow-y: scroll;
+  overflow-x: hidden;
   height: 100vh;
 }
 
@@ -34,8 +34,5 @@
 }
 
 .sidebar-toggle {
-  position: absolute;
   cursor: pointer;
-  left: 25px;
-  top: 25px;
 }
