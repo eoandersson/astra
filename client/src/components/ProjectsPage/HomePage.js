@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import "./ProjectsPage.css";
 import { withRouter } from "react-router-dom";
 
-import { Loader, Icon } from "semantic-ui-react";
+import { Loader } from "semantic-ui-react";
 
 import Project from "./Projects/Project";
 
@@ -13,11 +13,7 @@ import CreateTask from "./Modals/CreateTask";
 import SiteNavbar from "../Navbar";
 
 import store from "./../../store";
-import {
-  showProjectSidebar,
-  hideProjectSidebar,
-  handleAddProjectList
-} from "../../actions/index.js";
+import { handleAddProjectList } from "../../actions/index.js";
 import ProjectsSidebar from "./ProjectsSidebar/ProjectsSidebar";
 
 class HomePage extends Component {
@@ -25,13 +21,10 @@ class HomePage extends Component {
     super(props);
     this.state = {
       projects: store.getState().handleProject.projects,
-      username: "",
-      isLoading: false,
+      username: store.getState().userAuthentication.username,
       visible: store.getState().handleProject.projectSidebarVisibility,
       currentIndex: store.getState().handleProject.currentProjectIndex,
-      transitionClass: store.getState().handleProject.projectSidebarVisibility
-        ? "home-projects-wrapper padding"
-        : "home-projects-wrapper"
+      isLoading: false
     };
 
     this.renderProjects = this.renderProjects.bind(this);
@@ -50,7 +43,6 @@ class HomePage extends Component {
         currentIndex: store.getState().handleProject.currentProjectIndex,
         username: store.getState().userAuthentication.username
       });
-      console.log(store.getState());
     });
 
     this.renderProjects();
@@ -112,23 +104,10 @@ class HomePage extends Component {
       });
   }
 
-  toggleSidebar = () => {
-    const { visible } = this.state;
-    if (visible) {
-      store.dispatch(hideProjectSidebar());
-      this.setState({
-        transitionClass: "home-projects-wrapper"
-      });
-    } else {
-      store.dispatch(showProjectSidebar());
-      this.setState({
-        transitionClass: "home-projects-wrapper padding"
-      });
-    }
-  };
-
   render() {
-    const { visible, currentIndex, projects, transitionClass } = this.state;
+    const { visible, currentIndex, projects } = this.state;
+    const paddedClass = "home-projects-wrapper padding";
+    const regularClass = "home-projects-wrapper";
     return (
       <div className="home-page">
         <CreateProject />
@@ -137,18 +116,7 @@ class HomePage extends Component {
         <SiteNavbar />
         <div className="home-content">
           <ProjectsSidebar projects={projects} />
-          <div className={transitionClass}>
-            <Icon
-              size="big"
-              onClick={this.toggleSidebar}
-              className="sidebar-toggle"
-              name={
-                visible
-                  ? "caret square left outline"
-                  : "caret square right outline"
-              }
-            />
-
+          <div className={visible ? paddedClass : regularClass}>
             {this.state.isLoading && projects.length === 0 ? (
               <div>
                 <Loader className="page-loader" active={this.state.isLoading}>
@@ -157,6 +125,7 @@ class HomePage extends Component {
               </div>
             ) : projects.length > 0 ? (
               <Project
+                visible={visible}
                 project={projects[currentIndex]}
                 key={this.getId(projects[currentIndex].projectId)}
                 projectId={this.getId(projects[currentIndex].projectId)}

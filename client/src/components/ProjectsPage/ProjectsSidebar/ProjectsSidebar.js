@@ -16,7 +16,8 @@ export default class ProjectsSidebar extends Component {
     super(props);
     this.state = {
       visible: store.getState().handleProject.projectSidebarVisibility,
-      currentIndex: store.getState().handleProject.currentProjectIndex
+      currentIndex: store.getState().handleProject.currentProjectIndex,
+      value: ""
     };
   }
 
@@ -35,7 +36,7 @@ export default class ProjectsSidebar extends Component {
 
   renderProjects = () => {
     const { projects } = this.props;
-    const { currentIndex } = this.state;
+    const { currentIndex, value } = this.state;
 
     if (!projects) return;
     if (projects.length > 0) {
@@ -44,7 +45,13 @@ export default class ProjectsSidebar extends Component {
           currentIndex: projects.length - 1
         });
       }
-      return projects.map((project, i) => (
+      const filteredProjects = projects.filter(
+        project => project.projectName.indexOf(value) !== -1
+      );
+
+      if (filteredProjects.length === 0) return "No Matching Projects.";
+
+      return filteredProjects.map((project, i) => (
         <Menu.Item
           as="a"
           key={project.projectName}
@@ -66,8 +73,12 @@ export default class ProjectsSidebar extends Component {
     store.dispatch(goToProject(index));
   };
 
+  handleSearchChange = (event, { value }) => {
+    this.setState({ value });
+  };
+
   render() {
-    const { visible } = this.state;
+    const { visible, value } = this.state;
     return (
       <Sidebar
         as={Menu}
@@ -92,7 +103,12 @@ export default class ProjectsSidebar extends Component {
           </Button>
         </div>
         <Divider />
-        <Search placeholder="Filter Projects" />
+        <Search
+          placeholder="Filter Projects"
+          value={value}
+          open={false}
+          onSearchChange={this.handleSearchChange}
+        />
         <Divider style={{ marginBottom: 0 }} />
         {this.renderProjects()}
       </Sidebar>
