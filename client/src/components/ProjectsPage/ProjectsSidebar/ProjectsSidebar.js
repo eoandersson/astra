@@ -2,14 +2,7 @@ import React, { Component } from "react";
 import "./ProjectsSidebar.css";
 import store from "../../../store";
 import { goToProject, showCreateProject } from "../../../actions";
-import {
-  Sidebar,
-  Menu,
-  Button,
-  Divider,
-  Icon,
-  Search
-} from "semantic-ui-react";
+import { Sidebar, Menu, Divider, Icon, Search } from "semantic-ui-react";
 
 import ProjectDropdown from "../Projects/Dropdown/ProjectDropdown";
 

@@ -45,9 +45,6 @@ class SiteNavbar extends Component {
         >
           Current Projects
         </Menu.Item>
-        <Menu.Item className="sidebar-item" as={Link} to="/home">
-          Completed Projects
-        </Menu.Item>
         <Menu.Item
           className="sidebar-item"
           as={Link}
