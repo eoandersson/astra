@@ -7,19 +7,16 @@ import FinishProjectOption from "./FinishProjectOption";
 import LeaveProjectOption from "./LeaveProjectOption";
 
 export default class ProjectDropdown extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     return (
       <Dropdown
-        text="Options"
         direction="left"
-        icon="cog"
+        icon="ellipsis horizontal"
         className="project-dropdown"
       >
         <Dropdown.Menu>
+          <Dropdown.Header icon="cog" content="Project Options" />
+          <Dropdown.Divider />
           <EditProjectOption
             project={this.props.project}
             projectId={this.props.projectId}
