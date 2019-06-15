@@ -1,7 +1,7 @@
 .site-sidebar {
   position: fixed;
   height: 100vh !important;
-  background: #292e3e !important;
+  background: rgba(29, 9, 31, 1) !important;
   z-index: 999 !important;
 }
 

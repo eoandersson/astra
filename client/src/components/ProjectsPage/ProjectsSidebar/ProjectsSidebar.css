@@ -1,16 +1,55 @@
-.home-button-wrapper {
-  display: flex;
-  justify-content: center;
-  margin-left: auto;
-  margin-right: auto;
-  width: 75%;
-}
-
 .home-content > .projects-sidebar {
   width: 250px !important;
+  background: rgba(58, 19, 62, 1) !important;
   position: absolute !important;
   margin-left: 150px !important;
   height: 100vh !important;
   z-index: 998 !important;
   overflow-y: scroll;
+}
+
+.projects-sidebar > .item {
+  text-align: start !important;
+  opacity: 0.5 !important;
+  padding: 10px 10px !important;
+}
+
+.projects-sidebar > .item.active {
+  opacity: 1 !important;
+}
+
+.projects-sidebar > .item:hover {
+  opacity: 1 !important;
+}
+
+.projects-sidebar > .item > .header {
+  margin: 0 !important;
+  display: flex;
+  justify-content: space-between;
+}
+
+.projects-sidebar > .item > .header > .dropdown > i {
+  opacity: 0.5;
+}
+
+.projects-sidebar > .item > .header > .dropdown > i:hover {
+  opacity: 1;
+}
+
+.sidebar-button-wrapper {
+  color: #fff;
+  display: flex;
+  justify-content: space-between;
+  padding-left: 15px;
+  padding-right: 15px;
+  font-size: medium;
+}
+
+.sidebar-button-wrapper > i {
+  opacity: 0.5;
+  cursor: pointer;
+}
+
+.sidebar-button-wrapper > i:hover {
+  opacity: 1;
 }

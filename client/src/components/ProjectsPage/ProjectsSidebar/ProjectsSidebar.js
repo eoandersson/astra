@@ -11,6 +11,8 @@ import {
   Search
 } from "semantic-ui-react";
 
+import ProjectDropdown from "../Projects/Dropdown/ProjectDropdown";
+
 export default class ProjectsSidebar extends Component {
   constructor(props) {
     super(props);
@@ -69,7 +71,8 @@ export default class ProjectsSidebar extends Component {
           project.projectName.toLowerCase().indexOf(value.toLowerCase()) !== -1
       );
 
-      if (filteredProjects.length === 0) return "No Matching Projects.";
+      if (filteredProjects.length === 0)
+        return <Menu.Item>No Matching Projects.</Menu.Item>;
 
       return filteredProjects.map((project, i) => (
         <Menu.Item
@@ -78,11 +81,17 @@ export default class ProjectsSidebar extends Component {
           active={currentIndex === this.getIndex(project.projectId)}
           onClick={() => this.goToProject(project.projectId)}
         >
-          <Menu.Header>{project.projectName}</Menu.Header>
+          <Menu.Header>
+            <span>{project.projectName}</span>
+            <ProjectDropdown
+              projectId={this.getId(project.projectId)}
+              project={project}
+            />
+          </Menu.Header>
         </Menu.Item>
       ));
     }
-    return "You don't have any projects yet.";
+    return <Menu.Item>You don't have any projects yet.</Menu.Item>;
   };
 
   createProject = () => {
@@ -120,19 +129,8 @@ export default class ProjectsSidebar extends Component {
         width="wide"
         className="projects-sidebar"
         id="projects-sidebar"
+        inverted
       >
-        <Divider />
-        <div className="home-button-wrapper">
-          <Button
-            icon
-            positive
-            onClick={this.createProject}
-            labelPosition="left"
-          >
-            <Icon name="add" />
-            Add a Project
-          </Button>
-        </div>
         <Divider />
         <Search
           placeholder="Filter Projects"
@@ -140,6 +138,11 @@ export default class ProjectsSidebar extends Component {
           open={false}
           onSearchChange={this.handleSearchChange}
         />
+        <Divider />
+        <div className="sidebar-button-wrapper">
+          <span>Projects</span>
+          <Icon name="add" onClick={this.createProject} />
+        </div>
         <Divider style={{ marginBottom: 0 }} />
         {this.renderProjects()}
       </Sidebar>
