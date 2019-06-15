@@ -1,9 +1,13 @@
 import React, { Component } from "react";
 import "./Project.css";
-import { Accordion, Icon } from "semantic-ui-react";
+import { Icon, Grid, Header } from "semantic-ui-react";
 
 import store from "../../../store";
-import { showCreateTask } from "../../../actions/index.js";
+import {
+  showCreateTask,
+  showProjectSidebar,
+  hideProjectSidebar
+} from "../../../actions/index.js";
 
 import User from "./User";
 
@@ -37,24 +41,63 @@ class Project extends Component {
     this.setState({ active: newState });
   };
 
+  toggleSidebar = () => {
+    const { visible } = this.props;
+    if (visible) {
+      store.dispatch(hideProjectSidebar());
+    } else {
+      store.dispatch(showProjectSidebar());
+    }
+  };
+
   render() {
+    const { visible, project } = this.props;
+
     return (
-      <Accordion className="project" styled>
-        <Accordion.Title active={this.state.active} onClick={this.handleClick}>
-          <div className="project-header">
-            <div className="project-name">
-              <Icon name="dropdown" />
-              {this.props.project.projectName}
-            </div>
-            <div className="project-buttons">
-              <ProjectDropdown
-                projectId={this.props.projectId}
-                project={this.props.project}
-              />
-            </div>
-          </div>
-        </Accordion.Title>
-        <Accordion.Content active={this.state.active}>
+      <React.Fragment>
+        <Header attached="top" className="project-header">
+          <Grid columns={16}>
+            <Grid.Row stretched>
+              <Grid.Column width={1} className="header-column">
+                <Icon
+                  size="big"
+                  onClick={this.toggleSidebar}
+                  className="sidebar-toggle"
+                  name={visible ? "caret square left outline" : "sidebar"}
+                />
+              </Grid.Column>
+              <Grid.Column width={10} className="header-column title-column">
+                <Grid.Row>
+                  <h2>{this.props.project.projectName}</h2>
+                </Grid.Row>
+                <Grid divided columns={10} className="icon-row">
+                  <Grid.Column
+                    width={1}
+                    className="header-icon-column"
+                    textAlign="center"
+                  >
+                    <Icon name="star outline" size="small" />
+                  </Grid.Column>
+                  <Grid.Column
+                    width={1}
+                    className="header-icon-column"
+                    textAlign="center"
+                  >
+                    <Icon name="user outline" size="small" />{" "}
+                    {project.users.length}
+                  </Grid.Column>
+                </Grid>
+              </Grid.Column>
+              <Grid.Column width={5} floated="right" className="header-column">
+                <ProjectDropdown
+                  projectId={this.props.projectId}
+                  project={this.props.project}
+                />
+              </Grid.Column>
+            </Grid.Row>
+          </Grid>
+        </Header>
+        <div className="project-content" active={this.state.active}>
           <div className="project-content-header">
             <div className="project-description">
               <h4>Project Description</h4>
@@ -84,8 +127,8 @@ class Project extends Component {
               project={this.props.project}
             />
           </div>
-        </Accordion.Content>
-      </Accordion>
+        </div>
+      </React.Fragment>
     );
   }
 }

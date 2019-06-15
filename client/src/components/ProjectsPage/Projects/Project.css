@@ -1,5 +1,5 @@
 .project {
-  width: 90% !important;
+  width: 100% !important;
   margin-left: auto;
   margin-right: auto;
   margin-bottom: 20px;
@@ -11,27 +11,37 @@
 }
 
 .project-header {
-  display: flex;
-  justify-content: space-between;
-  padding: 20px;
-  padding-right: 20px;
-  width: 100%;
-  border-bottom-color: #ecf0f1;
-  border-bottom-style: solid;
-  border-bottom-width: 1px;
+  padding-top: 25px !important;
+  padding-bottom: 25px !important;
 }
 
-.project-name {
-  font-size: large;
+.header-column {
+  display: flex !important;
 }
 
-.project-buttons > button {
-  margin-left: 10px;
-  margin-right: 10px;
+.title-column {
+  align-items: left !important;
+  padding-left: 0 !important;
+}
+
+.project-dropdown {
+  margin-left: auto;
+}
+
+.icon-row {
+  margin-top: 5px !important;
+}
+
+.header-icon-column {
+  padding: 0 !important;
 }
 
 .project-dropdown > i {
   margin-left: 5px;
+}
+
+.project-content {
+  margin-top: 30px;
 }
 
 .project-content-header {
