@@ -1,6 +1,8 @@
 package sling_project.project_service.service;
 
+import java.io.Console;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -12,12 +14,15 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import sling_project.project_service.model.ProjectTaskRequest;
 import sling_project.project_service.model.Projects;
-import sling_project.project_service.model.UserProjectRequest;
 import sling_project.project_service.model.Users;
 import sling_project.project_service.repository.ProjectsRepository;
 import sling_project.project_service.repository.UsersRepository;
+import sling_project.project_service.requests.MoveProjectRequest;
+import sling_project.project_service.requests.ProjectCategoryRequest;
+import sling_project.project_service.requests.ProjectTaskRequest;
+import sling_project.project_service.requests.UserCategoryRequest;
+import sling_project.project_service.requests.UserProjectRequest;
 
 @Service
 public class MongoProjectService {
@@ -28,7 +33,10 @@ public class MongoProjectService {
 	@Autowired
 	private UsersRepository usersRepository;
 	
-	public Projects createProject(Projects project) {
+	public Projects createProject(ProjectCategoryRequest request) {
+		Projects project = request.getProject();
+		String categoryName = request.getProjectCategory();
+		
 		ObjectId projectId = ObjectId.get();
 		project.set_id(projectId);
 		
@@ -39,7 +47,7 @@ public class MongoProjectService {
 			if(user == null) {
 				user = new Users(username);
 			}
-			user.addProject(projectId);
+			user.addProject(projectId, categoryName);
 			usersRepository.save(user);
 		}
 		
@@ -63,20 +71,63 @@ public class MongoProjectService {
 			projectsRepository.delete(project);
 			for(String curUsername : project.getUsers()) {
 				Users curUser = usersRepository.findByUsername(curUsername);
-				ArrayList<ObjectId> userProjects = curUser.getProjects();
-				for(int i = 0; i < userProjects.size(); i++) {
-					if(userProjects.get(i).equals(projectId)) {
-						userProjects.remove(i);
-						usersRepository.save(curUser);
-						break;
-					}
-				}
+				curUser.removeProject(projectId);
+				usersRepository.save(curUser);
 			}
 			return new ResponseEntity(HttpStatus.NO_CONTENT);
 		}
 		
 		return new ResponseEntity(HttpStatus.UNAUTHORIZED);
 		
+	}
+	
+	public ResponseEntity<?> createProjectCategory(UserCategoryRequest request) {
+		System.out.println(request.getUsername());
+		System.out.println(request.getCategory());
+		Users user = usersRepository.findByUsername(request.getUsername());
+		if(user == null) {
+			user = new Users(request.getUsername());
+		}
+		user.addCategory(request.getCategory());
+		usersRepository.save(user);
+		return new ResponseEntity(HttpStatus.OK);
+	}
+	
+	public ResponseEntity<?> deleteProjectCategory(UserCategoryRequest request) {
+		Users user = usersRepository.findByUsername(request.getUsername());
+		if(user == null || !user.getProjectCategories().containsKey(request.getCategory())) {
+			return new ResponseEntity(HttpStatus.NOT_FOUND);
+		}
+		user.removeCategory(request.getCategory());
+		usersRepository.save(user);
+		return new ResponseEntity(HttpStatus.NO_CONTENT);
+	}
+	
+	public ResponseEntity<?> changeProjectCategory(MoveProjectRequest request) {
+		String username = request.getUsername(), category=request.getCategory();
+		ObjectId projectId = request.getProjectId();
+		
+		Users user = usersRepository.findByUsername(username);
+		if(user == null) {
+			return new ResponseEntity(HttpStatus.NOT_FOUND);
+		}
+		
+		Map<String, ArrayList<ObjectId>> projectCategories = user.getProjectCategories();
+		if(!projectCategories.containsKey(category)) {
+			return new ResponseEntity(HttpStatus.NOT_FOUND);
+		}
+		
+		for(ArrayList<ObjectId> projects : projectCategories.values()) {
+			for(int i=0; i<projects.size(); i++) {
+				if(projects.get(i).equals(projectId)) {
+					projectCategories.get(category).add(projectId);
+					projects.remove(i);
+					usersRepository.save(user);
+					return new ResponseEntity(HttpStatus.OK);
+				}
+			}
+		}
+		return new ResponseEntity(HttpStatus.NOT_FOUND);
 	}
 	
 	private boolean isPartOfProject(String username, Projects project) {
@@ -89,7 +140,9 @@ public class MongoProjectService {
 	}
 	
 	public ResponseEntity<?> updateProject(Projects project) {
+		System.out.println(project.get_id());
 		Projects oldProject = projectsRepository.findByProjectId(project.get_id());
+		System.out.println(oldProject);
 		if(oldProject == null) {
 			return new ResponseEntity(HttpStatus.NOT_FOUND);
 		}
@@ -105,7 +158,7 @@ public class MongoProjectService {
 		
 		for(String username : newUsers) {
 			if(!oldUsers.contains(username)) {
-				addProjectToUser(username, project.get_id());
+				addProjectToUser(username, project.get_id(), "Shared Projects");
 			}
 		}
 		
@@ -121,13 +174,12 @@ public class MongoProjectService {
 		usersRepository.save(user);
 	}
 	
-	private void addProjectToUser(String username, ObjectId projectId) {
+	private void addProjectToUser(String username, ObjectId projectId, String categoryName) {
 		Users user = usersRepository.findByUsername(username);
-		if(user == null) {
+		if(user == null || !user.getProjectCategories().containsKey(categoryName)) {
 			user = new Users(username);
 		}
-		
-		user.addProject(projectId);
+		user.addProject(projectId, categoryName);
 		usersRepository.save(user);
 	}
 	
@@ -174,14 +226,18 @@ public class MongoProjectService {
 	
 	public ResponseEntity<?> getProjectsByUsername(String username) {
 		Users user = usersRepository.findByUsername(username);
-		ArrayList<ObjectId> projectIds = user.getProjects();
-		ArrayList<Projects> projects = new ArrayList<Projects>();
+		Map<String, ArrayList<ObjectId>> projectCategories = user.getProjectCategories();
+		Map<String, ArrayList<Projects>> projects = new HashMap<String, ArrayList<Projects>>();
 		
-		for(ObjectId id : projectIds) {
-			Projects curProject = projectsRepository.findByProjectId(id);
-			if(curProject != null) {
-				projects.add(curProject);
+		for(String category : projectCategories.keySet()) {
+			ArrayList<Projects> curProjects = new ArrayList<Projects>();
+			for(ObjectId id : projectCategories.get(category)) {
+				Projects curProject = projectsRepository.findByProjectId(id);
+				if(curProject != null) {
+					curProjects.add(curProject);
+				}
 			}
+			projects.put(category, curProjects);
 		}
 		
 		return new ResponseEntity(projects, HttpStatus.OK);
@@ -211,7 +267,7 @@ public class MongoProjectService {
 		if(user == null) {
 			user = new Users(request.getUsername());
 		}
-		user.addProject(id);
+		user.addProject(id, "Shared Projects");
 		usersRepository.save(user);
 		projectsRepository.save(project);
 		
@@ -230,12 +286,14 @@ public class MongoProjectService {
 		
 		project.removeUser(request.getUsername());
 		
-		ArrayList<ObjectId> userProjects = user.getProjects();
-		for(int i = 0; i < userProjects.size(); i++) {
-			if(userProjects.get(i).equals(id)) {
-				userProjects.remove(i);
-				usersRepository.save(user);
-				break;
+		Map<String, ArrayList<ObjectId>> userCategories = user.getProjectCategories();
+		for(ArrayList<ObjectId> userProjects : userCategories.values()) {
+			for(int i = 0; i < userProjects.size(); i++) {
+				if(userProjects.get(i).equals(id)) {
+					userProjects.remove(i);
+					usersRepository.save(user);
+					break;
+				}
 			}
 		}
 		
