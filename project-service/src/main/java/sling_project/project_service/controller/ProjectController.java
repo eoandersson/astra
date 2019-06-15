@@ -16,10 +16,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import sling_project.project_service.model.ProjectTaskRequest;
 import sling_project.project_service.model.Projects;
-import sling_project.project_service.model.UserProjectRequest;
 import sling_project.project_service.repository.ProjectsRepository;
+import sling_project.project_service.requests.MoveProjectRequest;
+import sling_project.project_service.requests.ProjectCategoryRequest;
+import sling_project.project_service.requests.ProjectTaskRequest;
+import sling_project.project_service.requests.UserCategoryRequest;
+import sling_project.project_service.requests.UserProjectRequest;
 import sling_project.project_service.service.MongoProjectService;
 
 @RestController
@@ -29,8 +32,8 @@ public class ProjectController {
 	private MongoProjectService mongoService;
 	
 	@RequestMapping(value = "/projects", method = RequestMethod.POST)
-	public Projects createProject(@Valid @RequestBody Projects project) {
-		return mongoService.createProject(project);
+	public Projects createProject(@Valid @RequestBody ProjectCategoryRequest request) {
+		return mongoService.createProject(request);
 	}
 	
 	@RequestMapping(value = "/projects", method = RequestMethod.DELETE)
@@ -41,6 +44,21 @@ public class ProjectController {
 	@RequestMapping(value = "/projects", method = RequestMethod.PUT)
 	public ResponseEntity<?> updateProject(@Valid @RequestBody Projects project) {
 		return mongoService.updateProject(project);
+	}
+	
+	@RequestMapping(value = "/projects/category", method = RequestMethod.POST)
+	public ResponseEntity<?> createProjectCategory(@Valid @RequestBody UserCategoryRequest request) {
+		return mongoService.createProjectCategory(request);
+	}
+	
+	@RequestMapping(value = "/projects/category", method = RequestMethod.DELETE)
+	public ResponseEntity<?> deleteProjectCategory(@Valid @RequestBody UserCategoryRequest request) {
+		return mongoService.deleteProjectCategory(request);
+	}
+	
+	@RequestMapping(value = "/projects/category/move", method = RequestMethod.PUT)
+	public ResponseEntity<?> moveProject(@RequestBody @Valid MoveProjectRequest request) {
+		return mongoService.changeProjectCategory(request);
 	}
 	
 	@RequestMapping(value = "/projects/task", method = RequestMethod.POST)

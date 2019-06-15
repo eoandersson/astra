@@ -1,4 +1,4 @@
-package sling_project.project_service.model;
+package sling_project.project_service.requests;
 
 import org.bson.types.ObjectId;
 
