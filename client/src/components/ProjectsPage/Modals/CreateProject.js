@@ -1,5 +1,13 @@
 import React, { Component } from "react";
-import { Modal, Button, Icon, Form, Input, Divider, TextArea } from "semantic-ui-react";
+import {
+  Modal,
+  Button,
+  Icon,
+  Form,
+  Input,
+  Divider,
+  TextArea
+} from "semantic-ui-react";
 import store from "../../../store";
 import { hideCreateProject, handleAddProject } from "../../../actions/index.js";
 
@@ -10,12 +18,16 @@ class CreateProject extends Component {
       show: false,
       projectName: "",
       projectDescription: "",
-      usersMap: []
+      usersMap: [],
+      category: "My Projects",
+      userCategories: store.getState().handleProject.userCategories
     };
 
     this.addProject = this.addProject.bind(this);
     this.handleProjectNameChange = this.handleProjectNameChange.bind(this);
-    this.handleProjectDescriptionChange = this.handleProjectDescriptionChange.bind(this);
+    this.handleProjectDescriptionChange = this.handleProjectDescriptionChange.bind(
+      this
+    );
     this.clearFields = this.clearFields.bind(this);
     this.handleClose = this.handleClose.bind(this);
   }
@@ -26,7 +38,8 @@ class CreateProject extends Component {
         show: store.getState().createProject.visibility,
         projectName: store.getState().createProject.projectName,
         projectDescription: store.getState().createProject.projectDescription,
-        usersMap: store.getState().createProject.usersMap
+        usersMap: store.getState().createProject.usersMap,
+        userCategories: store.getState().handleProject.userCategories
       });
     });
   }
@@ -50,10 +63,13 @@ class CreateProject extends Component {
         Authorization: "Bearer " + localStorage.getItem("JWT")
       },
       body: JSON.stringify({
-        projectName: this.state.projectName,
-        projectDescription: this.state.projectDescription,
-        users: users,
-        tasks: []
+        project: {
+          projectName: this.state.projectName,
+          projectDescription: this.state.projectDescription,
+          users: users,
+          tasks: []
+        },
+        projectCategory: this.state.category
       })
     })
       .then(response => {
@@ -64,7 +80,7 @@ class CreateProject extends Component {
         }
       })
       .then(data => {
-        store.dispatch(handleAddProject({ project: data }));
+        store.dispatch(handleAddProject({ data }));
         this.handleClose();
       });
   }
@@ -107,11 +123,24 @@ class CreateProject extends Component {
     });
   };
 
+  handleCategoryChange = (event, result) => {
+    const { value } = result;
+    this.setState({
+      category: value
+    });
+  };
+
   handleClose() {
     store.dispatch(hideCreateProject());
   }
 
   render() {
+    const { userCategories } = this.state;
+    const options = userCategories.map(category => ({
+      key: category,
+      text: category,
+      value: category
+    }));
     return (
       <Modal
         closeIcon
@@ -122,12 +151,24 @@ class CreateProject extends Component {
         <Modal.Header>Create project</Modal.Header>
         <Modal.Content>
           <Form>
-            <Form.Field
-              control={Input}
-              label="Project Name"
-              placeholder="Enter Project Name"
-              onChange={this.handleProjectNameChange}
-            />
+            <Form.Group>
+              <Form.Field
+                control={Input}
+                label="Project Name"
+                placeholder="Enter Project Name"
+                onChange={this.handleProjectNameChange}
+                width={10}
+              />
+              <Form.Select
+                fluid
+                label="Category"
+                options={options}
+                placeholder="My Projects"
+                defaultValue="My Projects"
+                width={6}
+                onChange={this.handleCategoryChange}
+              />
+            </Form.Group>
             <Divider />
             <Form.Field
               control={TextArea}

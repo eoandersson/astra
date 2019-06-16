@@ -12,7 +12,8 @@ class TaskFooter extends Component {
   createTask(event) {
     const payload = {
       projectId: this.props.projectId,
-      project: this.props.project
+      project: this.props.project,
+      category: this.props.category
     };
     store.dispatch(showCreateTask(payload));
   }

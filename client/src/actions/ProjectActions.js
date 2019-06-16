@@ -5,16 +5,16 @@ import {
   ADD_PROJECT_LIST
 } from "./ActionTypes";
 
-export function handleAddProject(project) {
-  return { type: ADD_PROJECT, payload: project };
+export function handleAddProject(payload) {
+  return { type: ADD_PROJECT, payload };
 }
 
 export function handleEditProject(payload) {
   return { type: EDIT_PROJECT, payload: payload };
 }
 
-export function handleDeleteProject(project) {
-  return { type: DELETE_PROJECT, payload: project };
+export function handleDeleteProject(payload) {
+  return { type: DELETE_PROJECT, payload };
 }
 
 export function handleAddProjectList(projects) {
