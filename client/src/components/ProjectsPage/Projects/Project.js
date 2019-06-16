@@ -92,6 +92,7 @@ class Project extends Component {
                 <ProjectDropdown
                   projectId={this.props.projectId}
                   project={this.props.project}
+                  category={this.props.category}
                 />
               </Grid.Column>
             </Grid.Row>
@@ -119,12 +120,14 @@ class Project extends Component {
                 task={task}
                 projectId={this.props.projectId}
                 project={this.props.project}
+                category={this.props.category}
                 key={task.name}
               />
             ))}
             <TaskFooter
               projectId={this.props.projectId}
               project={this.props.project}
+              category={this.props.category}
             />
           </div>
         </div>

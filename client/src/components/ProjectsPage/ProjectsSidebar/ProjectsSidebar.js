@@ -1,8 +1,20 @@
 import React, { Component } from "react";
 import "./ProjectsSidebar.css";
 import store from "../../../store";
-import { goToProject, showCreateProject } from "../../../actions";
-import { Sidebar, Menu, Divider, Icon, Search } from "semantic-ui-react";
+import {
+  goToProject,
+  showCategory,
+  hideCategory,
+  showCreateProject
+} from "../../../actions";
+import {
+  Sidebar,
+  Menu,
+  Divider,
+  Icon,
+  Search,
+  Accordion
+} from "semantic-ui-react";
 
 import ProjectDropdown from "../Projects/Dropdown/ProjectDropdown";
 
@@ -11,6 +23,9 @@ export default class ProjectsSidebar extends Component {
     super(props);
     this.state = {
       visible: store.getState().handleProject.projectSidebarVisibility,
+      userCategories: store.getState().handleProject.userCategories,
+      currentCategory: store.getState().handleProject.currentCategory,
+      currentCategories: store.getState().handleProject.currentCategories,
       currentIndex: store.getState().handleProject.currentProjectIndex,
       value: ""
     };
@@ -20,6 +35,9 @@ export default class ProjectsSidebar extends Component {
     this.unsubscribe = store.subscribe(() => {
       this.setState({
         visible: store.getState().handleProject.projectSidebarVisibility,
+        currentCategory: store.getState().handleProject.currentCategory,
+        userCategories: store.getState().handleProject.userCategories,
+        currentCategories: store.getState().handleProject.currentCategories,
         currentIndex: store.getState().handleProject.currentProjectIndex
       });
     });
@@ -48,62 +66,187 @@ export default class ProjectsSidebar extends Component {
     return str;
   };
 
-  renderProjects = () => {
+  renderStandardProjects = () => {
     const { projects } = this.props;
-    const { currentIndex, value } = this.state;
+    const {
+      currentCategory,
+      currentCategories,
+      currentIndex,
+      userCategories
+    } = this.state;
 
     if (!projects) return;
-    if (projects.length > 0) {
-      if (currentIndex >= projects.length) {
-        this.setState({
-          currentIndex: projects.length - 1
-        });
-      }
-      const filteredProjects = projects.filter(
-        project =>
-          project.projectName.toLowerCase().indexOf(value.toLowerCase()) !== -1
+    const size = Object.keys(projects).length;
+    if (size === 0) {
+      return <Menu.Item>You don't have any projects yet.</Menu.Item>;
+    } else {
+      // Filter Projects Here
+      return userCategories.map(category =>
+        category !== "My Projects" && category !== "Shared Projects" ? null : (
+          <Accordion key={category} inverted className="project-category">
+            <Accordion.Title
+              active={currentCategories.indexOf(category) !== -1}
+              onClick={() => this.showHideCategory(category)}
+              className={this.getTitleClassName(category)}
+            >
+              <Icon
+                name={
+                  currentCategories.indexOf(category) !== -1
+                    ? "caret down"
+                    : "caret right"
+                }
+              />
+              {category}
+            </Accordion.Title>
+            <Accordion.Content
+              active={currentCategories.indexOf(category) !== -1}
+              className="project-category-content"
+            >
+              {projects[category].length === 0 ? (
+                <Menu.Item>Empty.</Menu.Item>
+              ) : (
+                projects[category].map((project, i) => (
+                  <Menu.Item
+                    as="a"
+                    key={project.projectName}
+                    active={
+                      currentCategory === category &&
+                      currentIndex ===
+                        this.getIndex(category, project.projectId)
+                    }
+                    onClick={() =>
+                      this.goToProject(category, project.projectId)
+                    }
+                  >
+                    <Menu.Header>
+                      <span>{project.projectName}</span>
+                      <ProjectDropdown
+                        projectId={this.getId(project.projectId)}
+                        project={project}
+                        category={category}
+                      />
+                    </Menu.Header>
+                  </Menu.Item>
+                ))
+              )}
+            </Accordion.Content>
+          </Accordion>
+        )
       );
-
-      if (filteredProjects.length === 0)
-        return <Menu.Item>No Matching Projects.</Menu.Item>;
-
-      return filteredProjects.map((project, i) => (
-        <Menu.Item
-          as="a"
-          key={project.projectName}
-          active={currentIndex === this.getIndex(project.projectId)}
-          onClick={() => this.goToProject(project.projectId)}
-        >
-          <Menu.Header>
-            <span>{project.projectName}</span>
-            <ProjectDropdown
-              projectId={this.getId(project.projectId)}
-              project={project}
-            />
-          </Menu.Header>
-        </Menu.Item>
-      ));
     }
-    return <Menu.Item>You don't have any projects yet.</Menu.Item>;
+  };
+
+  renderProjects = () => {
+    const { projects } = this.props;
+    const {
+      currentCategory,
+      currentCategories,
+      currentIndex,
+      userCategories
+    } = this.state;
+
+    if (!projects) return;
+    const size = Object.keys(projects).length;
+    if (size === 0) {
+      return <Menu.Item>You don't have any projects yet.</Menu.Item>;
+    } else {
+      // Filter Projects Here
+      return userCategories.map(category =>
+        category === "My Projects" || category === "Shared Projects" ? null : (
+          <Accordion key={category} inverted className="project-category">
+            <Accordion.Title
+              active={currentCategories.indexOf(category) !== -1}
+              onClick={() => this.showHideCategory(category)}
+              className={this.getTitleClassName(category)}
+            >
+              <Icon
+                name={
+                  currentCategories.indexOf(category) !== -1
+                    ? "caret down"
+                    : "caret right"
+                }
+              />
+              {category}
+            </Accordion.Title>
+            <Accordion.Content
+              active={currentCategories.indexOf(category) !== -1}
+              className="project-category-content"
+            >
+              {projects[category].length === 0 ? (
+                <Menu.Item>Empty.</Menu.Item>
+              ) : (
+                projects[category].map((project, i) => (
+                  <Menu.Item
+                    as="a"
+                    key={project.projectName}
+                    active={
+                      currentCategory === category &&
+                      currentIndex ===
+                        this.getIndex(category, project.projectId)
+                    }
+                    onClick={() =>
+                      this.goToProject(category, project.projectId)
+                    }
+                  >
+                    <Menu.Header>
+                      <span>{project.projectName}</span>
+                      <ProjectDropdown
+                        projectId={this.getId(project.projectId)}
+                        project={project}
+                        category={category}
+                      />
+                    </Menu.Header>
+                  </Menu.Item>
+                ))
+              )}
+            </Accordion.Content>
+          </Accordion>
+        )
+      );
+    }
+  };
+
+  getTitleClassName = category => {
+    const { currentCategories } = this.state;
+    if (currentCategories.indexOf(category) === -1) {
+      return "project-category-title inactive";
+    } else {
+      return "project-category-title";
+    }
   };
 
   createProject = () => {
     store.dispatch(showCreateProject());
   };
 
-  getIndex = projectId => {
+  getIndex = (category, projectId) => {
     const { projects } = this.props;
-    for (var i = 0; i < projects.length; i++) {
-      if (this.getId(projects[i].projectId) === this.getId(projectId)) {
+    for (var i = 0; i < projects[category].length; i++) {
+      if (
+        this.getId(projects[category][i].projectId) === this.getId(projectId)
+      ) {
         return i;
       }
     }
     return 0;
   };
 
-  goToProject = projectId => {
-    const index = this.getIndex(projectId);
-    store.dispatch(goToProject(index));
+  goToProject = (category, projectId) => {
+    const index = this.getIndex(category, projectId);
+    const payload = {
+      category: category,
+      index: index
+    };
+    store.dispatch(goToProject(payload));
+  };
+
+  showHideCategory = category => {
+    const { currentCategories } = this.state;
+    if (currentCategories.indexOf(category) === -1) {
+      store.dispatch(showCategory(category));
+    } else {
+      store.dispatch(hideCategory(category));
+    }
   };
 
   handleSearchChange = (event, { value }) => {
@@ -137,6 +280,8 @@ export default class ProjectsSidebar extends Component {
           <Icon name="add" onClick={this.createProject} />
         </div>
         <Divider style={{ marginBottom: 0 }} />
+        {this.renderStandardProjects()}
+        <Divider style={{ margin: 0 }} />
         {this.renderProjects()}
       </Sidebar>
     );

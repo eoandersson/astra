@@ -25,7 +25,11 @@ class DeleteProjectOption extends Component {
       })
     }).then(response => {
       if (response.status === 204) {
-        store.dispatch(handleDeleteProject({ project: this.props.project }));
+        const payload = {
+          project: this.props.project,
+          category: this.props.category
+        };
+        store.dispatch(handleDeleteProject(payload));
       } else {
         console.log("Error: " + response.status);
       }

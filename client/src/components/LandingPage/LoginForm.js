@@ -43,7 +43,6 @@ class LoginForm extends Component {
         var jwtArr = jwt.split(" ");
         jwt = jwtArr[1];
         localStorage.setItem("JWT", jwt);
-        console.log("Log in: " + this.state.username);
         store.dispatch(userSignIn(this.state.username));
         setTimeout(() => {
           this.setState({ isLoading: false });
@@ -51,7 +50,6 @@ class LoginForm extends Component {
         }, 2000);
       } else {
         this.setState({ isLoading: false });
-        console.log(response.status);
       }
     });
   }

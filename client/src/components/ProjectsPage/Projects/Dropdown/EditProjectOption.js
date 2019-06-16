@@ -16,7 +16,8 @@ export default class EditProjectOption extends Component {
       projectDescription: this.props.project.projectDescription,
       users: this.props.project.users,
       tasks: this.props.project.tasks,
-      project: this.props.project
+      project: this.props.project,
+      category: this.props.category
     };
     store.dispatch(showEditProject(project));
   }

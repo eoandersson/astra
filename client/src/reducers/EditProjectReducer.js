@@ -7,7 +7,8 @@ const initialState = {
   projectName: "",
   projectDescription: "",
   usersMap: [],
-  tasks: []
+  tasks: [],
+  category: ""
 };
 
 export default function editProject(state = initialState, action) {
@@ -25,7 +26,8 @@ export default function editProject(state = initialState, action) {
         projectName: action.payload.projectName,
         projectDescription: action.payload.projectDescription,
         usersMap: usersMapObject,
-        tasks: action.payload.tasks
+        tasks: action.payload.tasks,
+        category: action.payload.category
       });
     case HIDE_EDIT_PROJECT:
       return initialState;

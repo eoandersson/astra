@@ -28,11 +28,11 @@ class DeleteTaskButton extends Component {
         }
       })
     }).then(response => {
-      console.log(response.status);
       if (response.status === 200) {
         var payload = {
           project: this.props.project,
-          name: this.props.task.name
+          name: this.props.task.name,
+          category: this.props.category
         };
         store.dispatch(deleteTask(payload));
       } else {

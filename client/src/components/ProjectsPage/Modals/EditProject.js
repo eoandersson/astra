@@ -1,5 +1,13 @@
 import React, { Component } from "react";
-import { Modal, Form, Input, Button, Icon, Divider, TextArea } from "semantic-ui-react";
+import {
+  Modal,
+  Form,
+  Input,
+  Button,
+  Icon,
+  Divider,
+  TextArea
+} from "semantic-ui-react";
 import store from "../../../store";
 import { hideEditProject, handleEditProject } from "../../../actions/index.js";
 
@@ -15,12 +23,15 @@ class EditProject extends Component {
       project: {},
       usersMap: [],
       users: [],
-      tasks: this.props.tasks
+      tasks: this.props.tasks,
+      category: ""
     };
 
     this.updateProject = this.updateProject.bind(this);
     this.handleProjectNameChange = this.handleProjectNameChange.bind(this);
-    this.handleProjectDescriptionChange = this.handleProjectDescriptionChange.bind(this);
+    this.handleProjectDescriptionChange = this.handleProjectDescriptionChange.bind(
+      this
+    );
     this.handleClose = this.handleClose.bind(this);
   }
 
@@ -30,10 +41,12 @@ class EditProject extends Component {
         show: store.getState().editModalVisibility.visibility,
         projectId: store.getState().editModalVisibility.projectId,
         projectName: store.getState().editModalVisibility.projectName,
-        projectDescription: store.getState().editModalVisibility.projectDescription,
+        projectDescription: store.getState().editModalVisibility
+          .projectDescription,
         project: store.getState().editModalVisibility.project,
         usersMap: store.getState().editModalVisibility.usersMap,
-        tasks: store.getState().editModalVisibility.tasks
+        tasks: store.getState().editModalVisibility.tasks,
+        category: store.getState().editModalVisibility.category
       });
     });
   }
@@ -68,7 +81,8 @@ class EditProject extends Component {
           project: this.state.project,
           projectName: this.state.projectName,
           projectDescription: this.state.projectDescription,
-          users: users
+          users: users,
+          category: this.state.category
         };
         store.dispatch(handleEditProject(payload));
         this.handleClose();
