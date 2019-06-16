@@ -32,7 +32,7 @@ public class ProjectController {
 	private MongoProjectService mongoService;
 	
 	@RequestMapping(value = "/projects", method = RequestMethod.POST)
-	public Projects createProject(@Valid @RequestBody ProjectCategoryRequest request) {
+	public ProjectCategoryRequest createProject(@Valid @RequestBody ProjectCategoryRequest request) {
 		return mongoService.createProject(request);
 	}
 	

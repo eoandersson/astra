@@ -18,6 +18,7 @@ class Task extends Component {
               projectId={this.props.projectId}
               task={this.props.task}
               project={this.props.project}
+              category={this.props.category}
             />
           </Grid.Column>
           <Grid.Column width={1} textAlign="center">
@@ -28,6 +29,7 @@ class Task extends Component {
               projectId={this.props.projectId}
               task={this.props.task}
               project={this.props.project}
+              category={this.props.category}
             />
           </Grid.Column>
         </Grid.Row>

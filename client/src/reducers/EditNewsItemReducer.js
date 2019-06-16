@@ -15,7 +15,6 @@ const initialState = {
 export default function editNewsItem(state = initialState, action) {
   switch (action.type) {
     case SHOW_EDIT_NEWS_ITEM:
-      console.log(action.payload);
       return Object.assign({}, state, {
         visibility: true,
         newsItem: action.payload.newsItem,

@@ -20,6 +20,7 @@ export default class ProjectDropdown extends Component {
           <EditProjectOption
             project={this.props.project}
             projectId={this.props.projectId}
+            category={this.props.category}
           />
           <FinishProjectOption />
           <Dropdown.Divider />
@@ -27,6 +28,7 @@ export default class ProjectDropdown extends Component {
           <DeleteProjectOption
             project={this.props.project}
             projectId={this.props.projectId}
+            category={this.props.category}
           />
         </Dropdown.Menu>
       </Dropdown>

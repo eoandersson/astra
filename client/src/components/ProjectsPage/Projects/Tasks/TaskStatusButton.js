@@ -47,7 +47,8 @@ class TaskStatusButton extends Component {
         var payload = {
           project: this.props.project,
           name: this.props.task.name,
-          status: status
+          status: status,
+          category: this.props.category
         };
         store.dispatch(editTask(payload));
       } else {
@@ -56,16 +57,24 @@ class TaskStatusButton extends Component {
     });
   }
 
+  getTaskStatusColor = () => {
+    const { task } = this.props;
+    if (task.status === 2) return "green";
+    else if (task.status === 1) return "yellow";
+    else return null;
+  };
+
+  getTaskStatusText = () => {
+    const { task } = this.props;
+    if (task.status === 2) return "Finished";
+    else if (task.status === 1) return "In Progress";
+    else return "Not Started";
+  };
+
   render() {
     return (
-      <Button.Group color=
-        {this.props.task.status === 2 ? "green" : 
-        (this.props.task.status === 1 ? "yellow" : null)}
-      >
-        <Button>
-          {this.props.task.status === 2 ? "Finished" : 
-          (this.props.task.status === 1 ? "In Progress" : "Not Started")}
-        </Button>
+      <Button.Group color={this.getTaskStatusColor()}>
+        <Button>{this.getTaskStatusText()}</Button>
         <Dropdown className="button icon" floating trigger={<React.Fragment />}>
           <Dropdown.Menu>
             <Dropdown.Item text="Not Started" onClick={this.setUnfinished} />

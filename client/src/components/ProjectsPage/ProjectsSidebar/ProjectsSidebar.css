@@ -8,31 +8,52 @@
   overflow-y: scroll;
 }
 
-.projects-sidebar > .item {
+.project-category-title {
+  text-align: start !important;
+  padding-left: 5px !important;
+  padding-bottom: 5 !important;
+  font-weight: 600;
+  font-size: medium !important;
+}
+
+.inactive {
+  opacity: 0.5 !important;
+}
+
+.project-category-content {
+  padding: 0 !important;
+}
+
+.project-category-content > .item {
   text-align: start !important;
   opacity: 0.5 !important;
   padding: 10px 10px !important;
+  background: transparent !important;
 }
 
-.projects-sidebar > .item.active {
+.project-category-content > .item.active {
   opacity: 1 !important;
+  background: rgba(255, 255, 255, 0.15) !important;
 }
 
-.projects-sidebar > .item:hover {
+.project-category-content > .item:hover {
   opacity: 1 !important;
+  background: rgba(255, 255, 255, 0.15) !important;
 }
 
-.projects-sidebar > .item > .header {
+.project-category-content > .item > .header {
   margin: 0 !important;
   display: flex;
   justify-content: space-between;
+  background: transparent !important;
+  font-weight: 100 !important;
 }
 
-.projects-sidebar > .item > .header > .dropdown > i {
+.project-category-content > .item > .header > .dropdown > i {
   opacity: 0.5;
 }
 
-.projects-sidebar > .item > .header > .dropdown > i:hover {
+.project-category-content > .item > .header > .dropdown > i:hover {
   opacity: 1;
 }
 

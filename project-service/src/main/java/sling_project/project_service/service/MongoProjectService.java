@@ -33,7 +33,7 @@ public class MongoProjectService {
 	@Autowired
 	private UsersRepository usersRepository;
 	
-	public Projects createProject(ProjectCategoryRequest request) {
+	public ProjectCategoryRequest createProject(ProjectCategoryRequest request) {
 		Projects project = request.getProject();
 		String categoryName = request.getProjectCategory();
 		
@@ -52,7 +52,8 @@ public class MongoProjectService {
 		}
 		
 		projectsRepository.save(project);
-		return project;
+		System.out.println(request);
+		return request;
 	}
 	
 	public ResponseEntity<?> deleteProject(UserProjectRequest request) {

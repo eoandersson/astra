@@ -7,6 +7,11 @@ export const EDIT_PROJECT = "EDIT_PROJECT";
 export const DELETE_PROJECT = "DELETE_PROJECT";
 export const ADD_PROJECT_LIST = "ADD_PROJECT_LIST";
 
+export const ADD_CATEGORY = "ADD_CATEGORY";
+export const DELETE_CATEGORY = "DELETE_CATEGORY";
+export const SHOW_CATEGORY = "SHOW_CATEGORY";
+export const HIDE_CATEGORY = "HIDE_CATEGORY";
+
 export const ADD_NEWS_ITEM = "ADD_NEWS_ITEM";
 export const EDIT_NEWS_ITEM = "EDIT_NEWS_ITEM";
 export const DELETE_NEWS_ITEM = "DELETE_NEWS_ITEM";

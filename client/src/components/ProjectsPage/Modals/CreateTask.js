@@ -12,7 +12,8 @@ class CreateTask extends Component {
       name: "",
       description: "",
       state: 0,
-      project: {}
+      project: {},
+      category: ""
     };
 
     this.addTask = this.addTask.bind(this);
@@ -26,7 +27,8 @@ class CreateTask extends Component {
       this.setState({
         show: store.getState().taskModalVisibility.visibility,
         projectId: store.getState().taskModalVisibility.projectId,
-        project: store.getState().taskModalVisibility.project
+        project: store.getState().taskModalVisibility.project,
+        category: store.getState().taskModalVisibility.category
       });
     });
   }
@@ -60,10 +62,10 @@ class CreateTask extends Component {
             name: this.state.name,
             description: this.state.description,
             state: this.state.state
-          }
+          },
+          category: this.state.category
         };
         store.dispatch(addTask(payload));
-
         this.handleClose();
       } else {
         console.log("Error");

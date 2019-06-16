@@ -23,6 +23,7 @@ class HomePage extends Component {
       projects: store.getState().handleProject.projects,
       username: store.getState().userAuthentication.username,
       visible: store.getState().handleProject.projectSidebarVisibility,
+      currentCategory: store.getState().handleProject.currentCategory,
       currentIndex: store.getState().handleProject.currentProjectIndex,
       isLoading: false
     };
@@ -40,6 +41,7 @@ class HomePage extends Component {
       this.setState({
         projects: store.getState().handleProject.projects,
         visible: store.getState().handleProject.projectSidebarVisibility,
+        currentCategory: store.getState().handleProject.currentCategory,
         currentIndex: store.getState().handleProject.currentProjectIndex,
         username: store.getState().userAuthentication.username
       });
@@ -91,12 +93,12 @@ class HomePage extends Component {
       })
       .then(responseJson => {
         const projects = responseJson;
-        var outputArr = [];
-        for (var i = 0; i < projects.length; i++) {
-          outputArr[i] = projects[i];
-        }
         this.setState({ isLoading: false });
-        store.dispatch(handleAddProjectList(outputArr));
+        var payload = {
+          projects: projects,
+          categories: Object.keys(projects)
+        };
+        store.dispatch(handleAddProjectList(payload));
       })
       .catch(error => {
         console.log("error: " + error);
@@ -104,8 +106,48 @@ class HomePage extends Component {
       });
   }
 
+  renderProject = () => {
+    const {
+      isLoading,
+      projects,
+      visible,
+      currentCategory,
+      currentIndex
+    } = this.state;
+
+    if (isLoading) {
+      return (
+        <div>
+          <Loader className="page-loader" active={this.state.isLoading}>
+            Loading
+          </Loader>
+        </div>
+      );
+    }
+
+    if (
+      Object.keys(projects).indexOf(currentCategory) != -1 &&
+      projects[currentCategory].length > currentIndex &&
+      currentIndex >= 0
+    ) {
+      return (
+        <Project
+          visible={visible}
+          project={projects[currentCategory][currentIndex]}
+          key={this.getId(projects[currentCategory][currentIndex].projectId)}
+          projectId={this.getId(
+            projects[currentCategory][currentIndex].projectId
+          )}
+          category={currentCategory}
+        />
+      );
+    }
+
+    return null;
+  };
+
   render() {
-    const { visible, currentIndex, projects } = this.state;
+    const { visible, projects } = this.state;
     const paddedClass = "home-projects-wrapper padding";
     const regularClass = "home-projects-wrapper";
     return (
@@ -117,20 +159,7 @@ class HomePage extends Component {
         <div className="home-content">
           <ProjectsSidebar projects={projects} />
           <div className={visible ? paddedClass : regularClass}>
-            {this.state.isLoading && projects.length === 0 ? (
-              <div>
-                <Loader className="page-loader" active={this.state.isLoading}>
-                  Loading
-                </Loader>
-              </div>
-            ) : projects.length > 0 ? (
-              <Project
-                visible={visible}
-                project={projects[currentIndex]}
-                key={this.getId(projects[currentIndex].projectId)}
-                projectId={this.getId(projects[currentIndex].projectId)}
-              />
-            ) : null}
+            {this.renderProject()}
           </div>
         </div>
       </div>

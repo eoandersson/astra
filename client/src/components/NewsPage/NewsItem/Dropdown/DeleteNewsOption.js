@@ -22,9 +22,7 @@ class DeleteNewsOption extends Component {
         newsId: this.props.newsId
       })
     }).then(response => {
-      console.log(response.status);
       if (response.status === 204) {
-        console.log("Removed");
         store.dispatch(handleDeleteNewsItem({ newsItem: this.props.newsItem }));
       } else {
         console.log("Error");

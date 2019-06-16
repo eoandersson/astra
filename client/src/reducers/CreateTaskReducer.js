@@ -6,7 +6,8 @@ const initialState = {
   projectId: "",
   name: "",
   description: "",
-  status: 0
+  status: 0,
+  category: ""
 };
 
 export default function taskModalVisibility(state = initialState, action) {
@@ -15,7 +16,8 @@ export default function taskModalVisibility(state = initialState, action) {
       return Object.assign({}, state, {
         visibility: true,
         projectId: action.payload.projectId,
-        project: action.payload.project
+        project: action.payload.project,
+        category: action.payload.category
       });
     case HIDE_CREATE_TASK:
       return initialState;

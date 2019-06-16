@@ -3,27 +3,36 @@ import {
   EDIT_PROJECT,
   DELETE_PROJECT,
   ADD_PROJECT_LIST,
+  ADD_CATEGORY,
+  DELETE_CATEGORY,
   SHOW_PROJECT_SIDEBAR,
   HIDE_PROJECT_SIDEBAR,
   GO_TO_PROJECT,
   ADD_TASK,
   EDIT_TASK,
-  DELETE_TASK
+  DELETE_TASK,
+  SHOW_CATEGORY,
+  HIDE_CATEGORY
 } from "../actions/ActionTypes";
 
 const initialState = {
-  projects: [],
+  projects: {},
+  currentCategories: ["My Projects"],
+  currentCategory: "My Projects",
   currentProjectIndex: 0,
-  projectSidebarVisibility: true
+  projectSidebarVisibility: true,
+  userCategories: ["My Projects", "Shared Projects"]
 };
 
 export default function handleProject(state = initialState, action) {
+  var newCurrentCategories = [];
+  var projectCategories = {};
   var projectList = [];
   var projectIndex = 0,
     taskIndex = 0;
 
   var getProjectIndex = function() {
-    projectList = state.projects;
+    projectList = state.projects[action.payload.category];
     var timeStamp = action.payload.project.projectId.timeStamp;
     var machineIdentifier = action.payload.project.projectId.machineIdentifier;
     var processIdentifier = action.payload.project.projectId.processIdentifier;
@@ -43,8 +52,8 @@ export default function handleProject(state = initialState, action) {
   };
 
   var getTaskIndex = function(projectIndex) {
-    projectList = state.projects;
-    var tasks = projectList[projectIndex].tasks;
+    projectCategories = state.projects;
+    var tasks = projectCategories[action.payload.category][projectIndex].tasks;
 
     for (var i = 0; i < tasks.length; i++) {
       if (tasks[i].name === action.payload.name) {
@@ -56,42 +65,80 @@ export default function handleProject(state = initialState, action) {
 
   switch (action.type) {
     case ADD_PROJECT:
-      projectList = state.projects;
-      projectList.push(action.payload.project);
+      projectCategories = state.projects;
+      projectList = projectCategories[action.payload.data.projectCategory];
+      projectList.push(action.payload.data.project);
+
+      newCurrentCategories = state.currentCategories;
+      if (
+        newCurrentCategories.indexOf(action.payload.data.projectCategory) === -1
+      ) {
+        newCurrentCategories.push(action.payload.data.projectCategory);
+      }
 
       return Object.assign({}, state, {
-        projects: projectList,
+        projects: projectCategories,
+        currentCategories: newCurrentCategories,
+        currentCategory: action.payload.data.projectCategory,
         currentProjectIndex: projectList.length - 1
       });
     case EDIT_PROJECT:
-      projectList = state.projects;
+      projectCategories = state.projects;
       projectIndex = getProjectIndex();
 
-      projectList[projectIndex].projectName = action.payload.projectName;
-      projectList[projectIndex].projectDescription =
-        action.payload.projectDescription;
-      projectList[projectIndex].users = action.payload.users;
+      projectCategories[action.payload.category][projectIndex].projectName =
+        action.payload.projectName;
+      projectCategories[action.payload.category][
+        projectIndex
+      ].projectDescription = action.payload.projectDescription;
+      projectCategories[action.payload.category][projectIndex].users =
+        action.payload.users;
 
       return Object.assign({}, state, {
-        projects: projectList
+        projects: projectCategories
       });
     case DELETE_PROJECT:
-      projectList = state.projects;
+      console.log(action.payload);
+      projectCategories = state.projects;
       projectIndex = getProjectIndex();
       var newProjectIndex = 0;
       if (projectIndex === projectList.length - 1) {
         newProjectIndex = projectIndex - 1;
       }
       if (projectIndex !== -1) {
-        projectList.splice(projectIndex, 1);
+        projectCategories[action.payload.category].splice(projectIndex, 1);
       }
       return Object.assign({}, state, {
-        projects: projectList,
+        projects: projectCategories,
         currentProjectIndex: newProjectIndex
       });
     case ADD_PROJECT_LIST:
       return Object.assign({}, state, {
-        projects: action.payload
+        userCategories: action.payload.categories,
+        projects: action.payload.projects
+      });
+    case ADD_CATEGORY:
+      return Object.assign({}, state, {
+        userCategories: this.state.userCategories.push(action.payload)
+      });
+    case DELETE_CATEGORY:
+      var currentCategories = this.state.userCategories;
+      delete currentCategories[action.payload];
+      return Object.assign({}, state, {
+        userCategories: currentCategories
+      });
+    case SHOW_CATEGORY:
+      newCurrentCategories = state.currentCategories;
+      newCurrentCategories.push(action.payload);
+      return Object.assign({}, state, {
+        currentCategories: newCurrentCategories
+      });
+    case HIDE_CATEGORY:
+      newCurrentCategories = state.currentCategories;
+      var categoryIndex = newCurrentCategories.indexOf(action.payload);
+      if (categoryIndex !== -1) newCurrentCategories.splice(categoryIndex, 1);
+      return Object.assign({}, state, {
+        currentCategories: newCurrentCategories
       });
     case SHOW_PROJECT_SIDEBAR:
       return Object.assign({}, state, {
@@ -103,38 +150,46 @@ export default function handleProject(state = initialState, action) {
       });
     case GO_TO_PROJECT:
       return Object.assign({}, state, {
-        currentProjectIndex: action.payload
+        currentCategory: action.payload.category,
+        currentProjectIndex: action.payload.index
       });
     case ADD_TASK:
-      projectList = state.projects;
+      projectCategories = state.projects;
       projectIndex = getProjectIndex();
 
-      projectList[projectIndex].tasks.push(action.payload.task);
+      projectCategories[action.payload.category][projectIndex].tasks.push(
+        action.payload.task
+      );
       return Object.assign({}, state, {
-        projects: projectList
+        projects: projectCategories
       });
 
     case EDIT_TASK:
-      projectList = state.projects;
+      projectCategories = state.projects;
       projectIndex = getProjectIndex();
       taskIndex = getTaskIndex(projectIndex);
 
       var newState = action.payload.status;
-      projectList[projectIndex].tasks[taskIndex].status = newState;
+      projectCategories[action.payload.category][projectIndex].tasks[
+        taskIndex
+      ].status = newState;
 
       return Object.assign({}, state, {
-        projects: projectList
+        projects: projectCategories
       });
     case DELETE_TASK:
-      projectList = state.projects;
+      projectCategories = state.projects;
       projectIndex = getProjectIndex();
       taskIndex = getTaskIndex(projectIndex);
 
       if (taskIndex !== -1) {
-        projectList[projectIndex].tasks.splice(taskIndex, 1);
+        projectCategories[action.payload.category][projectIndex].tasks.splice(
+          taskIndex,
+          1
+        );
       }
       return Object.assign({}, state, {
-        projects: projectList
+        projects: projectCategories
       });
     default:
       return state;
