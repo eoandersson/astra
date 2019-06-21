@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "./Project.css";
-import { Icon, Grid, Header } from "semantic-ui-react";
+import { Icon, Grid, Header, Divider } from "semantic-ui-react";
 
 import store from "../../../store";
 import {
@@ -15,6 +15,7 @@ import Task from "./Tasks/Task";
 import TaskHeader from "./Tasks/TaskHeader";
 import TaskFooter from "./Tasks/TaskFooter";
 import ProjectDropdown from "./Dropdown/ProjectDropdown";
+import CustomDivider from "../../CustomDivider/CustomDivider";
 
 class Project extends Component {
   constructor(props) {
@@ -51,84 +52,76 @@ class Project extends Component {
   };
 
   render() {
-    const { visible, project } = this.props;
+    const { visible, project, projectId, category } = this.props;
 
     return (
       <React.Fragment>
-        <Header attached="top" className="project-header">
-          <Grid columns={16}>
-            <Grid.Row stretched>
-              <Grid.Column width={1} className="header-column">
-                <Icon
-                  size="big"
-                  onClick={this.toggleSidebar}
-                  className="sidebar-toggle"
-                  name={visible ? "caret square left outline" : "sidebar"}
-                />
-              </Grid.Column>
-              <Grid.Column width={10} className="header-column title-column">
-                <Grid.Row>
-                  <h2>{this.props.project.projectName}</h2>
-                </Grid.Row>
-                <Grid divided columns={10} className="icon-row">
-                  <Grid.Column
-                    width={1}
-                    className="header-icon-column"
-                    textAlign="center"
-                  >
-                    <Icon name="star outline" size="small" />
-                  </Grid.Column>
-                  <Grid.Column
-                    width={1}
-                    className="header-icon-column"
-                    textAlign="center"
-                  >
-                    <Icon name="user outline" size="small" />{" "}
-                    {project.users.length}
-                  </Grid.Column>
-                </Grid>
-              </Grid.Column>
-              <Grid.Column width={5} floated="right" className="header-column">
-                <ProjectDropdown
-                  projectId={this.props.projectId}
-                  project={this.props.project}
-                  category={this.props.category}
-                />
-              </Grid.Column>
-            </Grid.Row>
-          </Grid>
-        </Header>
+        <div className="project-header">
+          <Icon
+            size="big"
+            onClick={this.toggleSidebar}
+            className="sidebar-toggle"
+            name={visible ? "caret square left outline" : "sidebar"}
+          />
+          <h2>{this.props.project.projectName}</h2>
+          <Icon name="star outline" size="small" />
+          <Icon name="user outline" size="small" /> {project.users.length}
+        </div>
         <div className="project-content">
           <div className="project-content-header">
-            <div className="project-description">
-              <h4>Project Description</h4>
-              <p>{this.props.project.projectDescription}</p>
-            </div>
-            <div className="project-users">
-              <h4>Project Members</h4>
-              <p>
-                {this.props.project.users.map(user => (
-                  <User user={user} key={user} />
-                ))}
-              </p>
-            </div>
+            <Grid stackable>
+              <Grid.Column width={7} className="project-header-column">
+                <h3>Project Description</h3>
+                <CustomDivider from="#ec6236" to="#eb555c" />
+                <div className="project-header-box">
+                  <p>{project.projectDescription}</p>
+                </div>
+              </Grid.Column>
+              <Grid.Column width={4} className="project-header-column">
+                <h3>Project Members</h3>
+                <CustomDivider from="#9aa0e4" to="#5642d4" />
+                <div className="project-header-box">
+                  <p>
+                    {project.users.map(user => (
+                      <User user={user} key={user} />
+                    ))}
+                  </p>
+                </div>
+              </Grid.Column>
+              <Grid.Column width={5} className="project-header-column">
+                <h3>Project Notes</h3>
+                <CustomDivider from="#a8e063" to="#56ab2f" />
+                <div className="project-header-box" />
+              </Grid.Column>
+            </Grid>
           </div>
           <div className="project-tasks">
-            <TaskHeader />
-            {this.props.project.tasks.map(task => (
-              <Task
-                task={task}
-                projectId={this.props.projectId}
-                project={this.props.project}
-                category={this.props.category}
-                key={task.name}
-              />
-            ))}
-            <TaskFooter
-              projectId={this.props.projectId}
-              project={this.props.project}
-              category={this.props.category}
-            />
+            <h3>Tasks</h3>
+            <CustomDivider from="#98e1eb" to="#6e9de4" />
+            <div className="project-tasks-box">
+              <Grid
+                columns={16}
+                className="task-grid"
+                stackable
+                divided="vertically"
+              >
+                {project.tasks.length > 0 ? <TaskHeader /> : null}
+                {project.tasks.map(task => (
+                  <Task
+                    task={task}
+                    projectId={projectId}
+                    project={project}
+                    category={category}
+                    key={task.name}
+                  />
+                ))}
+                <TaskFooter
+                  projectId={projectId}
+                  project={project}
+                  category={category}
+                />
+              </Grid>
+            </div>
           </div>
         </div>
       </React.Fragment>
