@@ -12,7 +12,7 @@ import {
   handleAddNewsItemList,
   showCreateNewsItem
 } from "../../actions/index.js";
-import SiteNavbar from "../Navbar";
+import Sidebar from "../Sidebar";
 
 class NewsPage extends Component {
   constructor(props) {
@@ -93,8 +93,8 @@ class NewsPage extends Component {
   render() {
     return (
       <div className="news-page">
-        <SiteNavbar />
         <div className="news-content">
+          <Sidebar />
           <div className="news-button-wrapper">
             <Button positive onClick={this.createNewsItem}>
               Post a New Article
