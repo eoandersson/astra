@@ -10,11 +10,10 @@ import CreateProject from "./Modals/CreateProject";
 import EditProject from "./Modals/EditProject";
 import CreateTask from "./Modals/CreateTask";
 
-import SiteNavbar from "../Navbar";
-
 import store from "./../../store";
 import { handleAddProjectList } from "../../actions/index.js";
-import ProjectsSidebar from "./ProjectsSidebar/ProjectsSidebar";
+import Sidebar from "../Sidebar";
+import CreateCategory from "./Modals/CreateCategory";
 
 class HomePage extends Component {
   constructor(props) {
@@ -155,9 +154,9 @@ class HomePage extends Component {
         <CreateProject />
         <EditProject />
         <CreateTask />
-        <SiteNavbar />
+        <CreateCategory />
         <div className="home-content">
-          <ProjectsSidebar projects={projects} />
+          <Sidebar projects={projects} />
           <div className={visible ? paddedClass : regularClass}>
             {this.renderProject()}
           </div>

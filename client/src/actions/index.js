@@ -4,3 +4,4 @@ export * from "./NewsActions";
 export * from "./ProjectActions";
 export * from "./TaskActions";
 export * from "./ProjectSearchAction";
+export * from "./CategoryActions";

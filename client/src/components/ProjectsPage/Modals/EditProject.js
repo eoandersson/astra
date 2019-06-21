@@ -130,6 +130,7 @@ class EditProject extends Component {
       <Modal
         closeIcon
         className="site-modal"
+        size="small"
         open={this.state.show}
         onClose={this.handleClose}
       >

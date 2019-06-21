@@ -134,17 +134,28 @@ class CreateProject extends Component {
     store.dispatch(hideCreateProject());
   }
 
-  render() {
+  getOptions() {
     const { userCategories } = this.state;
-    const options = userCategories.map(category => ({
+    const sortedCategories = ["My Projects", "Shared Projects"];
+    userCategories.sort().forEach(function(category) {
+      if (category !== "My Projects" && category !== "Shared Projects")
+        sortedCategories.push(category);
+    });
+
+    const options = sortedCategories.map(category => ({
       key: category,
       text: category,
       value: category
     }));
+    return options;
+  }
+
+  render() {
     return (
       <Modal
         closeIcon
         className="site-modal"
+        size="small"
         open={this.state.show}
         onClose={this.handleClose}
       >
@@ -162,7 +173,7 @@ class CreateProject extends Component {
               <Form.Select
                 fluid
                 label="Category"
-                options={options}
+                options={this.getOptions()}
                 placeholder="My Projects"
                 defaultValue="My Projects"
                 width={6}

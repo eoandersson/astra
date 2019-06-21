@@ -5,7 +5,8 @@ import org.bson.types.ObjectId;
 public class MoveProjectRequest {
 	
 	private String username;
-	private String category;
+	private String oldCategory;
+	private String targetCategory;
 	private ObjectId projectId;
 	
 	public String getUsername() {
@@ -14,17 +15,23 @@ public class MoveProjectRequest {
 	public void setUsername(String username) {
 		this.username = username;
 	}
-	public String getCategory() {
-		return category;
+	public String getOldCategory() {
+		return oldCategory;
 	}
-	public void setCategory(String category) {
-		this.category = category;
+	public void setOldCategory(String oldCategory) {
+		this.oldCategory = oldCategory;
+	}
+	public String getTargetCategory() {
+		return targetCategory;
+	}
+	public void setTargetCategory(String targetCategory) {
+		this.targetCategory = targetCategory;
 	}
 	public ObjectId getProjectId() {
 		return projectId;
 	}
 	public void setProjectId(ObjectId projectId) {
 		this.projectId = projectId;
-	}
+	}	
 
 }

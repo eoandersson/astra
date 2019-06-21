@@ -7,6 +7,7 @@ import handleNews from "./NewsReducer";
 import createNewsItem from "./CreateNewsItemReducer";
 import editNewsItem from "./EditNewsItemReducer";
 import userAuthentication from "./AuthenticationReducer";
+import createCategoryReducer from "./CreateCategoryReducer";
 
 export default combineReducers({
   editModalVisibility,
@@ -16,5 +17,6 @@ export default combineReducers({
   handleNews,
   createNewsItem,
   editNewsItem,
-  userAuthentication
+  userAuthentication,
+  createCategoryReducer
 });
