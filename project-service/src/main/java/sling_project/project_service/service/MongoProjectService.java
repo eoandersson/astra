@@ -104,9 +104,15 @@ public class MongoProjectService {
 		return new ResponseEntity(HttpStatus.NO_CONTENT);
 	}
 	
-	public ResponseEntity<?> changeProjectCategory(MoveProjectRequest request) {
-		String username = request.getUsername(), category=request.getCategory();
+	public ResponseEntity<?> moveProject(MoveProjectRequest request) {
+		String username = request.getUsername();
+		String oldCategory = request.getOldCategory();
+		String targetCategory = request.getTargetCategory();
 		ObjectId projectId = request.getProjectId();
+		
+		if(oldCategory.equals(targetCategory)) {
+			return new ResponseEntity(HttpStatus.BAD_REQUEST);
+		}
 		
 		Users user = usersRepository.findByUsername(username);
 		if(user == null) {
@@ -114,18 +120,17 @@ public class MongoProjectService {
 		}
 		
 		Map<String, ArrayList<ObjectId>> projectCategories = user.getProjectCategories();
-		if(!projectCategories.containsKey(category)) {
+		if(!projectCategories.containsKey(oldCategory) || !projectCategories.containsKey(targetCategory)) {
 			return new ResponseEntity(HttpStatus.NOT_FOUND);
 		}
 		
-		for(ArrayList<ObjectId> projects : projectCategories.values()) {
-			for(int i=0; i<projects.size(); i++) {
-				if(projects.get(i).equals(projectId)) {
-					projectCategories.get(category).add(projectId);
-					projects.remove(i);
-					usersRepository.save(user);
-					return new ResponseEntity(HttpStatus.OK);
-				}
+		ArrayList<ObjectId> projectList = projectCategories.get(oldCategory);
+		for(int i=0; i<projectList.size(); i++) {
+			if(projectList.get(i).equals(projectId)) {
+				projectList.remove(i);
+				projectCategories.get(targetCategory).add(projectId);
+				usersRepository.save(user);
+				return new ResponseEntity(HttpStatus.OK);
 			}
 		}
 		return new ResponseEntity(HttpStatus.NOT_FOUND);
@@ -227,6 +232,9 @@ public class MongoProjectService {
 	
 	public ResponseEntity<?> getProjectsByUsername(String username) {
 		Users user = usersRepository.findByUsername(username);
+		if(user == null) {
+			user = new Users(username);
+		}
 		Map<String, ArrayList<ObjectId>> projectCategories = user.getProjectCategories();
 		Map<String, ArrayList<Projects>> projects = new HashMap<String, ArrayList<Projects>>();
 		

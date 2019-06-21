@@ -1,0 +1,217 @@
+.projects-sidebar {
+  width: 250px !important;
+  background: #27283a !important;
+  position: absolute !important;
+  height: 100vh !important;
+  z-index: 0 !important;
+  overflow-y: scroll;
+}
+
+.project-category-title {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  text-align: start !important;
+  padding-left: 10px !important;
+  padding-right: 10px !important;
+  padding-bottom: 5px !important;
+  padding-top: 5px !important;
+  cursor: default !important;
+}
+
+.project-category-title > i {
+  opacity: 0.5 !important;
+}
+
+.project-category-title > i:hover {
+  opacity: 1 !important;
+  cursor: pointer;
+}
+
+.project-category-title > .category-dropdown:hover {
+  opacity: 1 !important;
+  cursor: pointer;
+}
+
+.dragover {
+  background: rgba(255, 255, 255, 0.05) !important;
+}
+
+.category-dropdown {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0 5px;
+}
+
+.inactive {
+  opacity: 0.5 !important;
+}
+
+.project-category-content {
+  padding: 0 !important;
+}
+
+.project-category-content > .item {
+  text-align: start !important;
+  opacity: 0.5 !important;
+  padding: 10px 15px !important;
+  background: transparent !important;
+}
+
+.project-category-content > .item.active {
+  opacity: 1 !important;
+  background: rgba(255, 255, 255, 0.15) !important;
+}
+
+.project-category-content > .item:hover {
+  opacity: 1 !important;
+  background: rgba(255, 255, 255, 0.15) !important;
+}
+
+.project-category-content > .item > .header {
+  margin: 0 !important;
+  display: flex;
+  justify-content: space-between;
+  background: transparent !important;
+  font-weight: 100 !important;
+}
+
+.project-category-content > .item > .header > .dropdown > i {
+  opacity: 0.5;
+}
+
+.project-category-content > .item > .header > .dropdown > i:hover {
+  opacity: 1;
+}
+
+.sidebar-button-wrapper {
+  color: #fff;
+  display: flex;
+  justify-content: space-between;
+  padding-left: 15px;
+  padding-right: 15px;
+  font-size: medium;
+  margin-top: 15px;
+  margin-bottom: 5px;
+}
+
+.sidebar-button-wrapper > span {
+  font-weight: bold;
+}
+
+.sidebar-button-wrapper > i {
+  opacity: 0.5;
+  cursor: pointer;
+}
+
+.sidebar-button-wrapper > i:hover {
+  opacity: 1;
+}
+
+.sidebar-project-name {
+  font-size: small;
+  padding-left: 10px;
+}
+
+.item.sidebar-item-empty:hover {
+  background: transparent !important;
+  opacity: 0.5 !important;
+}
+
+.sidebar-project-name-empty {
+  font-size: small;
+  padding-left: 10px;
+}
+
+.custom-divider {
+  width: 40px;
+  height: 4px;
+  background: #fff;
+  display: block;
+  margin-top: 10px;
+  margin-bottom: 5px;
+  margin-left: 15px;
+  border-radius: 2px;
+}
+
+.sidebar-nav-item {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center;
+  opacity: 0.6 !important;
+  padding-top: 8px !important;
+  padding-bottom: 8px !important;
+}
+
+.sidebar-nav-item.active {
+  opacity: 1 !important;
+}
+
+.sidebar-nav-item:hover {
+  opacity: 0.9 !important;
+}
+
+.sidebar-nav-item > span {
+  font-size: unset !important;
+  font-weight: bold !important;
+}
+
+.ui.labeled.icon.menu .item > .icon:not(.dropdown) {
+  float: left;
+  margin: 0 10px 0 0 !important;
+  font-size: 1.1em !important;
+}
+
+.project-sidebar-footer {
+  color: #fff;
+  display: flex;
+  justify-content: space-between;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.project-sidebar-footer > span {
+  opacity: 1;
+}
+
+.project-sidebar-footer > i {
+  opacity: 0.5;
+  cursor: pointer;
+}
+
+.project-sidebar-footer > i:hover {
+  opacity: 1;
+}
+
+.site-sidebar {
+  position: fixed;
+  height: 100vh !important;
+  background: rgba(29, 9, 31, 1) !important;
+  z-index: 999 !important;
+}
+
+.sidebar-header {
+  border-radius: 0 !important;
+  color: white !important;
+  margin-bottom: 0 !important;
+  background: transparent !important;
+  font-size: medium;
+  font-weight: bold;
+}
+
+.sidebar-header-icon {
+  margin-right: 10px !important;
+}
+
+.sidebar-item {
+  font-size: small;
+}
+
+.logout-button {
+  position: absolute !important;
+  bottom: 0;
+  left: 0;
+  margin-left: 34.5px;
+  margin-bottom: 34.5px;
+}

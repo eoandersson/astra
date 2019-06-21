@@ -58,7 +58,7 @@ public class ProjectController {
 	
 	@RequestMapping(value = "/projects/category/move", method = RequestMethod.PUT)
 	public ResponseEntity<?> moveProject(@RequestBody @Valid MoveProjectRequest request) {
-		return mongoService.changeProjectCategory(request);
+		return mongoService.moveProject(request);
 	}
 	
 	@RequestMapping(value = "/projects/task", method = RequestMethod.POST)

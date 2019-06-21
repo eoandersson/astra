@@ -8,7 +8,9 @@ import {
   SHOW_CREATE_NEWS_ITEM,
   HIDE_CREATE_NEWS_ITEM,
   SHOW_EDIT_NEWS_ITEM,
-  HIDE_EDIT_NEWS_ITEM
+  HIDE_EDIT_NEWS_ITEM,
+  SHOW_CREATE_CATEGORY,
+  HIDE_CREATE_CATEGORY
 } from "./ActionTypes";
 
 export function showEditProject(project) {
@@ -49,4 +51,12 @@ export function showEditNewsItem(newsItem) {
 
 export function hideEditNewsItem() {
   return { type: HIDE_EDIT_NEWS_ITEM };
+}
+
+export function showCreateCategory(newsItem) {
+  return { type: SHOW_CREATE_CATEGORY, payload: newsItem };
+}
+
+export function hideCreateCategory() {
+  return { type: HIDE_CREATE_CATEGORY };
 }

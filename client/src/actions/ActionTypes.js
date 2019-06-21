@@ -18,6 +18,9 @@ export const DELETE_NEWS_ITEM = "DELETE_NEWS_ITEM";
 export const ADD_NEWS_ITEM_LIST = "ADD_NEWS_ITEM_LIST";
 
 // Action types for showing and hiding modals
+export const SHOW_CREATE_CATEGORY = "SHOW_CREATE_CATEGORY";
+export const HIDE_CREATE_CATEGORY = "HIDE_CREATE_CATEGORY";
+
 export const SHOW_CREATE_PROJECT = "SHOW_CREATE_PROJECT";
 export const HIDE_CREATE_PROJECT = "HIDE_CREATE_PROJECT";
 
@@ -39,3 +42,4 @@ export const USER_SIGN_OUT = "USER_SIGN_OUT";
 export const SHOW_PROJECT_SIDEBAR = "SHOW_PROJECT_SIDEBAR";
 export const HIDE_PROJECT_SIDEBAR = "HIDE_PROJECT_SIDEBAR";
 export const GO_TO_PROJECT = "GO_TO_PROJECT";
+export const MOVE_PROJECT = "MOVE_PROJECT";
