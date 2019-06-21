@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Button, Dropdown } from "semantic-ui-react";
+import { Icon, Dropdown } from "semantic-ui-react";
 import store from "../../../../store";
 import { editTask } from "../../../../actions/index.js";
 
@@ -59,9 +59,9 @@ class TaskStatusButton extends Component {
 
   getTaskStatusColor = () => {
     const { task } = this.props;
-    if (task.status === 2) return "green";
-    else if (task.status === 1) return "yellow";
-    else return null;
+    if (task.status === 2) return "task-status green";
+    else if (task.status === 1) return "task-status yellow";
+    else return "task-status";
   };
 
   getTaskStatusText = () => {
@@ -71,18 +71,25 @@ class TaskStatusButton extends Component {
     else return "Not Started";
   };
 
+  getStatusIcon = () => {
+    const { task } = this.props;
+    if (task.status === 2 || task.status === 1) return "circle";
+    else return "circle outline";
+  };
+
   render() {
     return (
-      <Button.Group color={this.getTaskStatusColor()}>
-        <Button>{this.getTaskStatusText()}</Button>
-        <Dropdown className="button icon" floating trigger={<React.Fragment />}>
+      <div className={this.getTaskStatusColor()}>
+        <Icon name={this.getStatusIcon()} />
+        {this.getTaskStatusText()}
+        <Dropdown>
           <Dropdown.Menu>
-            <Dropdown.Item text="Not Started" onClick={this.setUnfinished} />
-            <Dropdown.Item text="In Progress" onClick={this.setInProgress} />
             <Dropdown.Item text="Finished" onClick={this.setFinished} />
+            <Dropdown.Item text="In Progress" onClick={this.setInProgress} />
+            <Dropdown.Item text="Not Started" onClick={this.setUnfinished} />
           </Dropdown.Menu>
         </Dropdown>
-      </Button.Group>
+      </div>
     );
   }
 }

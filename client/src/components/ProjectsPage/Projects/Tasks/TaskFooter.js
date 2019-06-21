@@ -20,15 +20,13 @@ class TaskFooter extends Component {
 
   render() {
     return (
-      <Grid columns={16} className="task-footer" divided>
-        <Grid.Row verticalAlign="middle">
-          <Grid.Column width={16} textAlign="center">
-            <Button positive onClick={this.createTask}>
-              Add Task
-            </Button>
-          </Grid.Column>
-        </Grid.Row>
-      </Grid>
+      <Grid.Row verticalAlign="middle">
+        <Grid.Column width={16} textAlign="center" className="task-footer">
+          <h4 className="add-task-button" onClick={this.createTask}>
+            Add a New Task
+          </h4>
+        </Grid.Column>
+      </Grid.Row>
     );
   }
 }

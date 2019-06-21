@@ -6,7 +6,7 @@
 }
 
 .page-loader {
-  position: relative !important;
+  position: absolute !important;
 }
 
 .site-modal {

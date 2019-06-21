@@ -5,6 +5,9 @@
   height: 100vh !important;
   z-index: 0 !important;
   overflow-y: scroll;
+  -webkit-box-shadow: none !important;
+  -moz-box-shadow: none !important;
+  box-shadow: none !important;
 }
 
 .project-category-title {
