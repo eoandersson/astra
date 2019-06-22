@@ -8,12 +8,14 @@ import {
   SHOW_PROJECT_SIDEBAR,
   HIDE_PROJECT_SIDEBAR,
   GO_TO_PROJECT,
+  GO_TO_DASHBOARD,
   ADD_TASK,
   EDIT_TASK,
   DELETE_TASK,
   SHOW_CATEGORY,
   HIDE_CATEGORY,
-  MOVE_PROJECT
+  MOVE_PROJECT,
+  USER_SIGN_OUT
 } from "../actions/ActionTypes";
 
 const initialState = {
@@ -200,6 +202,11 @@ export default function handleProject(state = initialState, action) {
         currentCategory: action.payload.category,
         currentProjectIndex: action.payload.index
       });
+    case GO_TO_DASHBOARD:
+      return Object.assign({}, state, {
+        currentCategory: "",
+        currentProjectIndex: 0
+      });
     case ADD_TASK:
       projectCategories = state.projects;
       projectIndex = getProjectIndex(action.payload.category);
@@ -237,6 +244,15 @@ export default function handleProject(state = initialState, action) {
       }
       return Object.assign({}, state, {
         projects: projectCategories
+      });
+    case USER_SIGN_OUT:
+      return Object.assign({}, state, {
+        projects: {},
+        currentCategories: [],
+        currentCategory: "",
+        currentProjectIndex: 0,
+        projectSidebarVisibility: true,
+        userCategories: ["My Projects", "Shared Projects"]
       });
     default:
       return state;

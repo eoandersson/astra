@@ -2,6 +2,7 @@ import {
   SHOW_PROJECT_SIDEBAR,
   HIDE_PROJECT_SIDEBAR,
   GO_TO_PROJECT,
+  GO_TO_DASHBOARD,
   SHOW_CATEGORY,
   HIDE_CATEGORY,
   MOVE_PROJECT
@@ -17,6 +18,10 @@ export function hideProjectSidebar() {
 
 export function goToProject(payload) {
   return { type: GO_TO_PROJECT, payload: payload };
+}
+
+export function goToDashboard() {
+  return { type: GO_TO_DASHBOARD };
 }
 
 export function showCategory(category) {
