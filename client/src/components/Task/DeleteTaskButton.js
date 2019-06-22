@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Popup, Button } from "semantic-ui-react";
-import store from "../../../../store";
-import { deleteTask } from "../../../../actions/";
+import store from "../../store";
+import { deleteTask } from "../../actions/";
 
 class DeleteTaskButton extends Component {
   constructor(props) {

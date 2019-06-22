@@ -1,21 +1,20 @@
 import React, { Component } from "react";
 import "./ProjectsPage.css";
 import { withRouter } from "react-router-dom";
-
+import store from "../../store";
+import { handleAddProjectList, goToProject } from "../../actions/index.js";
 import { Loader, Dropdown, Icon, Divider, Grid } from "semantic-ui-react";
 
-import Project from "./Projects/Project";
+import Project from "../../components/Project/Project";
 
-import CreateProject from "./Modals/CreateProject";
-import EditProject from "./Modals/EditProject";
-import CreateTask from "./Modals/CreateTask";
+import CreateProject from "../../components/Modals/CreateProject";
+import EditProject from "../../components/Modals/EditProject";
+import CreateTask from "../../components/Modals/CreateTask";
+import CreateCategory from "../../components/Modals/CreateCategory";
 
-import store from "./../../store";
-import { handleAddProjectList, goToProject } from "../../actions/index.js";
-import Sidebar from "../Sidebar";
-import CreateCategory from "./Modals/CreateCategory";
-import PageHeader from "../PageHeader/PageHeader";
-import DashboardIcon from "../DashboardIcon/DashboardIcon";
+import Sidebar from "../../components/Sidebar/Sidebar";
+import PageHeader from "../../components/PageHeader/PageHeader";
+import DashboardIcon from "../../components/DashboardIcon/DashboardIcon";
 
 class HomePage extends Component {
   constructor(props) {

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Modal, Button, Form, Input, TextArea, Icon } from "semantic-ui-react";
-import store from "./../../../store";
-import { addTask, hideCreateTask } from "../../../actions/index.js";
+import store from "../../store";
+import { addTask, hideCreateTask } from "../../actions/index.js";
 
 class CreateTask extends Component {
   constructor() {

@@ -4,7 +4,7 @@ import { withRouter } from "react-router-dom";
 
 import { Button, Loader } from "semantic-ui-react";
 
-import NewsItem from "./NewsItem/NewsItem";
+import NewsItem from "../../components/NewsItem";
 import CreateNewsItem from "./CreateNewsItem";
 import EditNewsItem from "./EditNewsItem";
 import store from "../../store";
@@ -12,7 +12,7 @@ import {
   handleAddNewsItemList,
   showCreateNewsItem
 } from "../../actions/index.js";
-import Sidebar from "../Sidebar";
+import Sidebar from "../../components/Sidebar";
 
 class NewsPage extends Component {
   constructor(props) {

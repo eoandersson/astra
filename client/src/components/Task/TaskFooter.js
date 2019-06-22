@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import { Grid, Button } from "semantic-ui-react";
-import store from "../../../../store";
-import { showCreateTask } from "../../../../actions/index.js";
+import { Grid } from "semantic-ui-react";
+import store from "../../store";
+import { showCreateTask } from "../../actions/index.js";
 
 class TaskFooter extends Component {
   constructor(props) {

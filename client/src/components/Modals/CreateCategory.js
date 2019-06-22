@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import store from "../../../store";
-import { hideCreateCategory, addCategory } from "../../../actions";
+import store from "../../store";
+import { hideCreateCategory, addCategory } from "../../actions";
 
 import { Modal, Form, Icon, Button, Input } from "semantic-ui-react";
 

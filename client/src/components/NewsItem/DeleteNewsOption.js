@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Dropdown } from "semantic-ui-react";
-import { handleDeleteNewsItem } from "../../../../actions";
-import store from "../../../../store";
+import { handleDeleteNewsItem } from "../../actions";
+import store from "../../store";
 
 class DeleteNewsOption extends Component {
   constructor(props) {
