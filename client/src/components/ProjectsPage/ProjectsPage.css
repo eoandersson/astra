@@ -41,3 +41,38 @@
   cursor: pointer;
   margin: 20px !important;
 }
+
+.dashboard-body {
+  width: 90%;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  margin-top: 50px !important;
+}
+
+.dashboard-greeting {
+  text-align: center !important;
+}
+
+.dashboard-greeting-content {
+  width: 75%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.dashboard-greeting-content > p {
+  color: #94989d;
+}
+
+.dashboard-projects-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.dashboard-list-item {
+  cursor: pointer;
+}
+
+.dashboard-list-item:hover {
+  background: rgb(0, 0, 0, 0.05);
+}

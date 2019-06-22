@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "./Sidebar.css";
 import store from "../../store";
-import { showCreateProject, userSignOut } from "../../actions";
+import { showCreateProject, userSignOut, goToDashboard } from "../../actions";
 import { Sidebar, Menu, Divider, Icon, Segment } from "semantic-ui-react";
 import { Link, withRouter } from "react-router-dom";
 
@@ -122,6 +122,7 @@ class ProjectsSidebar extends Component {
           className="sidebar-nav-item"
           as={Link}
           to="/home"
+          onClick={this.goToDashboard}
           active={this.props.location.pathname === "/home"}
         >
           <Icon
@@ -146,10 +147,6 @@ class ProjectsSidebar extends Component {
           />
           <span>News</span>
         </Menu.Item>
-        <Menu.Item className="logout-button" onClick={this.logoutFunction}>
-          <Icon name="logout" />
-          <span>Logout</span>
-        </Menu.Item>
       </React.Fragment>
     );
   };
@@ -158,11 +155,8 @@ class ProjectsSidebar extends Component {
     store.dispatch(showCreateProject());
   };
 
-  logoutFunction = e => {
-    e.preventDefault();
-    localStorage.removeItem("JWT");
-    store.dispatch(userSignOut());
-    this.props.history.push("/");
+  goToDashboard = () => {
+    store.dispatch(goToDashboard());
   };
 
   render() {

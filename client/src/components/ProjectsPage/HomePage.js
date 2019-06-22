@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import "./ProjectsPage.css";
 import { withRouter } from "react-router-dom";
 
-import { Loader } from "semantic-ui-react";
+import { Loader, Dropdown, Icon, Divider, Grid } from "semantic-ui-react";
 
 import Project from "./Projects/Project";
 
@@ -11,9 +11,11 @@ import EditProject from "./Modals/EditProject";
 import CreateTask from "./Modals/CreateTask";
 
 import store from "./../../store";
-import { handleAddProjectList } from "../../actions/index.js";
+import { handleAddProjectList, goToProject } from "../../actions/index.js";
 import Sidebar from "../Sidebar";
 import CreateCategory from "./Modals/CreateCategory";
+import PageHeader from "../PageHeader/PageHeader";
+import DashboardIcon from "../DashboardIcon/DashboardIcon";
 
 class HomePage extends Component {
   constructor(props) {
@@ -105,6 +107,113 @@ class HomePage extends Component {
       });
   }
 
+  getProjectList = () => {
+    const { projects } = this.state;
+    const categories = Object.keys(projects);
+    const projectOutput = [];
+
+    for (var i = 0; i < categories.length; i++) {
+      for (var j = 0; j < projects[categories[i]].length; j++) {
+        var payload = {
+          category: categories[i],
+          project: projects[categories[i]][j]
+        };
+        projectOutput.push(payload);
+      }
+    }
+
+    return projectOutput;
+  };
+
+  getIndex = (category, projectId) => {
+    const { projects } = this.state;
+    for (var i = 0; i < projects[category].length; i++) {
+      if (
+        this.getId(projects[category][i].projectId) === this.getId(projectId)
+      ) {
+        return i;
+      }
+    }
+    return 0;
+  };
+
+  goToProject = (category, projectId) => {
+    const index = this.getIndex(category, projectId);
+    const payload = {
+      category: category,
+      index: index
+    };
+    store.dispatch(goToProject(payload));
+  };
+
+  renderDashboard = () => {
+    const { username } = this.state;
+    return (
+      <React.Fragment>
+        <PageHeader>
+          <h2>Projects Dashboard</h2>
+        </PageHeader>
+        <Grid className="dashboard-body" stackable>
+          <Grid.Column className="dashboard-greeting" width={10}>
+            <h2>Welcome to Sling, {username}!</h2>
+            <div className="dashboard-greeting-content">
+              <p>
+                Project Sling is a project management tool developed to help
+                people get more organized. Here you can create projects and
+                track your progress, ensuring stress free productivity.
+              </p>
+              <p>
+                Project Sling is being actively developed as a side project. As
+                such, we would appreciate any feedback you have as we are
+                constantly striving to improve this application.
+              </p>
+            </div>
+          </Grid.Column>
+          <Grid.Column className="dashboard-projects" width={6}>
+            <div className="dashboard-projects-header">
+              <h3>Projects</h3>
+              <div>
+                <Icon name="list" />
+                <Dropdown direction="left">
+                  <Dropdown.Menu>
+                    <Dropdown.Item text="View as list" />
+                    <Dropdown.Item disabled text="View as tiles" />
+                  </Dropdown.Menu>
+                </Dropdown>
+              </div>
+            </div>
+            <Divider style={{ marginTop: "0px" }} />
+            <Grid>
+              {this.getProjectList().map(payload => (
+                <Grid.Row
+                  className="dashboard-list-item"
+                  onClick={() => {
+                    this.goToProject(
+                      payload.category,
+                      payload.project.projectId
+                    );
+                  }}
+                >
+                  <Grid.Column
+                    width={2}
+                    textAlign="center"
+                    only="computer tablet"
+                  >
+                    <DashboardIcon />
+                  </Grid.Column>
+                  <Grid.Column width={10}>
+                    <h4 style={{ margin: 0 }}>{payload.project.projectName}</h4>
+                    <span style={{ color: "#94989d" }}>{payload.category}</span>
+                  </Grid.Column>
+                </Grid.Row>
+              ))}
+            </Grid>
+          </Grid.Column>
+        </Grid>
+      </React.Fragment>
+    );
+  };
+
   renderProject = () => {
     const {
       isLoading,
@@ -142,7 +251,7 @@ class HomePage extends Component {
       );
     }
 
-    return null;
+    return this.renderDashboard();
   };
 
   render() {
