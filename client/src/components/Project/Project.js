@@ -2,16 +2,16 @@ import React, { Component } from "react";
 import "./Project.css";
 import { Icon, Grid } from "semantic-ui-react";
 
-import store from "../../../store";
-import { showCreateTask } from "../../../actions/index.js";
+import store from "../../store";
+import { showCreateTask } from "../../actions/index.js";
 
 import User from "./User";
 
-import Task from "./Tasks/Task";
-import TaskHeader from "./Tasks/TaskHeader";
-import TaskFooter from "./Tasks/TaskFooter";
-import CustomDivider from "../../CustomDivider/CustomDivider";
-import PageHeader from "../../PageHeader/PageHeader";
+import Task from "../Task/Task";
+import TaskHeader from "../Task/TaskHeader";
+import TaskFooter from "../Task/TaskFooter";
+import CustomDivider from "../CustomDivider";
+import PageHeader from "../PageHeader";
 
 class Project extends Component {
   constructor(props) {

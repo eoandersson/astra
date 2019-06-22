@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import NewsDropdown from "./Dropdown/NewsDropdown";
+import NewsDropdown from "./NewsDropdown";
 
 class NewsItem extends Component {
   constructor(props) {
