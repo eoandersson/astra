@@ -10,24 +10,9 @@
   transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
-.project-header {
-  display: flex;
-  flex-direction: row;
-  height: 62px;
-  align-items: center;
-  background: #fff;
-  -webkit-box-shadow: 0 5px 10px -1px #f5f5f5;
-  -moz-box-shadow: 0 5px 10px -1px #f5f5f5;
-  box-shadow: 0 5px 10px -1px #f5f5f5;
-}
-
 .project-header-column {
   padding-right: 20px;
   padding-left: 20px;
-}
-
-.project-header > h2 {
-  margin: 0 25px 0 0;
 }
 
 .project-header-box {

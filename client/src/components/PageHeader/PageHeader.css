@@ -1,0 +1,30 @@
+.page-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  height: 60px;
+  align-items: center;
+  background: #fff;
+  -webkit-box-shadow: 0 5px 10px -1px #f5f5f5;
+  -moz-box-shadow: 0 5px 10px -1px #f5f5f5;
+  box-shadow: 0 5px 10px -1px #f5f5f5;
+}
+
+.header-info {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.header-info > h2 {
+  margin: 0 25px 0 0;
+}
+
+.logout-button {
+  cursor: pointer;
+  margin-right: 20px !important;
+}
+
+.logout-button:hover {
+  transform: scale(1.1);
+}

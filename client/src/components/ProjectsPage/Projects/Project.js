@@ -1,21 +1,17 @@
 import React, { Component } from "react";
 import "./Project.css";
-import { Icon, Grid, Header, Divider } from "semantic-ui-react";
+import { Icon, Grid } from "semantic-ui-react";
 
 import store from "../../../store";
-import {
-  showCreateTask,
-  showProjectSidebar,
-  hideProjectSidebar
-} from "../../../actions/index.js";
+import { showCreateTask } from "../../../actions/index.js";
 
 import User from "./User";
 
 import Task from "./Tasks/Task";
 import TaskHeader from "./Tasks/TaskHeader";
 import TaskFooter from "./Tasks/TaskFooter";
-import ProjectDropdown from "./Dropdown/ProjectDropdown";
 import CustomDivider from "../../CustomDivider/CustomDivider";
+import PageHeader from "../../PageHeader/PageHeader";
 
 class Project extends Component {
   constructor(props) {
@@ -42,31 +38,16 @@ class Project extends Component {
     this.setState({ active: newState });
   };
 
-  toggleSidebar = () => {
-    const { visible } = this.props;
-    if (visible) {
-      store.dispatch(hideProjectSidebar());
-    } else {
-      store.dispatch(showProjectSidebar());
-    }
-  };
-
   render() {
-    const { visible, project, projectId, category } = this.props;
+    const { project, projectId, category } = this.props;
 
     return (
       <React.Fragment>
-        <div className="project-header">
-          <Icon
-            size="big"
-            onClick={this.toggleSidebar}
-            className="sidebar-toggle"
-            name={visible ? "caret square left outline" : "sidebar"}
-          />
+        <PageHeader>
           <h2>{this.props.project.projectName}</h2>
           <Icon name="star outline" size="small" />
           <Icon name="user outline" size="small" /> {project.users.length}
-        </div>
+        </PageHeader>
         <div className="project-content">
           <div className="project-content-header">
             <Grid stackable>
