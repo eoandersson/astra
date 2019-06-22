@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import store from "../../../../store";
-import { handleDeleteProject } from "../../../../actions/index.js";
+import store from "../../store";
+import { handleDeleteProject } from "../../actions/index.js";
 import { Dropdown } from "semantic-ui-react";
 
 class DeleteProjectOption extends Component {

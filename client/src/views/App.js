@@ -2,10 +2,10 @@ import React, { Component } from "react";
 import "./App.css";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 
-import LandingPage from "./components/LandingPage";
-import RegisterPage from "./components/RegisterPage";
-import HomePage from "./components/ProjectsPage";
-import NewsPage from "./components/NewsPage";
+import LandingPage from "./LandingPage/LandingPage";
+import RegisterPage from "./RegisterPage/RegisterPage";
+import HomePage from "./HomePage/HomePage";
+import NewsPage from "./NewsPage/NewsPage";
 
 class App extends Component {
   render() {
