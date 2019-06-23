@@ -1,7 +1,6 @@
 import React, { Component } from "react";
-import store from "../../store";
-import { handleDeleteProject } from "../../actions/index.js";
 import { Dropdown } from "semantic-ui-react";
+import deleteProject from "../../data/delete/DeleteProject";
 
 class DeleteProjectOption extends Component {
   constructor(props) {
@@ -12,28 +11,8 @@ class DeleteProjectOption extends Component {
 
   delete(event) {
     event.preventDefault();
-    fetch("/project-service/projects", {
-      method: "DELETE",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-        Authorization: "Bearer " + localStorage.getItem("JWT")
-      },
-      body: JSON.stringify({
-        projectId: this.props.projectId,
-        username: store.getState().userAuthentication.username
-      })
-    }).then(response => {
-      if (response.status === 204) {
-        const payload = {
-          project: this.props.project,
-          category: this.props.category
-        };
-        store.dispatch(handleDeleteProject(payload));
-      } else {
-        console.log("Error: " + response.status);
-      }
-    });
+    const { project, projectId, category } = this.props;
+    deleteProject({ project, projectId, category });
   }
 
   render() {

@@ -1,19 +1,34 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
+import store from "../../store";
 import { Form, Button } from "semantic-ui-react";
-import { userSignIn } from "../../actions/index.js";
-import store from "../../store.js";
+import login from "../../data/Login";
 
 class LoginForm extends Component {
   constructor(props) {
     super(props);
 
-    this.state = { username: "", password: "", isLoading: false };
+    this.state = {
+      username: "",
+      password: "",
+      isLoading: store.getState().loading.loginLoading
+    };
 
     this.handleUsernameChange = this.handleUsernameChange.bind(this);
     this.handlePasswordChange = this.handlePasswordChange.bind(this);
-    this.login = this.login.bind(this);
-    this.userAuthenticated = this.userAuthenticated.bind(this);
+    this.handleLogin = this.handleLogin.bind(this);
+  }
+
+  componentDidMount() {
+    this.unsubscribe = store.subscribe(() => {
+      this.setState({
+        isLoading: store.getState().loading.loginLoading
+      });
+    });
+  }
+
+  componentWillUnmount() {
+    this.unsubscribe();
   }
 
   handleUsernameChange(event) {
@@ -24,42 +39,15 @@ class LoginForm extends Component {
     this.setState({ password: event.target.value });
   }
 
-  login(event) {
+  handleLogin(event) {
     event.preventDefault();
-    this.setState({ isLoading: true });
-    fetch("/login-service/users/login", {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        username: this.state.username,
-        password: this.state.password
-      })
-    }).then(response => {
-      if (response.status === 200) {
-        var jwt = response.headers.get("Authorization");
-        var jwtArr = jwt.split(" ");
-        jwt = jwtArr[1];
-        localStorage.setItem("JWT", jwt);
-        store.dispatch(userSignIn(this.state.username));
-        setTimeout(() => {
-          this.setState({ isLoading: false });
-          this.props.history.push("/home");
-        }, 2000);
-      } else {
-        this.setState({ isLoading: false });
-      }
-    });
+    const { username, password } = this.state;
+    const { history } = this.props;
+    login(username, password, history);
   }
 
-  userAuthenticated = (username, dispatch) =>
-    new Promise((resolve, reject) => {
-      resolve();
-    });
-
   render() {
+    const { username, password, isLoading } = this.state;
     return (
       <div className="login-form">
         <Form>
@@ -68,7 +56,7 @@ class LoginForm extends Component {
             <input
               type="text"
               placeholder="Enter username"
-              value={this.state.username}
+              value={username}
               onChange={this.handleUsernameChange}
             />
           </Form.Field>
@@ -78,15 +66,16 @@ class LoginForm extends Component {
             <input
               type="password"
               placeholder="Password"
-              value={this.state.password}
+              value={password}
               onChange={this.handlePasswordChange}
             />
           </Form.Field>
           <Button
             positive
             type="submit"
-            onClick={this.login}
-            loading={this.state.isLoading}
+            onClick={this.handleLogin}
+            loading={isLoading}
+            disabled={isLoading}
           >
             Sign In
           </Button>

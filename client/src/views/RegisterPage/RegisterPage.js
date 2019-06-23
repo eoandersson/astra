@@ -1,16 +1,34 @@
 import React, { Component } from "react";
+import store from "../../store";
 import { Button, Form } from "semantic-ui-react";
 import "./RegisterPage.css";
+import createUser from "../../data/create/CreateUser";
 
 class RegisterPage extends Component {
   constructor(props) {
     super(props);
 
-    this.state = { username: "", password: "" };
+    this.state = {
+      username: "",
+      password: "",
+      isLoading: store.getState().loading.registerLoading
+    };
 
     this.handleUsernameChange = this.handleUsernameChange.bind(this);
     this.handlePasswordChange = this.handlePasswordChange.bind(this);
     this.register = this.register.bind(this);
+  }
+
+  componentDidMount() {
+    this.unsubscribe = store.subscribe(() => {
+      this.setState({
+        isLoading: store.getState().loading.registerLoading
+      });
+    });
+  }
+
+  componentWillUnmount() {
+    this.unsubscribe();
   }
 
   handleUsernameChange(event) {
@@ -23,27 +41,13 @@ class RegisterPage extends Component {
 
   register(event) {
     event.preventDefault();
-    fetch("/login-service/users/register", {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        username: this.state.username,
-        password: this.state.password
-      })
-    }).then(response => {
-      console.log(response.status);
-      if (response.status === 200) {
-        this.props.history.push("/");
-      } else {
-        console.log("Error");
-      }
-    });
+    const { username, password } = this.state;
+    const { history } = this.props;
+    createUser({ username, password, history });
   }
 
   render() {
+    const { isLoading } = this.state;
     return (
       <div className="register-page">
         <div className="register-content">
@@ -71,7 +75,13 @@ class RegisterPage extends Component {
                 />
               </Form.Field>
 
-              <Button positive type="submit" onClick={this.register}>
+              <Button
+                positive
+                loading={isLoading}
+                disabled={isLoading}
+                type="submit"
+                onClick={this.register}
+              >
                 Submit
               </Button>
             </Form>

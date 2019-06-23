@@ -4,7 +4,7 @@ import { showCategory, hideCategory } from "../../actions";
 import { Accordion, Menu, Icon } from "semantic-ui-react";
 import DeleteCategoryIcon from "./DeleteCategoryIcon";
 import SidebarProject from "./SidebarProject";
-import moveProject from "../../data/MoveProject";
+import moveProject from "../../data/update/MoveProject";
 
 export default class Category extends Component {
   constructor(props) {

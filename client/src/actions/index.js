@@ -5,3 +5,4 @@ export * from "./ProjectActions";
 export * from "./TaskActions";
 export * from "./ProjectSearchAction";
 export * from "./CategoryActions";
+export * from "./LoadingActions";
