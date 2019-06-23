@@ -9,11 +9,11 @@ export function handleAddProject(payload) {
   return { type: ADD_PROJECT, payload };
 }
 
-export function handleEditProject(payload) {
+export function editProject(payload) {
   return { type: EDIT_PROJECT, payload: payload };
 }
 
-export function handleDeleteProject(payload) {
+export function removeProject(payload) {
   return { type: DELETE_PROJECT, payload };
 }
 

@@ -9,7 +9,8 @@ import {
   TextArea
 } from "semantic-ui-react";
 import store from "../../store";
-import { hideCreateProject, handleAddProject } from "../../actions/index.js";
+import { hideCreateProject } from "../../actions/index.js";
+import createProject from "../../data/create/CreateProject";
 
 class CreateProject extends Component {
   constructor() {
@@ -50,39 +51,19 @@ class CreateProject extends Component {
 
   addProject(event) {
     event.preventDefault();
+    const { category, projectName, projectDescription, usersMap } = this.state;
     var users = [];
     users.push(store.getState().userAuthentication.username);
-    this.state.usersMap.map(user => {
+    usersMap.map(user => {
       users.push(user.name);
     });
-    fetch("/project-service/projects", {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-        Authorization: "Bearer " + localStorage.getItem("JWT")
-      },
-      body: JSON.stringify({
-        project: {
-          projectName: this.state.projectName,
-          projectDescription: this.state.projectDescription,
-          users: users,
-          tasks: []
-        },
-        projectCategory: this.state.category
-      })
-    })
-      .then(response => {
-        if (response.ok) {
-          return response.json();
-        } else {
-          throw new Error("Something went wrong ...");
-        }
-      })
-      .then(data => {
-        store.dispatch(handleAddProject({ data }));
-        this.handleClose();
-      });
+    const project = {
+      projectName: projectName,
+      projectDescription: projectDescription,
+      users: users,
+      tasks: []
+    };
+    createProject({ project, category });
   }
 
   clearFields() {

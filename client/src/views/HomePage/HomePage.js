@@ -2,7 +2,8 @@ import React, { Component } from "react";
 import "./ProjectsPage.css";
 import { withRouter } from "react-router-dom";
 import store from "../../store";
-import { handleAddProjectList, goToProject } from "../../actions/index.js";
+import getUserProjects from "../../data/read/GetUserProjects";
+import { goToProject } from "../../actions/index.js";
 import { Loader, Dropdown, Icon, Divider, Grid } from "semantic-ui-react";
 
 import Project from "../../components/Project/Project";
@@ -25,7 +26,7 @@ class HomePage extends Component {
       visible: store.getState().handleProject.projectSidebarVisibility,
       currentCategory: store.getState().handleProject.currentCategory,
       currentIndex: store.getState().handleProject.currentProjectIndex,
-      isLoading: false
+      isLoading: store.getState().loading.projectsLoading
     };
 
     this.renderProjects = this.renderProjects.bind(this);
@@ -43,7 +44,8 @@ class HomePage extends Component {
         visible: store.getState().handleProject.projectSidebarVisibility,
         currentCategory: store.getState().handleProject.currentCategory,
         currentIndex: store.getState().handleProject.currentProjectIndex,
-        username: store.getState().userAuthentication.username
+        username: store.getState().userAuthentication.username,
+        isLoading: store.getState().loading.projectsLoading
       });
     });
 
@@ -75,35 +77,7 @@ class HomePage extends Component {
 
   renderProjects() {
     this.setState({ isLoading: true });
-    fetch(
-      "/project-service/projects/user/" +
-        store.getState().userAuthentication.username,
-      {
-        method: "GET",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + localStorage.getItem("JWT")
-        }
-      }
-    )
-      .then(response => {
-        if (!response.ok) throw new Error(response.status);
-        else return response.json();
-      })
-      .then(responseJson => {
-        const projects = responseJson;
-        this.setState({ isLoading: false });
-        var payload = {
-          projects: projects,
-          categories: Object.keys(projects)
-        };
-        store.dispatch(handleAddProjectList(payload));
-      })
-      .catch(error => {
-        console.log("error: " + error);
-        this.props.history.push("/");
-      });
+    getUserProjects();
   }
 
   getProjectList = () => {

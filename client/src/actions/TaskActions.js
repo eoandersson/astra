@@ -8,6 +8,6 @@ export function editTask(payload) {
   return { type: EDIT_TASK, payload };
 }
 
-export function deleteTask(payload) {
+export function removeTask(payload) {
   return { type: DELETE_TASK, payload };
 }

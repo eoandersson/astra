@@ -1,21 +1,20 @@
 import React, { Component } from "react";
 import { Modal, Form, Input, TextArea, Button, Icon } from "semantic-ui-react";
 import store from "../../store";
-import { hideEditNewsItem, handleEditNewsItems } from "../../actions/index.js";
+import { hideCreateNewsItem } from "../../actions/index.js";
+import createNewsItem from "../../data/create/CreateNewsItem";
 
-class EditNewsItem extends Component {
-  constructor(props) {
-    super(props);
-
+class CreateNewsItem extends Component {
+  constructor() {
+    super();
     this.state = {
       show: false,
-      newsId: "",
       title: "",
       body: "",
       author: ""
     };
 
-    this.editNewsItem = this.editNewsItem.bind(this);
+    this.addNewsItem = this.addNewsItem.bind(this);
     this.handleTitleChange = this.handleTitleChange.bind(this);
     this.handleBodyChange = this.handleBodyChange.bind(this);
     this.clearFields = this.clearFields.bind(this);
@@ -25,12 +24,10 @@ class EditNewsItem extends Component {
   componentDidMount() {
     this.unsubscribe = store.subscribe(() => {
       this.setState({
-        show: store.getState().editNewsItem.visibility,
-        title: store.getState().editNewsItem.title,
-        body: store.getState().editNewsItem.body,
-        author: store.getState().editNewsItem.author,
-        newsItem: store.getState().editNewsItem.newsItem,
-        newsId: store.getState().editNewsItem.newsId
+        show: store.getState().createNewsItem.visibility,
+        title: store.getState().createNewsItem.title,
+        body: store.getState().createNewsItem.body,
+        author: store.getState().userAuthentication.username
       });
     });
   }
@@ -39,34 +36,10 @@ class EditNewsItem extends Component {
     this.unsubscribe();
   }
 
-  editNewsItem(event) {
+  addNewsItem(event) {
     event.preventDefault();
-    fetch("/news-service/news", {
-      method: "PUT",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-        Authorization: "Bearer " + localStorage.getItem("JWT")
-      },
-      body: JSON.stringify({
-        newsId: this.state.newsId,
-        title: this.state.title,
-        body: this.state.body,
-        author: this.state.author
-      })
-    }).then(response => {
-      if (response.status === 200) {
-        var payload = {
-          newsItem: this.state.newsItem,
-          title: this.state.title,
-          body: this.state.body
-        };
-        store.dispatch(handleEditNewsItems(payload));
-        this.handleClose();
-      } else {
-        console.log(response.status);
-      }
-    });
+    const { title, body, author } = this.state;
+    createNewsItem({ title, body, author });
   }
 
   clearFields() {
@@ -86,7 +59,7 @@ class EditNewsItem extends Component {
   }
 
   handleClose() {
-    store.dispatch(hideEditNewsItem());
+    store.dispatch(hideCreateNewsItem());
   }
 
   render() {
@@ -97,7 +70,7 @@ class EditNewsItem extends Component {
         open={this.state.show}
         onClose={this.handleClose}
       >
-        <Modal.Header>{this.state.title}</Modal.Header>
+        <Modal.Header>Post a New Article</Modal.Header>
         <Modal.Content>
           <Form>
             <Form.Field
@@ -105,14 +78,12 @@ class EditNewsItem extends Component {
               control={Input}
               placeholder="Enter Title"
               onChange={this.handleTitleChange}
-              value={this.state.title}
             />
             <Form.Field
               label="Body"
               control={TextArea}
               placeholder="Enter Article Text"
               onChange={this.handleBodyChange}
-              value={this.state.body}
             />
           </Form>
         </Modal.Content>
@@ -120,8 +91,8 @@ class EditNewsItem extends Component {
           <Button negative onClick={this.handleClose}>
             <Icon name="remove" /> Cancel
           </Button>
-          <Button positive type="submit" onClick={this.editNewsItem}>
-            <Icon name="checkmark" /> Save
+          <Button positive type="submit" onClick={this.addNewsItem}>
+            <Icon name="checkmark" /> Submit
           </Button>
         </Modal.Actions>
       </Modal>
@@ -129,4 +100,4 @@ class EditNewsItem extends Component {
   }
 }
 
-export default EditNewsItem;
+export default CreateNewsItem;

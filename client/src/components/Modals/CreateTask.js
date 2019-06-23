@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import { Modal, Button, Form, Input, TextArea, Icon } from "semantic-ui-react";
 import store from "../../store";
-import { addTask, hideCreateTask } from "../../actions/index.js";
+import { hideCreateTask } from "../../actions/index.js";
+import createTask from "../../data/create/CreateTask";
 
 class CreateTask extends Component {
   constructor() {
@@ -39,38 +40,20 @@ class CreateTask extends Component {
 
   addTask(event) {
     event.preventDefault();
-    fetch("/project-service/projects/task", {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-        Authorization: "Bearer " + localStorage.getItem("JWT")
-      },
-      body: JSON.stringify({
-        projectId: this.state.projectId,
-        task: {
-          name: this.state.name,
-          description: this.state.description,
-          state: this.state.state
-        }
-      })
-    }).then(response => {
-      if (response.status === 200) {
-        var payload = {
-          project: this.state.project,
-          task: {
-            name: this.state.name,
-            description: this.state.description,
-            state: this.state.state
-          },
-          category: this.state.category
-        };
-        store.dispatch(addTask(payload));
-        this.handleClose();
-      } else {
-        console.log("Error");
-      }
-    });
+    const {
+      project,
+      projectId,
+      name,
+      description,
+      state,
+      category
+    } = this.state;
+    const task = {
+      name,
+      description,
+      state
+    };
+    createTask({ project, projectId, task, category });
   }
 
   handleTaskNameChange(event) {

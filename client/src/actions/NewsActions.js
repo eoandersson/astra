@@ -9,11 +9,11 @@ export function handleAddNewsItem(newsItem) {
   return { type: ADD_NEWS_ITEM, payload: newsItem };
 }
 
-export function handleEditNewsItems(newsItem) {
+export function editNewsItem(newsItem) {
   return { type: EDIT_NEWS_ITEM, payload: newsItem };
 }
 
-export function handleDeleteNewsItem(newsItem) {
+export function removeNewsItem(newsItem) {
   return { type: DELETE_NEWS_ITEM, payload: newsItem };
 }
 

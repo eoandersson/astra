@@ -3,6 +3,7 @@ import store from "../../store";
 import { hideCreateCategory, addCategory } from "../../actions";
 
 import { Modal, Form, Icon, Button, Input } from "semantic-ui-react";
+import createCategory from "../../data/create/CreateCategory";
 
 export default class CreateCategory extends Component {
   constructor(props) {
@@ -28,25 +29,7 @@ export default class CreateCategory extends Component {
 
   addCategory = () => {
     const { category } = this.state;
-    fetch("/project-service/projects/category", {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-        Authorization: "Bearer " + localStorage.getItem("JWT")
-      },
-      body: JSON.stringify({
-        username: store.getState().userAuthentication.username,
-        category: category
-      })
-    }).then(response => {
-      if (response.status === 200) {
-        store.dispatch(addCategory(category));
-        store.dispatch(hideCreateCategory());
-      } else {
-        console.log("Error");
-      }
-    });
+    createCategory({ category });
   };
 
   handleCategoryChange = event => {

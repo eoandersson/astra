@@ -1,5 +1,5 @@
-import store from "../store";
-import { changeProjectCategory } from "../actions";
+import store from "../../store";
+import { changeProjectCategory } from "../../actions";
 
 export default function moveProject({ oldCategory, targetCategory, project }) {
   const payload = {
