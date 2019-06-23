@@ -9,7 +9,8 @@ import {
   TextArea
 } from "semantic-ui-react";
 import store from "../../store";
-import { hideEditProject, handleEditProject } from "../../actions/index.js";
+import { hideEditProject } from "../../actions/index.js";
+import updateProject from "../../data/update/UpdateProject";
 
 class EditProject extends Component {
   constructor(props) {
@@ -27,7 +28,7 @@ class EditProject extends Component {
       category: ""
     };
 
-    this.updateProject = this.updateProject.bind(this);
+    this.editProject = this.editProject.bind(this);
     this.handleProjectNameChange = this.handleProjectNameChange.bind(this);
     this.handleProjectDescriptionChange = this.handleProjectDescriptionChange.bind(
       this
@@ -55,40 +56,30 @@ class EditProject extends Component {
     this.unsubscribe();
   }
 
-  updateProject(event) {
+  editProject(event) {
     event.preventDefault();
+    const {
+      project,
+      projectId,
+      projectName,
+      projectDescription,
+      tasks,
+      category,
+      usersMap
+    } = this.state;
     var users = [];
-    this.state.usersMap.map(user => {
+    usersMap.map(user => {
       users.push(user.name);
     });
-    fetch("/project-service/projects", {
-      method: "PUT",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-        Authorization: "Bearer " + localStorage.getItem("JWT")
-      },
-      body: JSON.stringify({
-        projectId: this.state.projectId,
-        projectName: this.state.projectName,
-        projectDescription: this.state.projectDescription,
-        users: users,
-        tasks: this.state.tasks
-      })
-    }).then(response => {
-      if (response.status === 200) {
-        var payload = {
-          project: this.state.project,
-          projectName: this.state.projectName,
-          projectDescription: this.state.projectDescription,
-          users: users,
-          category: this.state.category
-        };
-        store.dispatch(handleEditProject(payload));
-        this.handleClose();
-      } else {
-        console.log("Error");
-      }
+
+    updateProject({
+      project,
+      projectId,
+      projectName,
+      projectDescription,
+      tasks,
+      users,
+      category
     });
   }
 
@@ -181,7 +172,7 @@ class EditProject extends Component {
           <Button negative onClick={this.handleClose}>
             <Icon name="remove" /> Close
           </Button>
-          <Button positive type="submit" onClick={this.updateProject}>
+          <Button positive type="submit" onClick={this.editProject}>
             <Icon name="checkmark" /> Save
           </Button>
         </Modal.Actions>

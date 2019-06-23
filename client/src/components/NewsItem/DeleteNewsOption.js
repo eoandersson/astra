@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { Dropdown } from "semantic-ui-react";
-import { handleDeleteNewsItem } from "../../actions";
-import store from "../../store";
+import deleteNewsItem from "../../data/delete/DeleteNewsItem";
 
 class DeleteNewsOption extends Component {
   constructor(props) {
@@ -11,23 +10,8 @@ class DeleteNewsOption extends Component {
 
   delete(event) {
     event.preventDefault();
-    fetch("/news-service/news/" + this.props.newsId, {
-      method: "DELETE",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-        Authorization: "Bearer " + localStorage.getItem("JWT")
-      },
-      body: JSON.stringify({
-        newsId: this.props.newsId
-      })
-    }).then(response => {
-      if (response.status === 204) {
-        store.dispatch(handleDeleteNewsItem({ newsItem: this.props.newsItem }));
-      } else {
-        console.log("Error");
-      }
-    });
+    const { newsItem, newsId } = this.props;
+    deleteNewsItem({ newsItem, newsId });
   }
 
   render() {

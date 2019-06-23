@@ -4,6 +4,6 @@ export function addCategory(category) {
   return { type: ADD_CATEGORY, payload: category };
 }
 
-export function deleteCategory(category) {
+export function removeCategory(category) {
   return { type: DELETE_CATEGORY, payload: category };
 }

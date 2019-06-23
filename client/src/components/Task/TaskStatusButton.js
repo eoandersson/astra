@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { Icon, Dropdown } from "semantic-ui-react";
-import store from "../../store";
-import { editTask } from "../../actions/index.js";
+import updateTask from "../../data/update/UpdateTask";
 
 class TaskStatusButton extends Component {
   constructor(props) {
@@ -26,35 +25,15 @@ class TaskStatusButton extends Component {
   }
 
   changeTaskStatus(status) {
-    fetch("/project-service/projects/task", {
-      method: "PUT",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-        Authorization: "Bearer " + localStorage.getItem("JWT")
-      },
-      body: JSON.stringify({
-        projectId: this.props.projectId,
-        task: {
-          name: this.props.task.name,
-          description: this.props.task.description,
-          status: status
-        }
-      })
-    }).then(response => {
-      console.log(response.status);
-      if (response.status === 200) {
-        var payload = {
-          project: this.props.project,
-          name: this.props.task.name,
-          status: status,
-          category: this.props.category
-        };
-        store.dispatch(editTask(payload));
-      } else {
-        console.log("Error");
-      }
-    });
+    const { project, projectId, task, category } = this.props;
+    const output = {
+      project,
+      projectId,
+      task,
+      status,
+      category
+    };
+    updateTask(output);
   }
 
   getTaskStatusColor = () => {

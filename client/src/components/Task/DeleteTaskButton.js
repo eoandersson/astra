@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { Popup, Button } from "semantic-ui-react";
-import store from "../../store";
-import { deleteTask } from "../../actions/";
+import deleteTask from "../../data/delete/DeleteTask";
 
 class DeleteTaskButton extends Component {
   constructor(props) {
@@ -12,33 +11,8 @@ class DeleteTaskButton extends Component {
 
   deleteTask(event) {
     event.preventDefault();
-    fetch("/project-service/projects/task", {
-      method: "DELETE",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-        Authorization: "Bearer " + localStorage.getItem("JWT")
-      },
-      body: JSON.stringify({
-        projectId: this.props.projectId,
-        task: {
-          name: this.props.task.name,
-          description: this.props.task.description,
-          status: this.props.task.status
-        }
-      })
-    }).then(response => {
-      if (response.status === 200) {
-        var payload = {
-          project: this.props.project,
-          name: this.props.task.name,
-          category: this.props.category
-        };
-        store.dispatch(deleteTask(payload));
-      } else {
-        console.log("Error");
-      }
-    });
+    const { project, projectId, category, task } = this.props;
+    deleteTask({ project, projectId, category, task });
   }
 
   render() {

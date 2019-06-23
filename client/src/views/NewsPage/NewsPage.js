@@ -1,17 +1,15 @@
 import React, { Component } from "react";
 import "./NewsPage.css";
 import { withRouter } from "react-router-dom";
+import getAllNewsItems from "../../data/read/GetAllNewsItems";
 
 import { Button, Loader } from "semantic-ui-react";
 
 import NewsItem from "../../components/NewsItem";
-import CreateNewsItem from "./CreateNewsItem";
-import EditNewsItem from "./EditNewsItem";
+import CreateNewsItem from "../../components/Modals/CreateNewsItem";
+import EditNewsItem from "../../components/Modals/EditNewsItem";
 import store from "../../store";
-import {
-  handleAddNewsItemList,
-  showCreateNewsItem
-} from "../../actions/index.js";
+import { showCreateNewsItem } from "../../actions/index.js";
 import Sidebar from "../../components/Sidebar";
 
 class NewsPage extends Component {
@@ -19,7 +17,7 @@ class NewsPage extends Component {
     super(props);
     this.state = {
       newsItems: [],
-      isLoading: false
+      isLoading: store.getState().loading.newsLoading
     };
 
     this.renderNews = this.renderNews.bind(this);
@@ -34,7 +32,8 @@ class NewsPage extends Component {
 
     this.unsubscribe = store.subscribe(() => {
       this.setState({
-        newsItems: store.getState().handleNews.newsItems
+        newsItems: store.getState().handleNews.newsItems,
+        isLoading: store.getState().loading.newsLoading
       });
     });
 
@@ -65,25 +64,7 @@ class NewsPage extends Component {
   }
 
   renderNews() {
-    this.setState({ isLoading: true });
-    fetch("/news-service/news", {
-      method: "GET",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-        Authorization: "Bearer " + localStorage.getItem("JWT")
-      }
-    })
-      .then(response => response.json())
-      .then(responseJson => {
-        const newsItems = responseJson;
-        var outputArr = [];
-        for (var i = 0; i < newsItems.length; i++) {
-          outputArr[i] = newsItems[i];
-        }
-        this.setState({ isLoading: false });
-        store.dispatch(handleAddNewsItemList(outputArr));
-      });
+    getAllNewsItems();
   }
 
   createNewsItem() {
