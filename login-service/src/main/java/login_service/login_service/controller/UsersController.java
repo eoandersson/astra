@@ -1,9 +1,5 @@
 package login_service.login_service.controller;
 
-import java.util.List;
-import java.util.HashMap;
-import java.util.Map;
-
 import javax.validation.Valid;
 
 import org.bson.types.ObjectId;
@@ -11,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,11 +15,15 @@ import org.springframework.web.bind.annotation.RestController;
 
 import login_service.login_service.model.Users;
 import login_service.login_service.repository.UsersRespository;
+import login_service.login_service.service.MongoUserDetailsService;
 
 @RestController
 public class UsersController {
 	@Autowired
 	private UsersRespository usersRespository;
+	
+	@Autowired
+	private MongoUserDetailsService usersService;
 	
 	@Autowired
 	private PasswordEncoder passwordEncoder;
@@ -54,10 +53,7 @@ public class UsersController {
 	}
 	
 	@RequestMapping(value = "/users/register", method = RequestMethod.POST)
-	public Users createUser(@Valid @RequestBody Users user) {
-		user.set_id(ObjectId.get());
-		user.setPassword(passwordEncoder.encode(user.getPassword()));
-		usersRespository.save(user);
-		return user;
+	public ResponseEntity<?> createUser(@Valid @RequestBody Users user) {
+		return usersService.createUser(user);
 	}
 }
