@@ -24,7 +24,7 @@
 }
 
 .project-header-box > p {
-  color: #bababa;
+  color: #fff;
 }
 
 .project-header-column > h3 {
@@ -86,6 +86,7 @@
   width: 100%;
   min-height: 50px;
   background: #3f4059;
+  color: #fff;
   border-radius: 20px;
   padding: 15px;
 }
