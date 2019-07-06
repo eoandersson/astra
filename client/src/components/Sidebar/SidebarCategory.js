@@ -87,7 +87,6 @@ export default class Category extends Component {
     } = this.props;
     return (
       <Accordion
-        inverted
         className={categoryClass}
         onDragOver={e => this.onDragOver(e)}
         onDragLeave={e => this.onDragLeave(e)}

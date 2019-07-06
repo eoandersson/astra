@@ -12,7 +12,7 @@ export default class CreateCategoryOption extends Component {
     return (
       <div className="project-sidebar-footer">
         <span>Add a New Category</span>
-        <Icon inverted name="add" onClick={this.showCreateCategory} />
+        <Icon name="add" onClick={this.showCreateCategory} />
       </div>
     );
   }
