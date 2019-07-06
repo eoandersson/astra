@@ -3,6 +3,10 @@
   background: #fff !important;
 }
 
+.ui.sidebar.navigation-sidebar {
+  overflow: visible !important;
+}
+
 .navigation-sidebar > .navbar-profile {
   display: flex !important;
   justify-content: center !important;
@@ -10,7 +14,7 @@
   padding: 0.92857143em 1.14285714em;
 }
 
-.navigation-sidebar > .navbar-profile > i {
+.navigation-sidebar > .navbar-profile > .dropdown > i {
   margin: 0 !important;
   font-size: 1.8em !important;
   color: transparent !important;
