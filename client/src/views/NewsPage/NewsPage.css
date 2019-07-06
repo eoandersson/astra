@@ -10,8 +10,7 @@
   height: 100vh;
   width: 100%;
   margin-left: 80px;
-  color: #fff;
-  background-color: #27283a;
+  background-color: #f4f7fc;
   display: -webkit-flex;
   display: flex;
   flex-direction: column;
@@ -33,9 +32,8 @@
   margin-right: auto;
   margin-bottom: 60px;
   border-radius: 5px;
-  -webkit-box-shadow: 0 5px 10px 2px rgba(0, 0, 0, 0.2);
-  -moz-box-shadow: 0 5px 10px 2px rgba(0, 0, 0, 0.2);
-  box-shadow: 0 5px 10px 2px rgba(0, 0, 0, 0.2);
+  background: #3f4059;
+  color: #fff;
   transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
@@ -53,9 +51,6 @@
   padding: 20px;
   padding-right: 20px;
   width: 100%;
-  border-bottom-color: #ecf0f1;
-  border-bottom-style: solid;
-  border-bottom-width: 1px;
 }
 
 .news-buttons > button {

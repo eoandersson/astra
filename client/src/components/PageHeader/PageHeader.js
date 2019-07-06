@@ -38,13 +38,6 @@ class PageHeader extends Component {
     }
   };
 
-  logoutFunction = e => {
-    e.preventDefault();
-    localStorage.removeItem("JWT");
-    store.dispatch(userSignOut());
-    this.props.history.push("/");
-  };
-
   render() {
     const { visible } = this.state;
     const { children } = this.props;
@@ -59,12 +52,6 @@ class PageHeader extends Component {
           />
           {children}
         </div>
-        <Icon
-          className="logout-button"
-          name="logout"
-          size="large"
-          onClick={this.logoutFunction}
-        />
       </div>
     );
   }

@@ -4,7 +4,8 @@ import store from "../../store";
 import { goToDashboard } from "../../actions";
 import "./NavigationSidebar.css";
 
-import { Sidebar, Menu, Icon, Divider } from "semantic-ui-react";
+import { Sidebar, Menu, Icon, Divider, Dropdown } from "semantic-ui-react";
+import ProfileDropdown from "./ProfileDropdown";
 
 class NavigationSidebar extends Component {
   goToDashboard = () => {
@@ -22,7 +23,7 @@ class NavigationSidebar extends Component {
         id="navigation-sidebar"
       >
         <div className="navbar-profile">
-          <Icon className="navbar-icon" name="user circle outline" size="big" />
+          <ProfileDropdown />
         </div>
         <Divider style={{ margin: 0 }} />
         <Menu.Item
