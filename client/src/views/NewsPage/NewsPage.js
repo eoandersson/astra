@@ -10,7 +10,7 @@ import CreateNewsItem from "../../components/Modals/CreateNewsItem";
 import EditNewsItem from "../../components/Modals/EditNewsItem";
 import store from "../../store";
 import { showCreateNewsItem } from "../../actions/index.js";
-import Sidebar from "../../components/Sidebar";
+import NavigationSidebar from "../../components/NavigationSidebar/NavigationSidebar";
 
 class NewsPage extends Component {
   constructor(props) {
@@ -75,7 +75,7 @@ class NewsPage extends Component {
     return (
       <div className="news-page">
         <div className="news-content">
-          <Sidebar />
+          <NavigationSidebar />
           <div className="news-button-wrapper">
             <Button positive onClick={this.createNewsItem}>
               Post a New Article

@@ -9,10 +9,13 @@
   min-height: 100%;
   height: auto;
   width: 100%;
-  background-color: #f4f7fc;
+  color: #fff;
+  background-color: #27283a;
   display: -webkit-flex;
   display: flex;
   flex-direction: row;
+  position: relative;
+  margin-left: 80px;
 }
 
 .home-projects-wrapper {

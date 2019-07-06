@@ -1,12 +1,20 @@
 import React, { Component } from "react";
 import "./Sidebar.css";
 import store from "../../store";
-import { showCreateProject, userSignOut, goToDashboard } from "../../actions";
-import { Sidebar, Menu, Divider, Icon, Segment } from "semantic-ui-react";
-import { Link, withRouter } from "react-router-dom";
+import { showCreateProject } from "../../actions";
+import {
+  Sidebar,
+  Menu,
+  Divider,
+  Icon,
+  Segment,
+  Search
+} from "semantic-ui-react";
+import { withRouter } from "react-router-dom";
 
 import CreateCategoryOption from "./CreateCategoryOption";
 import Category from "./SidebarCategory";
+import CreateProjectOption from "./CreateProjectOption";
 
 class ProjectsSidebar extends Component {
   constructor(props) {
@@ -102,61 +110,18 @@ class ProjectsSidebar extends Component {
     }
     return (
       <React.Fragment>
-        <div className="sidebar-button-wrapper">
-          <span>Projects</span>
-          <Icon name="add" onClick={this.createProject} />
-        </div>
-        <span className="custom-divider" />
+        <Search style={{ margin: "1rem 0" }} />
         {this.renderStandardProjects()}
         {this.renderProjects()}
         <Divider />
+        <CreateProjectOption />
         <CreateCategoryOption />
-      </React.Fragment>
-    );
-  };
-
-  renderNavigationOptions = () => {
-    return (
-      <React.Fragment>
-        <Menu.Item
-          className="sidebar-nav-item"
-          as={Link}
-          to="/home"
-          onClick={this.goToDashboard}
-          active={this.props.location.pathname === "/home"}
-        >
-          <Icon
-            className="sidebar-nav-icon"
-            name="home"
-            inverted
-            size="small"
-          />
-          <span>Home</span>
-        </Menu.Item>
-        <Menu.Item
-          className="sidebar-nav-item"
-          as={Link}
-          to="/news"
-          active={this.props.location.pathname === "/news"}
-        >
-          <Icon
-            className="sidebar-nav-icon"
-            name="newspaper outline"
-            inverted
-            size="small"
-          />
-          <span>News</span>
-        </Menu.Item>
       </React.Fragment>
     );
   };
 
   createProject = () => {
     store.dispatch(showCreateProject());
-  };
-
-  goToDashboard = () => {
-    store.dispatch(goToDashboard());
   };
 
   render() {
@@ -171,15 +136,7 @@ class ProjectsSidebar extends Component {
         width="wide"
         className="projects-sidebar"
         id="projects-sidebar"
-        inverted
       >
-        <Segment className="sidebar-header">
-          <Link to="/home">
-            <h2 style={{ color: "#ffffff" }}>Sling</h2>
-          </Link>
-        </Segment>
-        <span />
-        {this.renderNavigationOptions()}
         {this.renderHomeProjects()}
       </Sidebar>
     );

@@ -1,0 +1,67 @@
+.navigation-sidebar {
+  width: 80px !important;
+  background: #fff !important;
+}
+
+.navigation-sidebar > .navbar-profile {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  padding: 0.92857143em 1.14285714em;
+}
+
+.navigation-sidebar > .navbar-profile > i {
+  margin: 0 !important;
+  font-size: 1.8em !important;
+  color: transparent !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  background: -webkit-linear-gradient(
+    to bottom right,
+    #98e1eb,
+    #6e9de4
+  ) !important;
+  background-image: linear-gradient(
+    to bottom right,
+    #98e1eb,
+    #6e9de4
+  ) !important;
+}
+
+.navigation-sidebar > .navbar-item {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  border: none !important;
+  background: none !important;
+  opacity: 0.4;
+}
+
+.navigation-sidebar > .navbar-item:hover {
+  opacity: 0.9;
+}
+
+.navigation-sidebar > .navbar-item > i {
+  margin: 0 !important;
+  font-size: 1.6em !important;
+}
+
+.navigation-sidebar > .active.navbar-item {
+  opacity: 1;
+}
+
+.navigation-sidebar > .active.navbar-item > i {
+  color: transparent !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  background: -webkit-linear-gradient(
+    to bottom right,
+    #ec6236,
+    #b44768
+  ) !important;
+  background-image: linear-gradient(
+    to bottom right,
+    #ec6236,
+    #b44768
+  ) !important;
+}
