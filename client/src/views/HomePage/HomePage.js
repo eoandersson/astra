@@ -16,6 +16,7 @@ import CreateCategory from "../../components/Modals/CreateCategory";
 import Sidebar from "../../components/Sidebar/Sidebar";
 import PageHeader from "../../components/PageHeader/PageHeader";
 import DashboardIcon from "../../components/DashboardIcon/DashboardIcon";
+import NavigationSidebar from "../../components/NavigationSidebar/NavigationSidebar";
 
 class HomePage extends Component {
   constructor(props) {
@@ -237,6 +238,7 @@ class HomePage extends Component {
         <EditProject />
         <CreateTask />
         <CreateCategory />
+        <NavigationSidebar />
         <div className="home-content">
           <Sidebar projects={projects} />
           <div className={visible ? paddedClass : regularClass}>
