@@ -15,6 +15,7 @@ import { withRouter } from "react-router-dom";
 import CreateCategoryOption from "./CreateCategoryOption";
 import Category from "./SidebarCategory";
 import CreateProjectOption from "./CreateProjectOption";
+import SearchField from "./SearchField";
 
 class ProjectsSidebar extends Component {
   constructor(props) {
@@ -110,7 +111,7 @@ class ProjectsSidebar extends Component {
     }
     return (
       <React.Fragment>
-        <Search style={{ margin: "1rem 0" }} />
+        <SearchField />
         {this.renderStandardProjects()}
         {this.renderProjects()}
         <Divider />
