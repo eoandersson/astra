@@ -178,7 +178,9 @@ export default function handleProject(state = initialState, action) {
       });
     case SHOW_CATEGORY:
       newCurrentCategories = state.currentCategories;
-      newCurrentCategories.push(action.payload);
+      if (newCurrentCategories.indexOf(action.payload) === -1) {
+        newCurrentCategories.push(action.payload);
+      }
       return Object.assign({}, state, {
         currentCategories: newCurrentCategories
       });

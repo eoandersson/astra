@@ -10,6 +10,10 @@
   box-shadow: none !important;
 }
 
+.ui.sidebar.projects-sidebar {
+  overflow: visible !important;
+}
+
 .project-category-title {
   display: flex;
   flex-direction: row;
@@ -73,12 +77,12 @@
 
 .project-category-content > .item.active {
   opacity: 1 !important;
-  background: rgba(255, 255, 255, 0.15) !important;
+  background: rgba(0, 0, 0, 0.05) !important;
 }
 
 .project-category-content > .item:hover {
   opacity: 1 !important;
-  background: rgba(255, 255, 255, 0.15) !important;
+  background: rgba(0, 0, 0, 0.05) !important;
 }
 
 .project-category-content > .item > .header {
