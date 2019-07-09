@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "./Project.css";
-import { Icon, Grid } from "semantic-ui-react";
+import { Icon, Grid, Menu } from "semantic-ui-react";
 
 import store from "../../store";
 import { showCreateTask } from "../../actions/index.js";
@@ -10,8 +10,8 @@ import User from "./User";
 import Task from "../Task/Task";
 import TaskHeader from "../Task/TaskHeader";
 import TaskFooter from "../Task/TaskFooter";
-import CustomDivider from "../CustomDivider";
 import PageHeader from "../PageHeader";
+import ProjectDropdown from "../ProjectDropdown/ProjectDropdown";
 
 class Project extends Component {
   constructor(props) {
@@ -19,7 +19,8 @@ class Project extends Component {
     this.state = {
       editModalShow: false,
       createTaskModalShow: false,
-      active: true
+      active: true,
+      activeItem: "tasks"
     };
     this.createTask = this.createTask.bind(this);
   }
@@ -38,8 +39,77 @@ class Project extends Component {
     this.setState({ active: newState });
   };
 
+  renderInformation = () => {
+    const { project } = this.props;
+    return (
+      <div className="project-wrapper">
+        <Grid stackable>
+          <Grid.Column width={7} className="project-header-column">
+            <div className="project-header-box">
+              <p>{project.projectDescription}</p>
+            </div>
+          </Grid.Column>
+          <Grid.Column width={4} className="project-header-column">
+            <div className="project-header-box">
+              <p>
+                {project.users.map(user => (
+                  <User user={user} key={user} />
+                ))}
+              </p>
+            </div>
+          </Grid.Column>
+          <Grid.Column width={5} className="project-header-column">
+            <div className="project-header-box" />
+          </Grid.Column>
+        </Grid>
+      </div>
+    );
+  };
+
+  renderTasks = () => {
+    const { project, projectId, category } = this.props;
+    return (
+      <div className="project-wrapper">
+        <div className="project-tasks-box">
+          <Grid
+            columns={16}
+            className="task-grid"
+            stackable
+            divided="vertically"
+            style={{ paddingTop: "30px" }}
+          >
+            {project.tasks.map(task => (
+              <Task
+                task={task}
+                projectId={projectId}
+                project={project}
+                category={category}
+                key={task.name}
+              />
+            ))}
+            <TaskFooter
+              projectId={projectId}
+              project={project}
+              category={category}
+            />
+          </Grid>
+        </div>
+      </div>
+    );
+  };
+
+  renderContent = () => {
+    const { activeItem } = this.state;
+    if (activeItem === "tasks") return this.renderTasks();
+    else if (activeItem === "information") return this.renderInformation();
+    else return null;
+  };
+
+  handleItemClick = (e, { name }) => this.setState({ activeItem: name });
+
   render() {
     const { project, projectId, category } = this.props;
+    const { activeItem } = this.state;
 
     return (
       <React.Fragment>
@@ -47,63 +117,30 @@ class Project extends Component {
           <h2>{this.props.project.projectName}</h2>
           <Icon name="star outline" size="small" />
           <Icon name="user outline" size="small" /> {project.users.length}
+          <ProjectDropdown
+            projectId={projectId}
+            project={project}
+            category={category}
+            icon="vertical"
+            direction="right"
+          />
         </PageHeader>
         <div className="project-content">
-          <div className="project-content-header">
-            <Grid stackable>
-              <Grid.Column width={7} className="project-header-column">
-                <h3>Project Description</h3>
-                <CustomDivider from="#ec6236" to="#eb555c" />
-                <div className="project-header-box">
-                  <p>{project.projectDescription}</p>
-                </div>
-              </Grid.Column>
-              <Grid.Column width={4} className="project-header-column">
-                <h3>Project Members</h3>
-                <CustomDivider from="#9aa0e4" to="#5642d4" />
-                <div className="project-header-box">
-                  <p>
-                    {project.users.map(user => (
-                      <User user={user} key={user} />
-                    ))}
-                  </p>
-                </div>
-              </Grid.Column>
-              <Grid.Column width={5} className="project-header-column">
-                <h3>Project Notes</h3>
-                <CustomDivider from="#a8e063" to="#56ab2f" />
-                <div className="project-header-box" />
-              </Grid.Column>
-            </Grid>
-          </div>
-          <div className="project-tasks">
-            <h3>Tasks</h3>
-            <CustomDivider from="#98e1eb" to="#6e9de4" />
-            <div className="project-tasks-box">
-              <Grid
-                columns={16}
-                className="task-grid"
-                stackable
-                divided="vertically"
-              >
-                {project.tasks.length > 0 ? <TaskHeader /> : null}
-                {project.tasks.map(task => (
-                  <Task
-                    task={task}
-                    projectId={projectId}
-                    project={project}
-                    category={category}
-                    key={task.name}
-                  />
-                ))}
-                <TaskFooter
-                  projectId={projectId}
-                  project={project}
-                  category={category}
-                />
-              </Grid>
-            </div>
-          </div>
+          <Menu pointing secondary className="project-page-menu">
+            <Menu.Item
+              name="tasks"
+              className="tasks-option"
+              active={activeItem === "tasks"}
+              onClick={this.handleItemClick}
+            />
+            <Menu.Item
+              name="information"
+              className="information-option"
+              active={activeItem === "information"}
+              onClick={this.handleItemClick}
+            />
+          </Menu>
+          {this.renderContent()}
         </div>
       </React.Fragment>
     );

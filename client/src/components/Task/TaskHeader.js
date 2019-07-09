@@ -6,7 +6,7 @@ class TaskHeader extends Component {
     return (
       <Grid.Row className="task-header" verticalAlign="middle" only="computer">
         <Grid.Column width={2} textAlign="center" />
-        <Grid.Column width={6} textAlign="center">
+        <Grid.Column width={7} textAlign="center">
           Description
         </Grid.Column>
         <Grid.Column width={3} textAlign="center">
@@ -15,7 +15,7 @@ class TaskHeader extends Component {
         <Grid.Column width={3} textAlign="center">
           Progress
         </Grid.Column>
-        <Grid.Column width={2} textAlign="center">
+        <Grid.Column width={1} textAlign="center">
           Options
         </Grid.Column>
       </Grid.Row>

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Popup, Button } from "semantic-ui-react";
+import { Dropdown } from "semantic-ui-react";
 import deleteTask from "../../data/delete/DeleteTask";
 
 class DeleteTaskButton extends Component {
@@ -17,10 +17,10 @@ class DeleteTaskButton extends Component {
 
   render() {
     return (
-      <Popup
-        content="Delete Task"
-        trigger={<Button negative icon="delete" onClick={this.deleteTask} />}
-        position="top center"
+      <Dropdown.Item
+        text="Delete Task"
+        icon="trash"
+        onClick={this.deleteTask}
       />
     );
   }

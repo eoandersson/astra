@@ -21,7 +21,12 @@ class TaskFooter extends Component {
   render() {
     return (
       <Grid.Row verticalAlign="middle">
-        <Grid.Column width={16} textAlign="center" className="task-footer">
+        <Grid.Column
+          width={16}
+          textAlign="center"
+          className="task-footer"
+          style={{ marginTop: "5px", marginBottom: "5px" }}
+        >
           <h4 className="add-task-button" onClick={this.createTask}>
             Add a New Task
           </h4>

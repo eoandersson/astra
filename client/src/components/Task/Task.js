@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import DeleteTaskButton from "./DeleteTaskButton";
 import TaskStatusButton from "./TaskStatusButton";
-import { Grid, Progress } from "semantic-ui-react";
+import { Grid, Progress, Dropdown } from "semantic-ui-react";
 import AddSubtaskButton from "./AddSubtaskButton";
 
 class Task extends Component {
@@ -20,7 +20,7 @@ class Task extends Component {
         <Grid.Column width={2} textAlign="center">
           <h3>{task.name}</h3>
         </Grid.Column>
-        <Grid.Column width={6}>{task.description}</Grid.Column>
+        <Grid.Column width={7}>{task.description}</Grid.Column>
         <Grid.Column width={3} textAlign="center">
           <TaskStatusButton
             projectId={projectId}
@@ -37,15 +37,18 @@ class Task extends Component {
           />
         </Grid.Column>
         <Grid.Column width={1} textAlign="center">
-          <AddSubtaskButton />
-        </Grid.Column>
-        <Grid.Column width={1} textAlign="center">
-          <DeleteTaskButton
-            projectId={projectId}
-            task={task}
-            project={project}
-            category={category}
-          />
+          <Dropdown direction="left" icon="ellipsis horizontal">
+            <Dropdown.Menu>
+              <Dropdown.Header icon="cog" content="Task Options" />
+              <AddSubtaskButton />
+              <DeleteTaskButton
+                projectId={projectId}
+                task={task}
+                project={project}
+                category={category}
+              />
+            </Dropdown.Menu>
+          </Dropdown>
         </Grid.Column>
       </Grid.Row>
     );
