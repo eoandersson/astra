@@ -1,15 +1,9 @@
 import React, { Component } from "react";
-import { Popup, Button } from "semantic-ui-react";
+import { Dropdown } from "semantic-ui-react";
 
 class AddSubtaskButton extends Component {
   render() {
-    return (
-      <Popup
-        content="Add a Subtask"
-        trigger={<Button positive icon="add" />}
-        position="top center"
-      />
-    );
+    return <Dropdown.Item text="Add a Subtask" icon="add" disabled />;
   }
 }
 

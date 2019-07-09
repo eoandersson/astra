@@ -10,6 +10,21 @@
   transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
+.project-page-menu {
+  width: 95%;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  border: none !important;
+}
+
+.tasks-option.active {
+  border-color: #98e1eb !important;
+}
+
+.information-option.active {
+  border-color: #ec6236 !important;
+}
+
 .project-header-column {
   padding-right: 20px;
   padding-left: 20px;
@@ -53,11 +68,7 @@
 }
 
 .project-dropdown > i {
-  margin-left: 5px;
-}
-
-.project-content {
-  margin-top: 30px;
+  margin-left: 10px;
 }
 
 .project-content-header {
@@ -74,12 +85,11 @@
   padding: 20px;
 }
 
-.project-tasks {
+.project-wrapper {
   width: 95%;
   margin-top: 40px;
   margin-left: auto;
   margin-right: auto;
-  padding: 1rem;
 }
 
 .project-tasks-box {
@@ -89,10 +99,6 @@
   color: #fff;
   border-radius: 20px;
   padding: 15px;
-}
-
-.project-tasks > h3 {
-  font-weight: 500;
 }
 
 .project-footer {
@@ -167,7 +173,7 @@
   cursor: pointer;
 }
 
-.project-tasks > .ui.grid + .grid {
+.project-wrapper > .ui.grid + .grid {
   margin-top: 1rem;
 }
 

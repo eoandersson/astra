@@ -8,10 +8,13 @@ import LeaveProjectOption from "./LeaveProjectOption";
 
 export default class ProjectDropdown extends Component {
   render() {
+    const { direction, icon } = this.props;
     return (
       <Dropdown
-        direction="left"
-        icon="ellipsis horizontal"
+        direction={direction || "left"}
+        icon={
+          icon === "horizontal" ? "ellipsis horizontal" : "ellipsis vertical"
+        }
         className="project-dropdown"
       >
         <Dropdown.Menu>

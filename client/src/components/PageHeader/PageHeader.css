@@ -13,7 +13,11 @@
 }
 
 .header-info > h2 {
-  margin: 0 25px 0 0;
+  margin: 0 10px 0 0;
+}
+
+.header-info > i {
+  margin-left: 10px;
 }
 
 .logout-button {

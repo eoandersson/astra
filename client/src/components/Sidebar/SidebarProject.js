@@ -71,6 +71,8 @@ export default class SidebarProject extends Component {
             projectId={this.getId(project.projectId)}
             project={project}
             category={category}
+            icon="horizontal"
+            direction="left"
           />
         </Menu.Header>
       </Menu.Item>
