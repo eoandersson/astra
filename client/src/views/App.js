@@ -6,6 +6,7 @@ import LandingPage from "./LandingPage/LandingPage";
 import RegisterPage from "./RegisterPage/RegisterPage";
 import HomePage from "./HomePage/HomePage";
 import NewsPage from "./NewsPage/NewsPage";
+import LoginPage from "./LoginPage/LoginPage";
 
 class App extends Component {
   render() {
@@ -13,6 +14,7 @@ class App extends Component {
       <Router>
         <div className="App">
           <Route exact path="/" component={LandingPage} />
+          <Route exact path="/login" component={LoginPage} />
           <Route path="/register" component={RegisterPage} />
           <Route path="/home" component={HomePage} />
           <Route path="/news" component={NewsPage} />

@@ -167,6 +167,7 @@ class HomePage extends Component {
                       payload.project.projectId
                     );
                   }}
+                  key={this.getId(payload.project.projectId)}
                 >
                   <Grid.Column
                     width={2}
