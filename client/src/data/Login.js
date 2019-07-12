@@ -1,9 +1,9 @@
 import store from "../store";
 import { userSignIn, setLoginLoading, setLoginFinished } from "../actions";
 
-export default function login(username, password, history) {
+export default async function login(username, password) {
   store.dispatch(setLoginLoading());
-  fetch("/login-service/users/login", {
+  const response = await fetch("/login-service/users/login", {
     method: "POST",
     headers: {
       Accept: "application/json",
@@ -13,18 +13,17 @@ export default function login(username, password, history) {
       username: username,
       password: password
     })
-  }).then(response => {
-    if (response.status === 200) {
-      setJWT(response);
-      store.dispatch(userSignIn(username));
-      setTimeout(() => {
-        store.dispatch(setLoginFinished());
-        history.push("/home");
-      }, 2000);
-    } else {
-      store.dispatch(setLoginFinished());
-    }
   });
+
+  if (response.status === 200) {
+    setJWT(response);
+    store.dispatch(userSignIn(username));
+    store.dispatch(setLoginFinished());
+    return true;
+  } else {
+    store.dispatch(setLoginFinished());
+    return false;
+  }
 }
 
 function setJWT(response) {
