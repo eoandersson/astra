@@ -2,36 +2,67 @@
   height: 100%;
   width: 100%;
   display: flex;
+  flex-direction: column;
+  background-color: #f4f7fc;
 }
 
-.login-title {
-  height: 100%;
-  width: 50%;
-  background: #ad5389;
-  background: -webkit-linear-gradient(to right, #3c1053, #ad5389);
-  background: linear-gradient(to right, #3c1053, #ad5389);
+.landing-initial-content {
+  background: url("../../resources/AstraBackground.png") no-repeat center center
+    fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  color: #fff;
 }
 
-.login-wrapper {
-  background-color: #ffffff;
-  width: 50%;
-  height: 100%;
-  z-index: 99;
-  -webkit-box-shadow: -10 5px 10px 2px rgba(0, 0, 0, 0.2);
-  -moz-box-shadow: -10 5px 10px 2px rgba(0, 0, 0, 0.2);
-  box-shadow: -10px 0px 10px 2px rgba(0, 0, 0, 0.2);
-  align-content: center;
+.landing-wrapper {
+  width: 70%;
+  height: 100vh;
+  min-height: 600px;
+  align-items: center;
   justify-content: center;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  margin-left: auto;
+  margin-right: auto;
 }
 
-.login-content {
-  width: 80%;
+.landing-content-wrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+}
+
+.landing-about {
+  width: 50%;
+  padding: 15px;
+}
+
+.landing-content {
+  width: 35%;
+  color: #000;
+  background: #f4f7fc;
+  padding: 20px 30px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
   margin-left: auto;
   margin-right: auto;
 }
 
 .button-spinner {
   margin-left: 10px;
+}
+
+.landing-footer {
+  background: linear-gradient(
+    to bottom,
+    rgba(221, 221, 221, 0.9) 0%,
+    rgba(221, 221, 221, 0.4) 5%,
+    transparent 10%
+  );
+  min-height: 100vh;
+  color: #000;
 }
