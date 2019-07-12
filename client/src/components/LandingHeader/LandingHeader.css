@@ -1,0 +1,24 @@
+.landing-header {
+  position: fixed;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  height: 60px;
+  padding: 10px 30px;
+  z-index: 999;
+  transition: background-color 0.5s ease;
+}
+
+.landing-header.background {
+  background: rgba(0, 0, 0, 0.7);
+}
+
+.landing-header-link {
+  font-weight: bold;
+  margin-left: 15px;
+  font-size: medium;
+  color: #fff;
+}
