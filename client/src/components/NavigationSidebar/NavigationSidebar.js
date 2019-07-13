@@ -4,7 +4,7 @@ import store from "../../store";
 import { goToDashboard } from "../../actions";
 import "./NavigationSidebar.css";
 
-import { Sidebar, Menu, Icon, Divider, Dropdown } from "semantic-ui-react";
+import { Sidebar, Menu, Icon, Divider } from "semantic-ui-react";
 import ProfileDropdown from "./ProfileDropdown";
 
 class NavigationSidebar extends Component {
