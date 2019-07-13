@@ -146,6 +146,7 @@ export default class SearchField extends Component {
         {...this.props}
         style={{ margin: "20px 0" }}
         placeholder="Search"
+        fluid
       />
     );
   }

@@ -4,7 +4,15 @@ import { withRouter } from "react-router-dom";
 import store from "../../store";
 import getUserProjects from "../../data/read/GetUserProjects";
 import { goToProject } from "../../actions/index.js";
-import { Loader, Dropdown, Icon, Divider, Grid } from "semantic-ui-react";
+import {
+  Loader,
+  Dropdown,
+  Icon,
+  Divider,
+  Grid,
+  Segment,
+  Placeholder
+} from "semantic-ui-react";
 
 import Project from "../../components/Project/Project";
 
@@ -120,6 +128,27 @@ class HomePage extends Component {
     store.dispatch(goToProject(payload));
   };
 
+  renderPlaceHolder = () => {
+    return (
+      <Grid.Row>
+        <Segment raised>
+          <Placeholder>
+            <Placeholder.Header image>
+              <Placeholder.Line />
+              <Placeholder.Line />
+            </Placeholder.Header>
+            <Placeholder.Paragraph>
+              <Placeholder.Line length="long" />
+              <Placeholder.Line length="long" />
+              <Placeholder.Line length="long" />
+              <Placeholder.Line length="medium" />
+            </Placeholder.Paragraph>
+          </Placeholder>
+        </Segment>
+      </Grid.Row>
+    );
+  };
+
   renderDashboard = () => {
     const { username } = this.state;
     return (
@@ -128,24 +157,17 @@ class HomePage extends Component {
           <h2>Projects Dashboard</h2>
         </PageHeader>
         <Grid className="dashboard-body" stackable>
-          <Grid.Column className="dashboard-greeting" width={10}>
-            <h2>Welcome to Sling, {username}!</h2>
+          <Grid.Column className="dashboard-greeting" width={11}>
+            <h3>Welcome to Astra, {username}!</h3>
             <div className="dashboard-greeting-content">
-              <p>
-                Project Sling is a project management tool developed to help
-                people get more organized. Here you can create projects and
-                track your progress, ensuring stress free productivity.
-              </p>
-              <p>
-                Project Sling is being actively developed as a side project. As
-                such, we would appreciate any feedback you have as we are
-                constantly striving to improve this application.
-              </p>
+              {this.renderPlaceHolder()}
+              {this.renderPlaceHolder()}
+              {this.renderPlaceHolder()}
             </div>
           </Grid.Column>
-          <Grid.Column className="dashboard-projects" width={6}>
+          <Grid.Column className="dashboard-projects" width={5}>
             <div className="dashboard-projects-header">
-              <h3>Projects</h3>
+              <h3>Recent Projects</h3>
               <div>
                 <Icon name="list" />
                 <Dropdown direction="left">
@@ -170,15 +192,18 @@ class HomePage extends Component {
                   key={this.getId(payload.project.projectId)}
                 >
                   <Grid.Column
-                    width={2}
-                    textAlign="center"
-                    only="computer tablet"
+                    width={16}
+                    style={{ display: "flex", flexDirection: "row" }}
                   >
                     <DashboardIcon />
-                  </Grid.Column>
-                  <Grid.Column width={10}>
-                    <h4 style={{ margin: 0 }}>{payload.project.projectName}</h4>
-                    <span style={{ color: "#94989d" }}>{payload.category}</span>
+                    <div style={{ marginLeft: "10px" }}>
+                      <h4 style={{ margin: 0 }}>
+                        {payload.project.projectName}
+                      </h4>
+                      <span style={{ color: "#94989d" }}>
+                        {payload.category}
+                      </span>
+                    </div>
                   </Grid.Column>
                 </Grid.Row>
               ))}
