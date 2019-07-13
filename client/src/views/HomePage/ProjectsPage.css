@@ -56,9 +56,13 @@
 }
 
 .dashboard-greeting-content {
-  width: 75%;
+  width: 90%;
   margin-left: auto;
   margin-right: auto;
+}
+
+.dashboard-greeting-content > .row {
+  margin: 20px 0;
 }
 
 .dashboard-greeting-content > p {

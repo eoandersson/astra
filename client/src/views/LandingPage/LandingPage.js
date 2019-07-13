@@ -152,7 +152,7 @@ class Landing extends Component {
             Terms
           </Link>
         </div>
-        <div class="footer-social-media">
+        <div className="footer-social-media">
           {this.renderFooterLink({
             href: "https://www.facebook.com",
             icon: "facebook f"
