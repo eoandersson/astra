@@ -56,13 +56,143 @@
   margin-left: 10px;
 }
 
+.landing-down-indicator {
+  position: absolute;
+  margin: 0;
+  color: rgba(255, 255, 255, 0.8);
+  left: 50%;
+  bottom: 30px;
+}
+
 .landing-footer {
-  background: linear-gradient(
-    to bottom,
-    rgba(221, 221, 221, 0.9) 0%,
-    rgba(221, 221, 221, 0.4) 5%,
-    transparent 10%
-  );
+  position: relative;
+  background: #f4f7fc;
   min-height: 100vh;
   color: #000;
+}
+
+.footer-column > h2 {
+  flex-grow: 0 !important;
+  width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 40px;
+}
+
+.landing-footer-content {
+  width: 90%;
+  padding: 100px 30px 0 30px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.landing-reviews {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.landing-reviews > h2 {
+  width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 40px;
+}
+
+.landing-footer-about > h2 {
+  width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 40px;
+}
+
+.page-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #000;
+  color: #fff;
+  padding: 30px 60px;
+  position: absolute;
+  width: 100%;
+  min-height: 150px;
+  bottom: 0;
+  left: 0;
+}
+
+.footer-link {
+  margin: 0 10px;
+  color: #fff;
+  font-size: 16px;
+}
+
+.footer-social-media > a > i:hover {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.bounce {
+  -moz-animation: bounce 3s infinite;
+  -webkit-animation: bounce 3s infinite;
+  animation: bounce 3s infinite;
+}
+
+@-moz-keyframes bounce {
+  0%,
+  20%,
+  50%,
+  80%,
+  100% {
+    -moz-transform: translateY(0);
+    transform: translateY(0);
+  }
+  40% {
+    -moz-transform: translateY(-10px);
+    transform: translateY(-10px);
+  }
+  60% {
+    -moz-transform: translateY(-5px);
+    transform: translateY(-5px);
+  }
+}
+@-webkit-keyframes bounce {
+  0%,
+  20%,
+  50%,
+  80%,
+  100% {
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+  }
+  40% {
+    -webkit-transform: translateY(-10px);
+    transform: translateY(-10px);
+  }
+  60% {
+    -webkit-transform: translateY(-5px);
+    transform: translateY(-5px);
+  }
+}
+@keyframes bounce {
+  0%,
+  20%,
+  50%,
+  80%,
+  100% {
+    -moz-transform: translateY(0);
+    -ms-transform: translateY(0);
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+  }
+  40% {
+    -moz-transform: translateY(-10px);
+    -ms-transform: translateY(-10px);
+    -webkit-transform: translateY(-10px);
+    transform: translateY(-10px);
+  }
+  60% {
+    -moz-transform: translateY(-5px);
+    -ms-transform: translateY(-5px);
+    -webkit-transform: translateY(-5px);
+    transform: translateY(-5px);
+  }
 }

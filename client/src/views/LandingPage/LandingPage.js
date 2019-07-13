@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Button } from "semantic-ui-react";
+import { Button, Icon, Grid, Segment, Placeholder } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 import "./LandingPage.css";
 import LandingHeader from "../../components/LandingHeader";
@@ -45,6 +45,139 @@ class Landing extends Component {
     });
   };
 
+  renderReview = () => {
+    return (
+      <Grid.Row>
+        <Grid.Column>
+          <Segment raised>
+            <Placeholder>
+              <Placeholder.Header image>
+                <Placeholder.Line />
+                <Placeholder.Line />
+              </Placeholder.Header>
+              <Placeholder.Paragraph>
+                <Placeholder.Line length="medium" />
+                <Placeholder.Line length="short" />
+              </Placeholder.Paragraph>
+            </Placeholder>
+          </Segment>
+        </Grid.Column>
+      </Grid.Row>
+    );
+  };
+
+  renderReviews = () => {
+    return (
+      <div className="landing-reviews">
+        <h2>User Reviews</h2>
+        <Grid columns={1}>
+          {this.renderReview()}
+          {this.renderReview()}
+          {this.renderReview()}
+        </Grid>
+      </div>
+    );
+  };
+
+  renderAboutContent = () => {
+    return (
+      <React.Fragment>
+        <h2>Our Commitment to Lorem Ipsum</h2>
+        <Grid columns={1}>
+          <Grid.Row stretched>
+            <Grid.Column>
+              <Segment raised>
+                <Placeholder>
+                  <Placeholder.Header image>
+                    <Placeholder.Line />
+                    <Placeholder.Line />
+                  </Placeholder.Header>
+                  <Placeholder.Paragraph>
+                    <Placeholder.Line length="long" />
+                    <Placeholder.Line length="long" />
+                    <Placeholder.Line length="long" />
+                    <Placeholder.Line length="medium" />
+                  </Placeholder.Paragraph>
+                </Placeholder>
+              </Segment>
+            </Grid.Column>
+          </Grid.Row>
+
+          <Grid.Row stretched>
+            <Grid.Column>
+              <Segment raised>
+                <Placeholder>
+                  <Placeholder.Header image>
+                    <Placeholder.Line />
+                    <Placeholder.Line />
+                  </Placeholder.Header>
+                  <Placeholder.Paragraph>
+                    <Placeholder.Line length="long" />
+                    <Placeholder.Line length="long" />
+                    <Placeholder.Line length="long" />
+                    <Placeholder.Line length="medium" />
+                  </Placeholder.Paragraph>
+                </Placeholder>
+              </Segment>
+            </Grid.Column>
+          </Grid.Row>
+        </Grid>
+      </React.Fragment>
+    );
+  };
+
+  renderFooterLink = ({ href, icon }) => {
+    return (
+      <a href={href} rel="noopener noreferrer" target="_blank">
+        <Icon name={icon} size="large" inverted />
+      </a>
+    );
+  };
+
+  renderPageFooter() {
+    return (
+      <div className="page-footer">
+        <div>
+          <Icon name="copyright outline" inverted /> Astra Is Not Actually a
+          Company, LLC
+        </div>
+        <div>
+          <Link to="/" className="footer-link">
+            About Us
+          </Link>
+          <Link to="/" className="footer-link">
+            Privacy
+          </Link>
+          <Link to="/" className="footer-link">
+            Terms
+          </Link>
+        </div>
+        <div class="footer-social-media">
+          {this.renderFooterLink({
+            href: "https://www.facebook.com",
+            icon: "facebook f"
+          })}
+          {this.renderFooterLink({
+            href: "https://www.twitter.com",
+            icon: "twitter"
+          })}
+          {this.renderFooterLink({
+            href: "https://www.youtube.com",
+            icon: "youtube"
+          })}
+          {this.renderFooterLink({
+            href: "https://www.linkedin.com",
+            icon: "linkedin"
+          })}
+          {this.renderFooterLink({
+            href: "https://www.instagram.com",
+            icon: "instagram"
+          })}
+        </div>
+      </div>
+    );
+  }
+
   renderInitialContent() {
     const { atTopOfPage } = this.state;
 
@@ -77,12 +210,31 @@ class Landing extends Component {
             </div>
           </div>
         </div>
+        <Icon
+          className="landing-down-indicator bounce"
+          name="angle double down"
+          size="big"
+        />
       </div>
     );
   }
 
   renderFooter() {
-    return <div className="landing-footer" />;
+    return (
+      <div className="landing-footer">
+        <div className="landing-footer-content">
+          <Grid columns={3}>
+            <Grid.Column width={10} className="footer-column" stretched>
+              {this.renderAboutContent()}
+            </Grid.Column>
+            <Grid.Column width={6} className="footer-column" stretched>
+              {this.renderReviews()}
+            </Grid.Column>
+          </Grid>
+        </div>
+        {this.renderPageFooter()}
+      </div>
+    );
   }
 
   render() {
