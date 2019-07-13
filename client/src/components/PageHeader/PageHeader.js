@@ -1,11 +1,7 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
 import store from "../../store";
-import {
-  hideProjectSidebar,
-  showProjectSidebar,
-  userSignOut
-} from "../../actions";
+import { hideProjectSidebar, showProjectSidebar } from "../../actions";
 import "./PageHeader.css";
 import { Icon } from "semantic-ui-react";
 

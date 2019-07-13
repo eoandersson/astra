@@ -8,7 +8,6 @@ import { showCreateTask } from "../../actions/index.js";
 import User from "./User";
 
 import Task from "../Task/Task";
-import TaskHeader from "../Task/TaskHeader";
 import TaskFooter from "../Task/TaskFooter";
 import PageHeader from "../PageHeader";
 import ProjectDropdown from "../ProjectDropdown/ProjectDropdown";

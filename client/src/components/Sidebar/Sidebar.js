@@ -2,14 +2,7 @@ import React, { Component } from "react";
 import "./Sidebar.css";
 import store from "../../store";
 import { showCreateProject } from "../../actions";
-import {
-  Sidebar,
-  Menu,
-  Divider,
-  Icon,
-  Segment,
-  Search
-} from "semantic-ui-react";
+import { Sidebar, Menu, Divider } from "semantic-ui-react";
 import { withRouter } from "react-router-dom";
 
 import CreateCategoryOption from "./CreateCategoryOption";

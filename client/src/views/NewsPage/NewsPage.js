@@ -3,7 +3,7 @@ import "./NewsPage.css";
 import { withRouter } from "react-router-dom";
 import getAllNewsItems from "../../data/read/GetAllNewsItems";
 
-import { Button, Loader, Icon } from "semantic-ui-react";
+import { Button, Loader } from "semantic-ui-react";
 
 import NewsItem from "../../components/NewsItem";
 import CreateNewsItem from "../../components/Modals/CreateNewsItem";
