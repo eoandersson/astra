@@ -132,13 +132,35 @@ class Project extends Component {
               className="tasks-option"
               active={activeItem === "tasks"}
               onClick={this.handleItemClick}
-            />
+            >
+              <Icon name="tasks" /> Tasks
+            </Menu.Item>
             <Menu.Item
               name="information"
               className="information-option"
               active={activeItem === "information"}
               onClick={this.handleItemClick}
-            />
+            >
+              <Icon name="info" /> Information
+            </Menu.Item>
+            <Menu.Item
+              disabled
+              name="discussion"
+              className="discussion-option"
+              active={activeItem === "discussion"}
+              onClick={this.handleItemClick}
+            >
+              <Icon name="comment outline" /> Discussion
+            </Menu.Item>
+            <Menu.Item
+              disabled
+              name="settings"
+              className="settings-option"
+              active={activeItem === "settings"}
+              onClick={this.handleItemClick}
+            >
+              <Icon name="cog" /> Settings
+            </Menu.Item>
           </Menu>
           {this.renderContent()}
         </div>

@@ -60,12 +60,12 @@
   background-clip: text !important;
   background: -webkit-linear-gradient(
     to bottom right,
-    #ec6236,
-    #b44768
+    #333f92,
+    #b44668
   ) !important;
   background-image: linear-gradient(
     to bottom right,
-    #ec6236,
-    #b44768
+    #333f92,
+    #b44668
   ) !important;
 }
