@@ -3,7 +3,7 @@ import "./NewsPage.css";
 import { withRouter } from "react-router-dom";
 import getAllNewsItems from "../../data/read/GetAllNewsItems";
 
-import { Button, Loader } from "semantic-ui-react";
+import { Button, Loader, Icon } from "semantic-ui-react";
 
 import NewsItem from "../../components/NewsItem";
 import CreateNewsItem from "../../components/Modals/CreateNewsItem";
@@ -11,6 +11,7 @@ import EditNewsItem from "../../components/Modals/EditNewsItem";
 import store from "../../store";
 import { showCreateNewsItem } from "../../actions/index.js";
 import NavigationSidebar from "../../components/NavigationSidebar/NavigationSidebar";
+import PageHeader from "../../components/PageHeader";
 
 class NewsPage extends Component {
   constructor(props) {
@@ -76,6 +77,9 @@ class NewsPage extends Component {
       <div className="news-page">
         <div className="news-content">
           <NavigationSidebar />
+          <PageHeader>
+            <h2>News</h2>
+          </PageHeader>
           <div className="news-button-wrapper">
             <Button positive onClick={this.createNewsItem}>
               Post a New Article
