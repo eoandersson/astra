@@ -1,5 +1,5 @@
 import store from "../../store";
-import { removeProject } from "../../actions";
+import { removeProject, goToDashboard } from "../../actions";
 
 export default function deleteProject({ project, projectId, category }) {
   fetch("/project-service/projects", {
@@ -20,6 +20,7 @@ export default function deleteProject({ project, projectId, category }) {
         category: category
       };
       store.dispatch(removeProject(payload));
+      store.dispatch(goToDashboard());
     } else {
       console.log("Error: " + response.status);
     }
