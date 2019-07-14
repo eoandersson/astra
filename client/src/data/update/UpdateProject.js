@@ -1,7 +1,7 @@
 import store from "../../store";
 import { editProject, hideEditProject } from "../../actions";
 
-export default function updateProject(input) {
+export default async function updateProject(input) {
   const {
     project,
     projectId,
@@ -11,7 +11,8 @@ export default function updateProject(input) {
     users,
     category
   } = input;
-  fetch("/project-service/projects", {
+
+  const response = await fetch("/project-service/projects", {
     method: "PUT",
     headers: {
       Accept: "application/json",
@@ -25,19 +26,20 @@ export default function updateProject(input) {
       users: users,
       tasks: tasks
     })
-  }).then(response => {
-    if (response.status === 200) {
-      var payload = {
-        project: project,
-        projectName: projectName,
-        projectDescription: projectDescription,
-        users: users,
-        category: category
-      };
-      store.dispatch(editProject(payload));
-      store.dispatch(hideEditProject());
-    } else {
-      console.log("Error");
-    }
   });
+
+  if (response.status === 200) {
+    var payload = {
+      project: project,
+      projectName: projectName,
+      projectDescription: projectDescription,
+      users: users,
+      category: category
+    };
+    store.dispatch(editProject(payload));
+    store.dispatch(hideEditProject());
+  } else {
+    console.log("Error");
+  }
+  return response.status;
 }
