@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import store from "../../store";
 import { showCreateCategory } from "../../actions";
-import { Icon } from "semantic-ui-react";
+import { Popup, Icon } from "semantic-ui-react";
 
 export default class CreateCategoryOption extends Component {
   showCreateCategory = () => {
@@ -10,10 +10,13 @@ export default class CreateCategoryOption extends Component {
 
   render() {
     return (
-      <div className="project-sidebar-footer">
-        <span>Add a New Category</span>
-        <Icon name="add" onClick={this.showCreateCategory} />
-      </div>
+      <Popup
+        content="Create a new project category"
+        trigger={
+          <Icon name="folder open outline" onClick={this.showCreateCategory} />
+        }
+        position="right center"
+      />
     );
   }
 }

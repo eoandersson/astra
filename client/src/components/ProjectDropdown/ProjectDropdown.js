@@ -16,6 +16,7 @@ export default class ProjectDropdown extends Component {
           icon === "horizontal" ? "ellipsis horizontal" : "ellipsis vertical"
         }
         className="project-dropdown"
+        pointing
       >
         <Dropdown.Menu>
           <Dropdown.Header icon="cog" content="Project Options" />

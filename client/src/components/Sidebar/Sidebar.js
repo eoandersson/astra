@@ -105,11 +105,17 @@ class ProjectsSidebar extends Component {
     return (
       <React.Fragment>
         <SearchField />
+        <Divider style={{ marginBottom: "0.5rem" }} />
+        <h4 style={{ marginTop: 0, marginBottom: "0.2rem" }}>OPTIONS</h4>
+        <div className="project-sidebar-footer">
+          <CreateProjectOption />
+          <CreateCategoryOption />
+        </div>
+        <Divider style={{ marginBottom: "0.5rem" }} />
+        <h4 style={{ marginTop: 0, marginBottom: "0.2rem" }}>PROJECTS</h4>
         {this.renderStandardProjects()}
         {this.renderProjects()}
         <Divider />
-        <CreateProjectOption />
-        <CreateCategoryOption />
       </React.Fragment>
     );
   };
