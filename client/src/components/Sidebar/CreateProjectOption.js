@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import store from "../../store";
 import { showCreateProject } from "../../actions";
-import { Icon } from "semantic-ui-react";
+import { Popup, Icon } from "semantic-ui-react";
 
 export default class CreateProjectOption extends Component {
   showCreateProject = () => {
@@ -10,10 +10,11 @@ export default class CreateProjectOption extends Component {
 
   render() {
     return (
-      <div className="project-sidebar-footer">
-        <span>Create a New Project</span>
-        <Icon name="add" onClick={this.showCreateProject} />
-      </div>
+      <Popup
+        content="Create a new project"
+        trigger={<Icon name="tasks" onClick={this.showCreateProject} />}
+        position="right center"
+      />
     );
   }
 }
