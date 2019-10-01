@@ -1,4 +1,4 @@
-import store from "../../store";
+import { store } from "../../store";
 import { addTask, hideCreateTask } from "../../actions";
 
 export default function createTask({ project, projectId, task, category }) {

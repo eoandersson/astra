@@ -1,4 +1,4 @@
-import store from "../../store";
+import { store } from "../../store";
 import { handleAddProject, hideCreateProject } from "../../actions";
 
 export default function createProject({ project, category }) {

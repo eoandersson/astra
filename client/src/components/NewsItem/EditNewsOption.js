@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Dropdown } from "semantic-ui-react";
 import { showEditNewsItem } from "../../actions";
-import store from "../../store";
+import { store } from "../../store";
 
 class EditNewsOption extends Component {
   constructor(props) {

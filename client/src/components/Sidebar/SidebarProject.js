@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import store from "../../store";
+import { store } from "../../store";
 import { goToProject } from "../../actions";
 import { Menu } from "semantic-ui-react";
 import ProjectDropdown from "../ProjectDropdown";

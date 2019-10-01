@@ -1,4 +1,4 @@
-import store from "../../store";
+import { store } from "../../store";
 import { editProject, hideEditProject } from "../../actions";
 
 export default async function updateProject(input) {

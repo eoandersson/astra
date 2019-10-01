@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Modal, Button, Form, Input, TextArea, Icon } from "semantic-ui-react";
-import store from "../../store";
+import { store } from "../../store";
 import { hideCreateTask } from "../../actions/index.js";
 import createTask from "../../data/create/CreateTask";
 

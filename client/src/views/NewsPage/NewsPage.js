@@ -8,7 +8,7 @@ import { Button, Loader } from "semantic-ui-react";
 import NewsItem from "../../components/NewsItem";
 import CreateNewsItem from "../../components/Modals/CreateNewsItem";
 import EditNewsItem from "../../components/Modals/EditNewsItem";
-import store from "../../store";
+import { store } from "../../store";
 import { showCreateNewsItem } from "../../actions/index.js";
 import NavigationSidebar from "../../components/NavigationSidebar/NavigationSidebar";
 import PageHeader from "../../components/PageHeader";

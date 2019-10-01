@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import store from "../../store";
+import { store } from "../../store";
 import { goToProject, showCategory } from "../../actions";
 import { Search } from "semantic-ui-react";
 

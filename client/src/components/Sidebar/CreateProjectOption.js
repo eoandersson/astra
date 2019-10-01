@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import store from "../../store";
+import { store } from "../../store";
 import { showCreateProject } from "../../actions";
 import { Popup, Icon } from "semantic-ui-react";
 

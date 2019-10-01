@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Modal, Form, Input, TextArea, Button, Icon } from "semantic-ui-react";
-import store from "../../store";
+import { store } from "../../store";
 import { hideCreateNewsItem } from "../../actions/index.js";
 import createNewsItem from "../../data/create/CreateNewsItem";
 
