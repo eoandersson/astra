@@ -1,4 +1,4 @@
-import store from "../../store";
+import { store } from "../../store";
 import { handleAddNewsItem, hideCreateNewsItem } from "../../actions";
 
 export default function createNewsItem({ title, body, author }) {

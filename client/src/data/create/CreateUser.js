@@ -1,4 +1,4 @@
-import store from "../../store";
+import { store } from "../../store";
 import { setRegisterLoading, setRegisterFinished } from "../../actions";
 
 export default async function createUser({ username, password }) {

@@ -1,4 +1,4 @@
-import store from "../../store";
+import { store } from "../../store";
 import { removeNewsItem } from "../../actions";
 
 export default function deleteNewsItem({ newsItem, newsId }) {

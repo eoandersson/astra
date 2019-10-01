@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import store from "../../store";
+import { store } from "../../store";
 import { showCategory, hideCategory } from "../../actions";
 import { Accordion, Menu, Icon } from "semantic-ui-react";
 import DeleteCategoryIcon from "./DeleteCategoryIcon";

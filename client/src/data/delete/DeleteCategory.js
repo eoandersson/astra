@@ -1,4 +1,4 @@
-import store from "../../store";
+import { store } from "../../store";
 import { removeCategory } from "../../actions";
 
 export default function deleteCategory({ category }) {

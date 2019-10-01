@@ -1,4 +1,4 @@
-import store from "../../store";
+import { store } from "../../store";
 import { addCategory, hideCreateCategory } from "../../actions";
 
 export default function createCategory({ category }) {

@@ -1,4 +1,4 @@
-import store from "../../store";
+import { store } from "../../store";
 import { removeProject, goToDashboard } from "../../actions";
 
 export default function deleteProject({ project, projectId, category }) {

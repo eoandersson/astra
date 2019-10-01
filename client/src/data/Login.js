@@ -1,4 +1,4 @@
-import store from "../store";
+import { store } from "../store";
 import { userSignIn, setLoginLoading, setLoginFinished } from "../actions";
 
 export default async function login(username, password) {

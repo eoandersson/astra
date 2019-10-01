@@ -12,7 +12,7 @@ import {
   Dropdown
 } from "semantic-ui-react";
 
-import store from "../../store";
+import { store } from "../../store";
 import { showCreateTask } from "../../actions/index.js";
 
 import updateProject from "../../data/update/UpdateProject";
@@ -40,7 +40,7 @@ class Project extends Component {
         success: false,
         failure: false,
         failureMessage: "",
-        loading: false,
+        loading: false
       },
       settingsDescription: {
         description: projectDescription,
@@ -126,7 +126,7 @@ class Project extends Component {
   };
 
   handleProjectNameChange = event => {
-    this.setState({ settingsName: { name: event.target.value }});
+    this.setState({ settingsName: { name: event.target.value } });
   };
 
   changeProjectName = async () => {
@@ -157,13 +157,16 @@ class Project extends Component {
       });
     } else {
       this.setState({
-        settingsName: { failure: true, failureMessage: "Failed to change project name." },
+        settingsName: {
+          failure: true,
+          failureMessage: "Failed to change project name."
+        }
       });
     }
   };
 
   handleProjectDescriptionChange = event => {
-    this.setState({ settingsDescription: { description: event.target.value }});
+    this.setState({ settingsDescription: { description: event.target.value } });
   };
 
   changeProjectDescription = async () => {
@@ -194,7 +197,7 @@ class Project extends Component {
       });
     } else {
       this.setState({
-        settingsDescription: { 
+        settingsDescription: {
           failure: true,
           failureMessage: "Failed to change project description."
         }
@@ -222,19 +225,15 @@ class Project extends Component {
     }
   };
 
-  deleteProject = (event) => {
+  deleteProject = event => {
     event.preventDefault();
     const { project, projectId, category } = this.props;
     deleteProject({ project, projectId, category });
-  }
+  };
 
   renderSettings = () => {
     // const { project, projectId, category } = this.props;
-    const {
-      settingsName,
-      settingsDescription,
-      settingsUsers
-    } = this.state;
+    const { settingsName, settingsDescription, settingsUsers } = this.state;
 
     return (
       <div className="project-wrapper">

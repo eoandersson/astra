@@ -1,4 +1,4 @@
-import store from "../../store";
+import { store } from "../../store";
 import { editTask } from "../../actions";
 
 export default function updateTask(input) {
