@@ -1,4 +1,4 @@
-version: '3'
+version: "3"
 
 services:
   eureka-server:
@@ -16,7 +16,7 @@ services:
       SPRING_APPLICATION_NAME: ${ZUUL_APPLICATION_NAME}
       SERVER_PORT: ${ZUUL_PORT}
       EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: ${EUREKA_CLIENT_SERVICEURL}
-      EUREKA_INSTANCE_PREFER_IP_ADDRESS: 'true'
+      EUREKA_INSTANCE_PREFER_IP_ADDRESS: "true"
 
   project-service:
     build: ./project-service
@@ -28,7 +28,7 @@ services:
       SPRING_APPLICATION_NAME: ${PROJECT_APPLICATION_NAME}
       SERVER_PORT: ${PROJECT_PORT}
       EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: ${EUREKA_CLIENT_SERVICEURL}
-      EUREKA_INSTANCE_PREFER_IP_ADDRESS: 'true'
+      EUREKA_INSTANCE_PREFER_IP_ADDRESS: "true"
       JWT_SECRET: ${JWT_SECRET}
       DATABASE_KEY: ${DATABASE_KEY}
       DATABASE_NAME: ${PROJECT_DATABASE_NAME}
@@ -43,7 +43,7 @@ services:
       SPRING_APPLICATION_NAME: ${LOGIN_APPLICATION_NAME}
       SERVER_PORT: ${LOGIN_PORT}
       EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: ${EUREKA_CLIENT_SERVICEURL}
-      EUREKA_INSTANCE_PREFER_IP_ADDRESS: 'true'
+      EUREKA_INSTANCE_PREFER_IP_ADDRESS: "true"
       JWT_SECRET: ${JWT_SECRET}
       DATABASE_KEY: ${DATABASE_KEY}
       DATABASE_NAME: ${LOGIN_DATABASE_NAME}
@@ -58,12 +58,19 @@ services:
       SPRING_APPLICATION_NAME: ${NEWS_APPLICATION_NAME}
       SERVER_PORT: ${NEWS_PORT}
       EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: ${EUREKA_CLIENT_SERVICEURL}
-      EUREKA_INSTANCE_PREFER_IP_ADDRESS: 'true'
+      EUREKA_INSTANCE_PREFER_IP_ADDRESS: "true"
       JWT_SECRET: ${JWT_SECRET}
       DATABASE_KEY: ${DATABASE_KEY}
       DATABASE_NAME: ${NEWS_DATABASE_NAME}
 
   react-client:
-    build: ./client
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    volumes:
+      - "./client:/usr/src/app"
+      - "/usr/src/app/node_modules"
     ports:
-      - 3000:3000
+      - "3000:3000"
+    environment:
+      - NODE_ENV=development
