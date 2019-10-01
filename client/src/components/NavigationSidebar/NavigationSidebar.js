@@ -12,6 +12,20 @@ class NavigationSidebar extends Component {
     store.dispatch(goToDashboard());
   };
 
+  renderHomeActive = () => {
+    if (this.props.location.pathname === "/home") {
+      return <div className="navbar-active-indicator" />;
+    }
+    return null;
+  };
+
+  renderNewsActive = () => {
+    if (this.props.location.pathname === "/news") {
+      return <div className="navbar-active-indicator" />;
+    }
+    return null;
+  };
+
   render() {
     return (
       <Sidebar
@@ -33,6 +47,7 @@ class NavigationSidebar extends Component {
           onClick={this.goToDashboard}
           active={this.props.location.pathname === "/home"}
         >
+          {this.renderHomeActive()}
           <Icon className="navbar-icon" name="home" size="big" />
         </Menu.Item>
         <Menu.Item
@@ -41,6 +56,7 @@ class NavigationSidebar extends Component {
           to="/news"
           active={this.props.location.pathname === "/news"}
         >
+          {this.renderNewsActive()}
           <Icon className="navbar-icon" name="newspaper" size="big" />
         </Menu.Item>
       </Sidebar>

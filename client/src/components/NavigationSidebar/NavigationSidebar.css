@@ -50,22 +50,19 @@
   font-size: 1.6em !important;
 }
 
+.navigation-sidebar > .navbar-item > .navbar-active-indicator {
+  position: absolute;
+  width: 5px;
+  height: 80%;
+  background-color: #833471;
+  left: 0;
+  border-radius: 0 5px 5px 0;
+}
+
 .navigation-sidebar > .active.navbar-item {
   opacity: 1;
 }
 
 .navigation-sidebar > .active.navbar-item > i {
-  color: transparent !important;
-  -webkit-background-clip: text !important;
-  background-clip: text !important;
-  background: -webkit-linear-gradient(
-    to bottom right,
-    #333f92,
-    #b44668
-  ) !important;
-  background-image: linear-gradient(
-    to bottom right,
-    #333f92,
-    #b44668
-  ) !important;
+  color: #833471 !important;
 }
