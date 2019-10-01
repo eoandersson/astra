@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Link, withRouter } from "react-router-dom";
-import store from "../../store";
+import { store } from "../../store";
 import { goToDashboard } from "../../actions";
 import "./NavigationSidebar.css";
 

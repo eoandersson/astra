@@ -8,6 +8,8 @@ const initialState = {
 export default function userAuthentication(state = initialState, action) {
   switch (action.type) {
     case USER_SIGN_IN:
+      console.log("Hej!");
+      console.log(action.payload);
       return Object.assign({}, state, {
         username: action.payload,
         signedIn: true

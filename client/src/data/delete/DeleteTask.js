@@ -1,7 +1,7 @@
-import store from "../../store";
+import { store } from "../../store";
 import { removeTask } from "../../actions";
 
-export default function deleteTask({project, projectId, category, task}) {
+export default function deleteTask({ project, projectId, category, task }) {
   fetch("/project-service/projects/task", {
     method: "DELETE",
     headers: {

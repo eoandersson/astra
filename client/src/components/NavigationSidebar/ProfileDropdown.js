@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
-import store from "../../store";
+import { store } from "../../store";
 import { userSignOut } from "../../actions";
 
 import { Dropdown, Icon } from "semantic-ui-react";

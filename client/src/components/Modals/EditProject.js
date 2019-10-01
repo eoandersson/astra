@@ -8,7 +8,7 @@ import {
   Divider,
   TextArea
 } from "semantic-ui-react";
-import store from "../../store";
+import { store } from "../../store";
 import { hideEditProject } from "../../actions/index.js";
 import updateProject from "../../data/update/UpdateProject";
 

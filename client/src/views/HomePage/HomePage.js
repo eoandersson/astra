@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "./ProjectsPage.css";
 import { withRouter } from "react-router-dom";
-import store from "../../store";
+import { store } from "../../store";
 import getUserProjects from "../../data/read/GetUserProjects";
 import { goToProject } from "../../actions/index.js";
 import {

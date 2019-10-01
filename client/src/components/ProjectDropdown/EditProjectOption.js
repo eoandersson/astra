@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { showEditProject } from "../../actions";
-import store from "../../store";
+import { store } from "../../store";
 import { Dropdown } from "semantic-ui-react";
 
 export default class EditProjectOption extends Component {

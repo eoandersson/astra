@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import store from "../../store";
+import { store } from "../../store";
 import { Button, Form, Icon, Message } from "semantic-ui-react";
 import { Link, withRouter } from "react-router-dom";
 import "./RegisterPage.css";

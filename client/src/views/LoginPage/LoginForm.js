@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Link, withRouter } from "react-router-dom";
-import store from "../../store";
+import { store } from "../../store";
 import { Form, Button, Message, Icon } from "semantic-ui-react";
 import login from "../../data/Login";
 
@@ -51,8 +51,10 @@ class LoginForm extends Component {
     const { username, password } = this.state;
     const { history } = this.props;
     const success = await login(username, password);
-    if (success) history.push("/home");
-    else {
+    if (success) {
+      console.log(store.getState());
+      history.push("/home");
+    } else {
       this.setState({
         loginError: true
       });
