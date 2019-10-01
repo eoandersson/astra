@@ -4,3 +4,4 @@ client/.classpath
 client/.project
 client/.settings/
 .env
+*/target/*
