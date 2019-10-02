@@ -21,8 +21,8 @@ class Task extends Component {
         <Grid.Column width={2} textAlign="center">
           <h3>{task.name}</h3>
         </Grid.Column>
-        <Grid.Column width={7}>
-          <Linkify>{task.description}</Linkify>
+        <Grid.Column className="task-description" width={7}>
+          <Linkify className="test">{task.description}</Linkify>
         </Grid.Column>
         <Grid.Column width={3} textAlign="center">
           <TaskStatusButton
