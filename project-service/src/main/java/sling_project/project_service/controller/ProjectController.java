@@ -20,6 +20,7 @@ import sling_project.project_service.model.Projects;
 import sling_project.project_service.repository.ProjectsRepository;
 import sling_project.project_service.requests.MoveProjectRequest;
 import sling_project.project_service.requests.ProjectCategoryRequest;
+import sling_project.project_service.requests.ProjectSubtaskRequest;
 import sling_project.project_service.requests.ProjectTaskRequest;
 import sling_project.project_service.requests.UserCategoryRequest;
 import sling_project.project_service.requests.UserProjectRequest;
@@ -74,6 +75,21 @@ public class ProjectController {
 	@RequestMapping(value = "/projects/task", method = RequestMethod.PUT)
 	public ResponseEntity<?> updateTask(@Valid @RequestBody ProjectTaskRequest request) {
 		return mongoService.updateTask(request);
+	}
+	
+	@RequestMapping(value = "/projects/subtask", method = RequestMethod.POST)
+	public ResponseEntity<?> createSubask(@Valid @RequestBody ProjectSubtaskRequest request) {
+		return mongoService.createSubtask(request);
+	}
+	
+	@RequestMapping(value = "/projects/subtask", method = RequestMethod.DELETE)
+	public ResponseEntity<?> deleteSubtask(@Valid @RequestBody ProjectSubtaskRequest request) {
+		return mongoService.deleteSubtask(request);
+	}
+	
+	@RequestMapping(value = "/projects/subtask", method = RequestMethod.PUT)
+	public ResponseEntity<?> updateSubtask(@Valid @RequestBody ProjectSubtaskRequest request) {
+		return mongoService.updateSubtask(request);
 	}
 	
 	@RequestMapping(value = "/projects", method = RequestMethod.GET)
