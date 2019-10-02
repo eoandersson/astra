@@ -4,5 +4,5 @@ COPY pom.xml /home/app
 RUN mvn -f /home/app/pom.xml clean package
 
 FROM java:8
-ADD target/eureka-server-0.0.1-SNAPSHOT.jar eureka-server-0.0.1-SNAPSHOT.jar
-ENTRYPOINT ["java", "-jar", "eureka-server-0.0.1-SNAPSHOT.jar"]
+COPY --from=build /home/app/target/eureka-server-0.0.1-SNAPSHOT.jar /usr/local/lib/eureka-server-0.0.1-SNAPSHOT.jar
+ENTRYPOINT ["java", "-jar", "/usr/local/lib/eureka-server-0.0.1-SNAPSHOT.jar"]
