@@ -14,12 +14,16 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import com.netflix.client.http.HttpResponse;
+
 import sling_project.project_service.model.Projects;
+import sling_project.project_service.model.Tasks;
 import sling_project.project_service.model.Users;
 import sling_project.project_service.repository.ProjectsRepository;
 import sling_project.project_service.repository.UsersRepository;
 import sling_project.project_service.requests.MoveProjectRequest;
 import sling_project.project_service.requests.ProjectCategoryRequest;
+import sling_project.project_service.requests.ProjectSubtaskRequest;
 import sling_project.project_service.requests.ProjectTaskRequest;
 import sling_project.project_service.requests.UserCategoryRequest;
 import sling_project.project_service.requests.UserProjectRequest;
@@ -224,6 +228,72 @@ public class MongoProjectService {
 		project.setTaskState(request.getTask());
 		projectsRepository.save(project);
 		return new ResponseEntity(HttpStatus.OK);
+	}
+	
+	public ResponseEntity<?> createSubtask(ProjectSubtaskRequest request) {
+		Projects project = projectsRepository.findByProjectId(request.getProjectId());
+		
+		if(project == null) {
+			return new ResponseEntity(HttpStatus.NOT_FOUND);
+		}
+		
+		String requestedTask = request.getTaskName();
+		for(Tasks task : project.getTasks()) {
+			if(task.getName().equals(requestedTask)) {
+				ResponseEntity response = task.addSubtask(request.getSubtask());
+				if(response.getStatusCode().equals(HttpStatus.OK)) {
+					projectsRepository.save(project);
+				}
+				return response;
+			}
+		}
+		
+		return new ResponseEntity(HttpStatus.NOT_FOUND);
+		
+	}
+	
+	public ResponseEntity<?> deleteSubtask(ProjectSubtaskRequest request) {
+		Projects project = projectsRepository.findByProjectId(request.getProjectId());
+		
+		if(project == null) {
+			return new ResponseEntity(HttpStatus.NOT_FOUND);
+		}
+		
+		String requestedTask = request.getTaskName();
+		for(Tasks task : project.getTasks()) {
+			if(task.getName().equals(requestedTask)) {
+				ResponseEntity response = task.removeSubtask(request.getSubtask());
+				if(response.getStatusCode().equals(HttpStatus.NO_CONTENT)) {
+					projectsRepository.save(project);
+				}
+				return response;
+			}
+		}
+		
+		return new ResponseEntity(HttpStatus.NOT_FOUND);
+		
+	}
+	
+	public ResponseEntity<?> updateSubtask(ProjectSubtaskRequest request) {
+		Projects project = projectsRepository.findByProjectId(request.getProjectId());
+		
+		if(project == null) {
+			return new ResponseEntity(HttpStatus.NOT_FOUND);
+		}
+		
+		String requestedTask = request.getTaskName();
+		for(Tasks task : project.getTasks()) {
+			if(task.getName().equals(requestedTask)) {
+				ResponseEntity response = task.updateSubtask(request.getSubtask());
+				if(response.getStatusCode().equals(HttpStatus.OK)) {
+					projectsRepository.save(project);
+				}
+				return response;
+			}
+		}
+		
+		return new ResponseEntity(HttpStatus.NOT_FOUND);
+		
 	}
 	
 	public ResponseEntity<?> getAllProjects() {
