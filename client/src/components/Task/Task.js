@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import Linkify from "react-linkify";
 import DeleteTaskButton from "./DeleteTaskButton";
 import TaskStatusButton from "./TaskStatusButton";
 import { Grid, Progress, Dropdown } from "semantic-ui-react";
@@ -20,7 +21,9 @@ class Task extends Component {
         <Grid.Column width={2} textAlign="center">
           <h3>{task.name}</h3>
         </Grid.Column>
-        <Grid.Column width={7}>{task.description}</Grid.Column>
+        <Grid.Column width={7}>
+          <Linkify>{task.description}</Linkify>
+        </Grid.Column>
         <Grid.Column width={3} textAlign="center">
           <TaskStatusButton
             projectId={projectId}
