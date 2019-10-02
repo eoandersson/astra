@@ -158,6 +158,10 @@
   padding-bottom: 0 !important;
 }
 
+.task-description > a {
+  word-break: break-all;
+}
+
 .task-progress-bar {
   margin-top: auto !important;
   margin-bottom: auto !important;
