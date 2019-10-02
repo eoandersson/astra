@@ -4,5 +4,5 @@ COPY pom.xml /home/app
 RUN mvn -f /home/app/pom.xml clean package
 
 FROM java:8
-ADD target/project-service-1.0.jar project-service-1.0.jar
-ENTRYPOINT ["java", "-jar", "project-service-1.0.jar"]
+COPY --from=build /home/app/target/project-service-1.0.jar /usr/local/lib/project-service-1.0.jar
+ENTRYPOINT ["java", "-jar", "/usr/local/lib/project-service-1.0.jar"]

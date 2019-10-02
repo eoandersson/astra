@@ -4,5 +4,5 @@ COPY pom.xml /home/app
 RUN mvn -f /home/app/pom.xml clean package
 
 FROM java:8
-ADD target/newsfeed-service-0.0.1-SNAPSHOT.jar newsfeed-service-0.0.1-SNAPSHOT.jar
-ENTRYPOINT ["java", "-jar", "newsfeed-service-0.0.1-SNAPSHOT.jar"]
+COPY --from=build /home/app/target/newsfeed-service-0.0.1-SNAPSHOT.jar /usr/local/lib/newsfeed-service-0.0.1-SNAPSHOT.jar
+ENTRYPOINT ["java", "-jar", "/usr/local/lib/newsfeed-service-0.0.1-SNAPSHOT.jar"]
