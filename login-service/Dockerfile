@@ -4,5 +4,5 @@ COPY pom.xml /home/app
 RUN mvn -f /home/app/pom.xml clean package
 
 FROM java:8
-ADD target/login-service-1.0.jar login-service-1.0.jar
-ENTRYPOINT ["java", "-jar", "login-service-1.0.jar"]
+COPY --from=build /home/app/target/login-service-1.0.jar /usr/local/lib/login-service-1.0.jar
+ENTRYPOINT ["java", "-jar", "/usr/local/lib/login-service-1.0.jar"]
