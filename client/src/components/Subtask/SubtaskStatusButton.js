@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { Icon, Dropdown } from "semantic-ui-react";
-import updateTask from "../../data/update/UpdateTask";
+import updateSubtask from "../../data/update/UpdateSubtask";
 
-class TaskStatusButton extends Component {
+class SubtaskStatusButton extends Component {
   constructor(props) {
     super(props);
 
@@ -25,34 +25,35 @@ class TaskStatusButton extends Component {
   }
 
   changeTaskStatus(status) {
-    const { project, projectId, task, category } = this.props;
+    const { project, projectId, taskName, subtask, category } = this.props;
     const output = {
       project,
       projectId,
-      task,
+      taskName,
+      subtask,
       status,
       category
     };
-    updateTask(output);
+    updateSubtask(output);
   }
 
   getTaskStatusColor = () => {
-    const { task } = this.props;
-    if (task.status === 2) return "task-status green";
-    else if (task.status === 1) return "task-status yellow";
+    const { subtask } = this.props;
+    if (subtask.status === 2) return "task-status green";
+    else if (subtask.status === 1) return "task-status yellow";
     else return "task-status";
   };
 
   getTaskStatusText = () => {
-    const { task } = this.props;
-    if (task.status === 2) return "Finished";
-    else if (task.status === 1) return "In Progress";
+    const { subtask } = this.props;
+    if (subtask.status === 2) return "Finished";
+    else if (subtask.status === 1) return "In Progress";
     else return "Not Started";
   };
 
   getStatusIcon = () => {
-    const { task } = this.props;
-    if (task.status === 2 || task.status === 1) return "circle";
+    const { subtask } = this.props;
+    if (subtask.status === 2 || subtask.status === 1) return "circle";
     else return "circle outline";
   };
 
@@ -73,4 +74,4 @@ class TaskStatusButton extends Component {
   }
 }
 
-export default TaskStatusButton;
+export default SubtaskStatusButton;
