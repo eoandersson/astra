@@ -17,7 +17,12 @@ export default function createTask({ project, projectId, task, category }) {
     if (response.status === 200) {
       var payload = {
         project: project,
-        task: task,
+        task: {
+          name: task.name,
+          description: task.description,
+          status: 0,
+          subtasks: []
+        },
         category: category
       };
       store.dispatch(addTask(payload));
