@@ -101,8 +101,9 @@
   min-height: 50px;
   background: #3f4059;
   color: #fff;
-  border-radius: 20px;
-  padding: 15px;
+  border-radius: 5px;
+  padding: 15px 0;
+  margin-bottom: 250px;
 }
 
 .project-footer {
@@ -156,6 +157,21 @@
 .task-row {
   padding-top: 0 !important;
   padding-bottom: 0 !important;
+  z-index: 10;
+}
+
+.shadow {
+  box-shadow: 0 8px 6px -6px rgba(0, 0, 0, 0.2);
+}
+
+.subtask-row {
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+  background: #37384e;
+}
+
+.dropdown > .menu {
+  z-index: 100 !important;
 }
 
 .task-description > a {

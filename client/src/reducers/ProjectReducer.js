@@ -10,8 +10,11 @@ import {
   GO_TO_PROJECT,
   GO_TO_DASHBOARD,
   ADD_TASK,
+  ADD_SUBTASK,
   EDIT_TASK,
+  EDIT_SUBTASK,
   DELETE_TASK,
+  DELETE_SUBTASK,
   SHOW_CATEGORY,
   HIDE_CATEGORY,
   MOVE_PROJECT,
@@ -33,7 +36,8 @@ export default function handleProject(state = initialState, action) {
   var projectCategories = {};
   var projectList = [];
   var projectIndex = 0,
-    taskIndex = 0;
+    taskIndex = 0,
+    subtaskIndex = 0;
 
   var getProjectIndex = function(category) {
     projectList = state.projects[category];
@@ -61,6 +65,20 @@ export default function handleProject(state = initialState, action) {
 
     for (var i = 0; i < tasks.length; i++) {
       if (tasks[i].name === action.payload.name) {
+        return i;
+      }
+    }
+    return -1;
+  };
+
+  var getSubtaskIndex = function(projectIndex, taskIndex) {
+    projectCategories = state.projects;
+    var subtasks =
+      projectCategories[action.payload.category][projectIndex].tasks[taskIndex]
+        .subtasks;
+
+    for (var i = 0; i < subtasks.length; i++) {
+      if (subtasks[i].name === action.payload.subtaskName) {
         return i;
       }
     }
@@ -219,7 +237,17 @@ export default function handleProject(state = initialState, action) {
       return Object.assign({}, state, {
         projects: projectCategories
       });
+    case ADD_SUBTASK:
+      projectCategories = state.projects;
+      projectIndex = getProjectIndex(action.payload.category);
+      taskIndex = getTaskIndex(projectIndex);
 
+      projectCategories[action.payload.category][projectIndex].tasks[
+        taskIndex
+      ].subtasks.push(action.payload.subtask);
+      return Object.assign({}, state, {
+        projects: projectCategories
+      });
     case EDIT_TASK:
       projectCategories = state.projects;
       projectIndex = getProjectIndex(action.payload.category);
@@ -229,6 +257,20 @@ export default function handleProject(state = initialState, action) {
       projectCategories[action.payload.category][projectIndex].tasks[
         taskIndex
       ].status = newState;
+
+      return Object.assign({}, state, {
+        projects: projectCategories
+      });
+    case EDIT_SUBTASK:
+      projectCategories = state.projects;
+      projectIndex = getProjectIndex(action.payload.category);
+      taskIndex = getTaskIndex(projectIndex);
+      subtaskIndex = getSubtaskIndex(projectIndex, taskIndex);
+
+      var newSubtaskState = action.payload.status;
+      projectCategories[action.payload.category][projectIndex].tasks[
+        taskIndex
+      ].subtasks[subtaskIndex].status = newSubtaskState;
 
       return Object.assign({}, state, {
         projects: projectCategories
@@ -243,6 +285,20 @@ export default function handleProject(state = initialState, action) {
           taskIndex,
           1
         );
+      }
+      return Object.assign({}, state, {
+        projects: projectCategories
+      });
+    case DELETE_SUBTASK:
+      projectCategories = state.projects;
+      projectIndex = getProjectIndex(action.payload.category);
+      taskIndex = getTaskIndex(projectIndex);
+      subtaskIndex = getSubtaskIndex(projectIndex, taskIndex);
+
+      if (taskIndex !== -1) {
+        projectCategories[action.payload.category][projectIndex].tasks[
+          taskIndex
+        ].subtasks.splice(subtaskIndex, 1);
       }
       return Object.assign({}, state, {
         projects: projectCategories
