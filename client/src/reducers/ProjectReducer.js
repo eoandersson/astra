@@ -63,8 +63,18 @@ export default function handleProject(state = initialState, action) {
     projectCategories = state.projects;
     var tasks = projectCategories[action.payload.category][projectIndex].tasks;
 
+    var taskTimeStamp = action.payload.taskId.timeStamp;
+    var taskMachineIdentifier = action.payload.taskId.machineIdentifier;
+    var taskProcessIdentifier = action.payload.taskId.processIdentifier;
+    var taskCounter = action.payload.taskId.counter;
+
     for (var i = 0; i < tasks.length; i++) {
-      if (tasks[i].name === action.payload.name) {
+      if (
+        tasks[i].taskId.timeStamp === taskTimeStamp &&
+        tasks[i].taskId.machineIdentifier === taskMachineIdentifier &&
+        tasks[i].taskId.processIdentifier === taskProcessIdentifier &&
+        tasks[i].taskId.counter === taskCounter
+      ) {
         return i;
       }
     }
@@ -77,8 +87,18 @@ export default function handleProject(state = initialState, action) {
       projectCategories[action.payload.category][projectIndex].tasks[taskIndex]
         .subtasks;
 
+    var subtaskTimeStamp = action.payload.subtaskId.timeStamp;
+    var subtaskMachineIdentifier = action.payload.subtaskId.machineIdentifier;
+    var subtaskProcessIdentifier = action.payload.subtaskId.processIdentifier;
+    var subtaskCounter = action.payload.subtaskId.counter;
+
     for (var i = 0; i < subtasks.length; i++) {
-      if (subtasks[i].name === action.payload.subtaskName) {
+      if (
+        subtasks[i].subtaskId.timeStamp === subtaskTimeStamp &&
+        subtasks[i].subtaskId.machineIdentifier === subtaskMachineIdentifier &&
+        subtasks[i].subtaskId.processIdentifier === subtaskProcessIdentifier &&
+        subtasks[i].subtaskId.counter === subtaskCounter
+      ) {
         return i;
       }
     }
@@ -253,10 +273,9 @@ export default function handleProject(state = initialState, action) {
       projectIndex = getProjectIndex(action.payload.category);
       taskIndex = getTaskIndex(projectIndex);
 
-      var newState = action.payload.status;
       projectCategories[action.payload.category][projectIndex].tasks[
         taskIndex
-      ].status = newState;
+      ] = action.payload.task;
 
       return Object.assign({}, state, {
         projects: projectCategories
@@ -267,10 +286,10 @@ export default function handleProject(state = initialState, action) {
       taskIndex = getTaskIndex(projectIndex);
       subtaskIndex = getSubtaskIndex(projectIndex, taskIndex);
 
-      var newSubtaskState = action.payload.status;
+      var newSubtask = action.payload.subtask;
       projectCategories[action.payload.category][projectIndex].tasks[
         taskIndex
-      ].subtasks[subtaskIndex].status = newSubtaskState;
+      ].subtasks[subtaskIndex] = newSubtask;
 
       return Object.assign({}, state, {
         projects: projectCategories

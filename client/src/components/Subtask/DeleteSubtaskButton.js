@@ -11,8 +11,8 @@ class DeleteSubtaskButton extends Component {
 
   deleteTask(event) {
     event.preventDefault();
-    const { project, projectId, taskName, subtask, category } = this.props;
-    deleteSubtask({ project, projectId, category, taskName, subtask });
+    const { project, projectId, taskId, subtask, category } = this.props;
+    deleteSubtask({ project, projectId, category, taskId, subtask });
   }
 
   render() {

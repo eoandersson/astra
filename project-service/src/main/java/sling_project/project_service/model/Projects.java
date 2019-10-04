@@ -22,7 +22,7 @@ public class Projects {
 	}
 	
 	public void addTask(Tasks task) {
-		tasks.add(task);
+		tasks.add(new Tasks(task.getName(), task.getDescription(), task.getStatus()));
 	}
 	
 	public void removeUser(String username) {
@@ -35,22 +35,23 @@ public class Projects {
 	}
 	
 	public void removeTasks(Tasks task) {
-		String name = task.getName();
+		ObjectId taskId = task.getTaskId();
 		for (int i = 0; i < tasks.size(); i++) {
-			String curName = tasks.get(i).getName();
-			if (curName.equals(name)) {
+			ObjectId curTaskId = tasks.get(i).getTaskId();
+			if (curTaskId.equals(taskId)) {
 				tasks.remove(i);
 				break;
 			}
 		}
 	}
 	
-	public void setTaskState(Tasks task) {
-		String name = task.getName();
+	public void updateTask(Tasks task) {
+		ObjectId taskId = task.getTaskId();
 		for (int i = 0; i < tasks.size(); i++) {
-			String curName = tasks.get(i).getName();
-			if (curName.equals(name)) {
+			ObjectId curTaskId = tasks.get(i).getTaskId();
+			if (curTaskId.equals(taskId)) {
 				Tasks curTask = tasks.get(i);
+				curTask.setName(task.getName());
 				curTask.setDescription(task.getDescription());
 				curTask.setStatus(task.getStatus());
 				break;

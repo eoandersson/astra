@@ -10,6 +10,7 @@ import java.util.Set;
 
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.messaging.Task;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -201,9 +202,11 @@ public class MongoProjectService {
 			return new ResponseEntity(HttpStatus.NOT_FOUND);
 		}
 		
-		project.addTask(request.getTask());
+		Tasks requestTask = request.getTask();
+		Tasks newTask = new Tasks(requestTask.getName(), requestTask.getDescription(), 0);
+		project.addTask(newTask);
 		projectsRepository.save(project);
-		return new ResponseEntity(HttpStatus.OK);
+		return new ResponseEntity(newTask, HttpStatus.OK);
 	}
 	
 	public ResponseEntity<?> deleteTask(ProjectTaskRequest request) {
@@ -225,7 +228,7 @@ public class MongoProjectService {
 			return new ResponseEntity(HttpStatus.NOT_FOUND);
 		}
 		
-		project.setTaskState(request.getTask());
+		project.updateTask(request.getTask());
 		projectsRepository.save(project);
 		return new ResponseEntity(HttpStatus.OK);
 	}
@@ -237,9 +240,10 @@ public class MongoProjectService {
 			return new ResponseEntity(HttpStatus.NOT_FOUND);
 		}
 		
-		String requestedTask = request.getTaskName();
+		System.out.println("Target TaskId: " + request.getTaskId().toString());
 		for(Tasks task : project.getTasks()) {
-			if(task.getName().equals(requestedTask)) {
+			System.out.println("Current TaskId: " + task.getTaskId().toString());
+			if(task.getTaskId().equals(request.getTaskId())) {
 				ResponseEntity response = task.addSubtask(request.getSubtask());
 				if(response.getStatusCode().equals(HttpStatus.OK)) {
 					projectsRepository.save(project);
@@ -259,9 +263,8 @@ public class MongoProjectService {
 			return new ResponseEntity(HttpStatus.NOT_FOUND);
 		}
 		
-		String requestedTask = request.getTaskName();
 		for(Tasks task : project.getTasks()) {
-			if(task.getName().equals(requestedTask)) {
+			if(task.getTaskId().equals(request.getTaskId())) {
 				ResponseEntity response = task.removeSubtask(request.getSubtask());
 				if(response.getStatusCode().equals(HttpStatus.NO_CONTENT)) {
 					projectsRepository.save(project);
@@ -281,9 +284,8 @@ public class MongoProjectService {
 			return new ResponseEntity(HttpStatus.NOT_FOUND);
 		}
 		
-		String requestedTask = request.getTaskName();
 		for(Tasks task : project.getTasks()) {
-			if(task.getName().equals(requestedTask)) {
+			if(task.getTaskId().equals(request.getTaskId())) {
 				ResponseEntity response = task.updateSubtask(request.getSubtask());
 				if(response.getStatusCode().equals(HttpStatus.OK)) {
 					projectsRepository.save(project);

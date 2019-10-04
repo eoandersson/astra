@@ -1,12 +1,12 @@
 import React, { Component } from "react";
 import Linkify from "react-linkify";
-import { Grid, Progress, Dropdown, Icon } from "semantic-ui-react";
+import { Grid, Dropdown, Icon } from "semantic-ui-react";
 import SubtaskStatusButton from "./SubtaskStatusButton";
 import DeleteSubtaskButton from "./DeleteSubtaskButton";
 
 class Subtask extends Component {
   render() {
-    const { project, projectId, taskName, subtask, category } = this.props;
+    const { project, projectId, taskId, subtask, category } = this.props;
 
     return (
       <Grid.Row className="subtask-row" verticalAlign="middle">
@@ -23,7 +23,7 @@ class Subtask extends Component {
         <Grid.Column width={3} textAlign="center">
           <SubtaskStatusButton
             projectId={projectId}
-            taskName={taskName}
+            taskId={taskId}
             subtask={subtask}
             project={project}
             category={category}
@@ -35,7 +35,7 @@ class Subtask extends Component {
               <Dropdown.Header icon="cog" content="Subtask Options" />
               <DeleteSubtaskButton
                 projectId={projectId}
-                taskName={taskName}
+                taskId={taskId}
                 subtask={subtask}
                 project={project}
                 category={category}

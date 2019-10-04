@@ -3,17 +3,24 @@ package sling_project.project_service.model;
 import java.awt.List;
 import java.util.ArrayList;
 
+import org.bson.types.ObjectId;
+import org.springframework.data.annotation.Id;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 public class Tasks {
 	
+	private ObjectId taskId;
 	private String name;
 	private String description;
 	private int status;
 	private ArrayList<Subtasks> subtasks;
 	
-	public Tasks() {
+	public Tasks(String name, String description, int status) {
+		this.setTaskId(new ObjectId());
+		this.name = name;
+		this.description = description;
+		this.status = status;
 		subtasks = new ArrayList<Subtasks>();
 	}
 
@@ -45,15 +52,16 @@ public class Tasks {
 	}
 	
 	public ResponseEntity<?> addSubtask(Subtasks subtask) {
-		subtasks.add(subtask);
-		return new ResponseEntity(HttpStatus.OK);
+		Subtasks newTask = new Subtasks(subtask.getName(), subtask.getDescription(), subtask.getStatus());
+		subtasks.add(newTask);
+		return new ResponseEntity(newTask, HttpStatus.OK);
 	}
 	
 	public ResponseEntity<?> removeSubtask(Subtasks subtask) {
-		String name = subtask.getName();
+		ObjectId subtaskId = subtask.getSubtaskId();
 		for (int i = 0; i < subtasks.size(); i++) {
-			String curName = subtasks.get(i).getName();
-			if (curName.equals(name)) {
+			ObjectId curSubtaskId = subtasks.get(i).getSubtaskId();
+			if (curSubtaskId.equals(subtaskId)) {
 				subtasks.remove(i);
 				return new ResponseEntity(HttpStatus.NO_CONTENT);
 			}
@@ -63,17 +71,26 @@ public class Tasks {
 	}
 	
 	public ResponseEntity<?> updateSubtask(Subtasks subtask) {
-		String name = subtask.getName();
+		ObjectId subtaskId = subtask.getSubtaskId();
 		for (int i = 0; i < subtasks.size(); i++) {
-			String curName = subtasks.get(i).getName();
-			if (curName.equals(name)) {
+			ObjectId curSubtaskId = subtasks.get(i).getSubtaskId();
+			if (curSubtaskId.equals(subtaskId)) {
 				Subtasks curTask = subtasks.get(i);
+				curTask.setName(subtask.getName());
 				curTask.setDescription(subtask.getDescription());
 				curTask.setStatus(subtask.getStatus());
 				return new ResponseEntity(HttpStatus.OK);
 			}
 		}
 		return new ResponseEntity(HttpStatus.NOT_FOUND);
+	}
+
+	public ObjectId getTaskId() {
+		return taskId;
+	}
+
+	public void setTaskId(ObjectId taskId) {
+		this.taskId = taskId;
 	}
 	
 	
