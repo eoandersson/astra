@@ -183,6 +183,14 @@
   margin-bottom: auto !important;
 }
 
+.task-icon {
+  opacity: 0.5 !important;
+}
+
+.task-icon:hover {
+  opacity: 1 !important;
+}
+
 .row {
   margin-left: 0 !important;
   margin-right: 0 !important;
