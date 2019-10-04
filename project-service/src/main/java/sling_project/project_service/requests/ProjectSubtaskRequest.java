@@ -7,7 +7,7 @@ import sling_project.project_service.model.Subtasks;
 public class ProjectSubtaskRequest {
 	
 	public ObjectId projectId;
-	public String taskName;
+	public ObjectId taskId;
 	public Subtasks subtask;
 	
 	public ObjectId getProjectId() {
@@ -16,11 +16,11 @@ public class ProjectSubtaskRequest {
 	public void setProjectId(ObjectId projectId) {
 		this.projectId = projectId;
 	}
-	public String getTaskName() {
-		return taskName;
+	public ObjectId getTaskId() {
+		return taskId;
 	}
-	public void setTask(String taskName) {
-		this.taskName = taskName;
+	public void setTaskId(ObjectId taskId) {
+		this.taskId = taskId;
 	}
 	public Subtasks getSubtask() {
 		return subtask;

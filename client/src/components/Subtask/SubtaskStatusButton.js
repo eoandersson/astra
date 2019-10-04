@@ -25,11 +25,11 @@ class SubtaskStatusButton extends Component {
   }
 
   changeTaskStatus(status) {
-    const { project, projectId, taskName, subtask, category } = this.props;
+    const { project, projectId, taskId, subtask, category } = this.props;
     const output = {
       project,
       projectId,
-      taskName,
+      taskId,
       subtask,
       status,
       category
