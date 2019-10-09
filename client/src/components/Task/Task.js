@@ -2,7 +2,14 @@ import React, { Component } from "react";
 import Linkify from "react-linkify";
 import DeleteTaskButton from "./DeleteTaskButton";
 import TaskStatusButton from "./TaskStatusButton";
-import { Grid, Progress, Dropdown, Button, Form } from "semantic-ui-react";
+import {
+  Grid,
+  Progress,
+  Dropdown,
+  Button,
+  Form,
+  Icon
+} from "semantic-ui-react";
 import Subtask from "../Subtask/Subtask";
 
 import updateTask from "../../data/update/UpdateTask";
@@ -17,6 +24,7 @@ class Task extends Component {
       taskDescription: this.props.task.description,
       showEditTask: false,
       showCreateSubtask: false,
+      showSubtasks: false,
       subtaskName: "",
       subtaskDescription: ""
     };
@@ -111,8 +119,17 @@ class Task extends Component {
   };
 
   toggleCreateSubtask = () => {
+    const { task } = this.props;
+    const { showCreateSubtask } = this.state;
+
+    let newShowSubtasks = true;
+    if ((!task.subtasks || task.subtasks.length === 0) && showCreateSubtask) {
+      newShowSubtasks = false;
+    }
+
     this.setState({
-      showCreateSubtask: !this.state.showCreateSubtask
+      showCreateSubtask: !showCreateSubtask,
+      showSubtasks: newShowSubtasks
     });
   };
 
@@ -152,6 +169,37 @@ class Task extends Component {
     );
   };
 
+  toggleShowSubtasks = () => {
+    this.setState({
+      showSubtasks: !this.state.showSubtasks
+    });
+  };
+
+  renderNameIcon = () => {
+    const { task } = this.props;
+    const { showSubtasks } = this.state;
+
+    if (task.subtasks && task.subtasks.length > 0 && showSubtasks) {
+      return (
+        <Icon
+          name="caret down"
+          className="expand-task-icon"
+          onClick={this.toggleShowSubtasks}
+        />
+      );
+    }
+    if (task.subtasks && task.subtasks.length > 0 && !showSubtasks) {
+      return (
+        <Icon
+          name="caret right"
+          className="expand-task-icon"
+          onClick={this.toggleShowSubtasks}
+        />
+      );
+    }
+    return null;
+  };
+
   renderTaskName = () => {
     const { task } = this.props;
     const { showEditTask, taskName } = this.state;
@@ -167,7 +215,15 @@ class Task extends Component {
         </Form>
       );
     }
-    return <h3>{task.name}</h3>;
+    return (
+      <React.Fragment>
+        {this.renderNameIcon()}
+        <h3 style={{ width: "fitContent", margin: 0 }}>{task.name}</h3>
+        {task.subtasks && task.subtasks.length > 0 ? (
+          <Icon name="caret right offset-icon" style={{ opacity: 0 }} />
+        ) : null}
+      </React.Fragment>
+    );
   };
 
   renderTaskDescription = () => {
@@ -235,8 +291,9 @@ class Task extends Component {
 
   renderSubtasks = () => {
     const { project, projectId, task, category } = this.props;
+    const { showSubtasks } = this.state;
 
-    if (task.subtasks && task.subtasks.length > 0) {
+    if (task.subtasks && task.subtasks.length > 0 && showSubtasks) {
       return task.subtasks.map(subtask => {
         return (
           <Subtask
@@ -250,23 +307,38 @@ class Task extends Component {
         );
       });
     }
+    return null;
+  };
+
+  getRowClassName = () => {
+    const { task } = this.props;
+    const { showSubtasks, showCreateSubtask } = this.state;
+
+    if (
+      task.subtasks &&
+      task.subtasks.length > 0 &&
+      (showCreateSubtask || showSubtasks)
+    ) {
+      return "task-row shadow";
+    }
+    return "task-row";
   };
 
   render() {
     const { project, projectId, task, category } = this.props;
-    const { showCreateSubtask } = this.state;
 
     return (
       <React.Fragment>
-        <Grid.Row
-          className={
-            !showCreateSubtask && (!task.subtasks || task.subtasks.length == 0)
-              ? "task-row"
-              : "task-row shadow"
-          }
-          verticalAlign="middle"
-        >
-          <Grid.Column width={2} textAlign="center">
+        <Grid.Row className={this.getRowClassName()} verticalAlign="middle">
+          <Grid.Column
+            width={2}
+            textAlign="center"
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "center"
+            }}
+          >
             {this.renderTaskName()}
           </Grid.Column>
           <Grid.Column className="task-description" width={7}>

@@ -6,6 +6,10 @@
   background-color: #f4f7fc;
 }
 
+::-webkit-scrollbar {
+  display: none;
+}
+
 .landing-initial-content {
   background: url("../../resources/AstraBackground.png") no-repeat center center
     fixed;
