@@ -170,6 +170,16 @@
   background: #37384e;
 }
 
+.expand-task-icon {
+  opacity: 0.5 !important;
+  cursor: pointer;
+  margin: 0.15rem 5px 0.15rem 0 !important;
+}
+
+.expand-task-icon:hover {
+  opacity: 1 !important;
+}
+
 .dropdown > .menu {
   z-index: 100 !important;
 }
