@@ -39,12 +39,12 @@ export default function handleProject(state = initialState, action) {
     taskIndex = 0,
     subtaskIndex = 0;
 
-  var getProjectIndex = function(category) {
+  var getProjectIndex = function(category, projectId) {
     projectList = state.projects[category];
-    var timeStamp = action.payload.project.projectId.timeStamp;
-    var machineIdentifier = action.payload.project.projectId.machineIdentifier;
-    var processIdentifier = action.payload.project.projectId.processIdentifier;
-    var counter = action.payload.project.projectId.counter;
+    var timeStamp = projectId.timeStamp;
+    var machineIdentifier = projectId.machineIdentifier;
+    var processIdentifier = projectId.processIdentifier;
+    var counter = projectId.counter;
 
     for (var i = 0; i < projectList.length; i++) {
       if (
@@ -136,7 +136,10 @@ export default function handleProject(state = initialState, action) {
       });
     case EDIT_PROJECT:
       projectCategories = state.projects;
-      projectIndex = getProjectIndex(action.payload.category);
+      projectIndex = getProjectIndex(
+        action.payload.category,
+        action.payload.project.projectId
+      );
 
       projectCategories[action.payload.category][projectIndex].projectName =
         action.payload.projectName;
@@ -151,7 +154,10 @@ export default function handleProject(state = initialState, action) {
       });
     case DELETE_PROJECT:
       projectCategories = state.projects;
-      projectIndex = getProjectIndex(action.payload.category);
+      projectIndex = getProjectIndex(
+        action.payload.category,
+        action.payload.project.projectId
+      );
       var newProjectIndex = 0;
       if (projectIndex === projectList.length - 1) {
         newProjectIndex = projectIndex - 1;
@@ -189,7 +195,10 @@ export default function handleProject(state = initialState, action) {
     case MOVE_PROJECT:
       projectCategories = state.projects;
       // Remove project from old category
-      projectIndex = getProjectIndex(action.payload.oldCategory);
+      projectIndex = getProjectIndex(
+        action.payload.oldCategory,
+        action.payload.project.projectId
+      );
       if (projectIndex !== -1) {
         projectCategories[action.payload.oldCategory].splice(projectIndex, 1);
       }
@@ -240,7 +249,10 @@ export default function handleProject(state = initialState, action) {
     case GO_TO_PROJECT:
       return Object.assign({}, state, {
         currentCategory: action.payload.category,
-        currentProjectIndex: action.payload.index
+        currentProjectIndex: getProjectIndex(
+          action.payload.category,
+          action.payload.projectId
+        )
       });
     case GO_TO_DASHBOARD:
       return Object.assign({}, state, {
@@ -249,7 +261,10 @@ export default function handleProject(state = initialState, action) {
       });
     case ADD_TASK:
       projectCategories = state.projects;
-      projectIndex = getProjectIndex(action.payload.category);
+      projectIndex = getProjectIndex(
+        action.payload.category,
+        action.payload.project.projectId
+      );
 
       projectCategories[action.payload.category][projectIndex].tasks.push(
         action.payload.task
@@ -259,7 +274,10 @@ export default function handleProject(state = initialState, action) {
       });
     case ADD_SUBTASK:
       projectCategories = state.projects;
-      projectIndex = getProjectIndex(action.payload.category);
+      projectIndex = getProjectIndex(
+        action.payload.category,
+        action.payload.project.projectId
+      );
       taskIndex = getTaskIndex(projectIndex);
 
       projectCategories[action.payload.category][projectIndex].tasks[
@@ -270,7 +288,10 @@ export default function handleProject(state = initialState, action) {
       });
     case EDIT_TASK:
       projectCategories = state.projects;
-      projectIndex = getProjectIndex(action.payload.category);
+      projectIndex = getProjectIndex(
+        action.payload.category,
+        action.payload.project.projectId
+      );
       taskIndex = getTaskIndex(projectIndex);
 
       projectCategories[action.payload.category][projectIndex].tasks[
@@ -282,7 +303,10 @@ export default function handleProject(state = initialState, action) {
       });
     case EDIT_SUBTASK:
       projectCategories = state.projects;
-      projectIndex = getProjectIndex(action.payload.category);
+      projectIndex = getProjectIndex(
+        action.payload.category,
+        action.payload.project.projectId
+      );
       taskIndex = getTaskIndex(projectIndex);
       subtaskIndex = getSubtaskIndex(projectIndex, taskIndex);
 
@@ -296,7 +320,10 @@ export default function handleProject(state = initialState, action) {
       });
     case DELETE_TASK:
       projectCategories = state.projects;
-      projectIndex = getProjectIndex(action.payload.category);
+      projectIndex = getProjectIndex(
+        action.payload.category,
+        action.payload.project.projectId
+      );
       taskIndex = getTaskIndex(projectIndex);
 
       if (taskIndex !== -1) {
@@ -310,7 +337,10 @@ export default function handleProject(state = initialState, action) {
       });
     case DELETE_SUBTASK:
       projectCategories = state.projects;
-      projectIndex = getProjectIndex(action.payload.category);
+      projectIndex = getProjectIndex(
+        action.payload.category,
+        action.payload.project.projectId
+      );
       taskIndex = getTaskIndex(projectIndex);
       subtaskIndex = getSubtaskIndex(projectIndex, taskIndex);
 

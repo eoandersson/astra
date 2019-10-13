@@ -99,7 +99,9 @@ class ProjectsSidebar extends Component {
   };
 
   renderHomeProjects = () => {
-    if (this.props.location.pathname !== "/home") {
+    const { location } = this.props;
+
+    if (!location.pathname.startsWith("/home")) {
       return null;
     }
     return (

@@ -17,6 +17,7 @@ class Landing extends Component {
 
   componentDidMount() {
     window.addEventListener("scroll", this.handleScroll);
+    document.title = "Astra";
   }
 
   componentWillUnmount() {

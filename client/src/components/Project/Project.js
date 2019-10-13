@@ -54,6 +54,11 @@ class Project extends Component {
     this.createTask = this.createTask.bind(this);
   }
 
+  componentDidMount() {
+    const { project } = this.props;
+    document.title = project.projectName;
+  }
+
   createTask(event) {
     const payload = {
       projectId: this.props.projectId,

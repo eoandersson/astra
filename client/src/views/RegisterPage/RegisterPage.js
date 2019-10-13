@@ -30,6 +30,7 @@ class RegisterPage extends Component {
         isLoading: store.getState().loading.registerLoading
       });
     });
+    document.title = "Astra | Register";
   }
 
   componentWillUnmount() {

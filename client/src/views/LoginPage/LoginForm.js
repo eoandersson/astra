@@ -26,6 +26,7 @@ class LoginForm extends Component {
         isLoading: store.getState().loading.loginLoading
       });
     });
+    document.title = "Astra | Login";
   }
 
   componentWillUnmount() {

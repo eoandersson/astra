@@ -13,14 +13,14 @@ class NavigationSidebar extends Component {
   };
 
   renderHomeActive = () => {
-    if (this.props.location.pathname === "/home") {
+    if (this.props.location.pathname.startsWith("/home")) {
       return <div className="navbar-active-indicator" />;
     }
     return null;
   };
 
   renderNewsActive = () => {
-    if (this.props.location.pathname === "/news") {
+    if (this.props.location.pathname.startsWith("/news")) {
       return <div className="navbar-active-indicator" />;
     }
     return null;
@@ -45,7 +45,7 @@ class NavigationSidebar extends Component {
           as={Link}
           to="/home"
           onClick={this.goToDashboard}
-          active={this.props.location.pathname === "/home"}
+          active={this.props.location.pathname.startsWith("/home")}
         >
           {this.renderHomeActive()}
           <Icon className="navbar-icon" name="home" size="big" />
@@ -54,7 +54,7 @@ class NavigationSidebar extends Component {
           className="navbar-item"
           as={Link}
           to="/news"
-          active={this.props.location.pathname === "/news"}
+          active={this.props.location.pathname.startsWith("/news")}
         >
           {this.renderNewsActive()}
           <Icon className="navbar-icon" name="newspaper" size="big" />
