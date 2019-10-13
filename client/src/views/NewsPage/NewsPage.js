@@ -39,6 +39,7 @@ class NewsPage extends Component {
     });
 
     this.renderNews();
+    document.title = "Astra | News";
   }
 
   componentWillUnmount() {

@@ -1,10 +1,12 @@
 import React, { Component } from "react";
+import { withRouter } from "react-router-dom";
 import { store } from "../../store";
 import { goToProject } from "../../actions";
 import { Menu } from "semantic-ui-react";
 import ProjectDropdown from "../ProjectDropdown";
+import getId from "../../utils/ParseObjectId";
 
-export default class SidebarProject extends Component {
+class SidebarProject extends Component {
   getIndex = (category, projectId) => {
     const { projects } = this.props;
     for (var i = 0; i < projects[category].length; i++) {
@@ -18,12 +20,16 @@ export default class SidebarProject extends Component {
   };
 
   goToProject = (category, projectId) => {
-    const index = this.getIndex(category, projectId);
+    const { history } = this.props;
+
     const payload = {
-      category: category,
-      index: index
+      category,
+      projectId
     };
+
     store.dispatch(goToProject(payload));
+    const parsedCategory = category.replace(" ", "-");
+    history.push("/home/" + parsedCategory + "/" + getId(projectId));
   };
 
   getId = mongoId => {
@@ -79,3 +85,5 @@ export default class SidebarProject extends Component {
     );
   }
 }
+
+export default withRouter(SidebarProject);

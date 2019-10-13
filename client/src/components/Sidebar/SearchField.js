@@ -1,9 +1,11 @@
 import React, { Component } from "react";
+import { withRouter } from "react-router-dom";
 import { store } from "../../store";
 import { goToProject, showCategory } from "../../actions";
 import { Search } from "semantic-ui-react";
+import getId from "../../utils/ParseObjectId";
 
-export default class SearchField extends Component {
+class SearchField extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -26,45 +28,19 @@ export default class SearchField extends Component {
     this.unsubscribe();
   }
 
-  getId = mongoId => {
-    var result =
-      this.pad0(mongoId.timestamp.toString(16), 8) +
-      this.pad0(mongoId.machineIdentifier.toString(16), 6) +
-      this.pad0(mongoId.processIdentifier.toString(16), 4) +
-      this.pad0(mongoId.counter.toString(16), 6);
-
-    return result;
-  };
-
-  pad0 = (str, len) => {
-    var zeros = "00000000000000000000000000";
-    if (str.length < len) {
-      return zeros.substr(0, len - str.length) + str;
-    }
-
-    return str;
-  };
-
-  getIndex = (category, projectId) => {
-    const { projects } = this.state;
-    for (var i = 0; i < projects[category].length; i++) {
-      if (
-        this.getId(projects[category][i].projectId) === this.getId(projectId)
-      ) {
-        return i;
-      }
-    }
-    return 0;
-  };
-
   goToProject = (category, projectId) => {
-    const index = this.getIndex(category, projectId);
+    const { history } = this.props;
+
     const payload = {
-      category: category,
-      index: index
+      category,
+      projectId
     };
+
     store.dispatch(showCategory(category));
     store.dispatch(goToProject(payload));
+
+    const parsedCategory = category.replace(" ", "-");
+    history.push("/home/" + parsedCategory + "/" + getId(projectId));
   };
 
   getResults = (projectList, category) => {
@@ -151,3 +127,5 @@ export default class SearchField extends Component {
     );
   }
 }
+
+export default withRouter(SearchField);
