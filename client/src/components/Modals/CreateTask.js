@@ -7,15 +7,7 @@ import createTask from "../../data/create/CreateTask";
 class CreateTask extends Component {
   constructor() {
     super();
-    this.state = {
-      show: false,
-      projectId: "",
-      name: "",
-      description: "",
-      state: 0,
-      project: {},
-      category: ""
-    };
+    this.state = this.getInitialState();
 
     this.addTask = this.addTask.bind(this);
     this.handleTaskNameChange = this.handleTaskNameChange.bind(this);
@@ -48,13 +40,29 @@ class CreateTask extends Component {
       state,
       category
     } = this.state;
+
     const task = {
       name,
       description,
       state
     };
+
     createTask({ project, projectId, task, category });
+    this.setState(this.getInitialState());
   }
+
+  getInitialState = () => {
+    const initialState = {
+      show: false,
+      projectId: "",
+      name: "",
+      description: "",
+      state: 0,
+      project: {},
+      category: ""
+    };
+    return initialState;
+}
 
   handleTaskNameChange(event) {
     this.setState({ name: event.target.value });
