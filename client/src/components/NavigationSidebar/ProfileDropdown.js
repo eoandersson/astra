@@ -25,7 +25,7 @@ class ProfileDropdown extends Component {
           <Dropdown.Item icon="cog" text="Settings" />
           <Dropdown.Divider />
           <Dropdown.Item
-            icon="logout"
+            icon="log out"
             text="Log Out"
             onClick={() => this.logout()}
           />

@@ -107,7 +107,7 @@ class HomePage extends Component {
     }
 
     if (
-      Object.keys(projects).indexOf(currentCategory) != -1 &&
+      Object.keys(projects).indexOf(currentCategory) !== -1 &&
       projects[currentCategory].length > currentIndex &&
       currentIndex >= 0
     ) {
