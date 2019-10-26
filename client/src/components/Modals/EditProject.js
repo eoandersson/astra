@@ -67,11 +67,12 @@ class EditProject extends Component {
       category,
       usersMap
     } = this.state;
+    
     var users = [];
-    usersMap.map(user => {
+    for(const user of usersMap) {
       users.push(user.name);
-    });
-
+    }
+  
     updateProject({
       project,
       projectId,

@@ -200,54 +200,10 @@ class Task extends Component {
     return null;
   };
 
-  renderTaskName = () => {
-    const { task } = this.props;
-    const { showEditTask, taskName } = this.state;
-
-    if (showEditTask) {
-      return (
-        <Form inverted onSubmit={this.editTask}>
-          <Form.Input
-            placeholder="Name"
-            value={taskName}
-            onChange={this.handleTaskNameChange}
-          />
-        </Form>
-      );
-    }
-    return (
-      <React.Fragment>
-        {this.renderNameIcon()}
-        <h3 style={{ width: "fitContent", margin: 0 }}>{task.name}</h3>
-        {task.subtasks && task.subtasks.length > 0 ? (
-          <Icon name="caret right offset-icon" style={{ opacity: 0 }} />
-        ) : null}
-      </React.Fragment>
-    );
-  };
-
-  renderTaskDescription = () => {
-    const { task } = this.props;
-    const { showEditTask, taskDescription } = this.state;
-
-    if (showEditTask) {
-      return (
-        <Form inverted onSubmit={this.editTask}>
-          <Form.Input
-            placeholder="Task Description"
-            value={taskDescription}
-            onChange={this.handleTaskDescriptionChange}
-          />
-        </Form>
-      );
-    }
-    return <Linkify className="test">{task.description}</Linkify>;
-  };
-
   renderCreateSubtask = () => {
     const { showCreateSubtask } = this.state;
 
-    if (showCreateSubtask == false) {
+    if (showCreateSubtask === false) {
       return null;
     }
 
@@ -324,7 +280,61 @@ class Task extends Component {
     return "task-row";
   };
 
-  render() {
+  renderEditTask = () => {
+    const { taskName, taskDescription } = this.state;
+
+    return (
+      <React.Fragment>
+        <Grid.Row className={this.getRowClassName()} verticalAlign="middle">
+          <Grid.Column
+            width={2}
+            textAlign="center"
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "center"
+            }}
+          >
+            <Form inverted onSubmit={this.editTask}>
+              <Form.Input
+                placeholder="Name"
+                value={taskName}
+                onChange={this.handleTaskNameChange}
+              />
+            </Form>
+          </Grid.Column>
+          <Grid.Column className="task-description" width={7}>
+            <Form inverted onSubmit={this.editTask}>
+              <Form.Input
+                placeholder="Task Description"
+                value={taskDescription}
+                onChange={this.handleTaskDescriptionChange}
+              />
+            </Form>
+          </Grid.Column>
+          <Grid.Column width={7} textAlign="right">
+            <Button
+              positive
+              icon="check"
+              content="Apply"
+              style={{ marginBottom: "5px" }}
+              onClick={this.editTask}
+            />
+            <Button
+              negative
+              icon="cancel"
+              content="Cancel"
+              onClick={this.toggleEditTask}
+            />
+          </Grid.Column>
+        </Grid.Row>
+        {this.renderSubtasks()}
+        {this.renderCreateSubtask()}
+      </React.Fragment>
+    );
+  };
+
+  renderTask = () => {
     const { project, projectId, task, category } = this.props;
 
     return (
@@ -339,10 +349,18 @@ class Task extends Component {
               justifyContent: "center"
             }}
           >
-            {this.renderTaskName()}
+            {this.renderNameIcon()}
+            <h3 style={{ width: "fitContent", margin: 0 }}>{task.name}</h3>
+            {task.subtasks && task.subtasks.length > 0 ? (
+              <Icon
+                className="offset-icon"
+                name="caret right"
+                style={{ opacity: 0 }}
+              />
+            ) : null}
           </Grid.Column>
           <Grid.Column className="task-description" width={7}>
-            {this.renderTaskDescription()}
+            <Linkify className="test">{task.description}</Linkify>
           </Grid.Column>
           <Grid.Column width={3} textAlign="center">
             {this.renderTaskStatusButton()}
@@ -384,12 +402,17 @@ class Task extends Component {
         {this.renderCreateSubtask()}
       </React.Fragment>
     );
+  };
+
+  render() {
+    const { showEditTask } = this.state;
+
+    if (showEditTask) {
+      return this.renderEditTask();
+    }
+
+    return this.renderTask();
   }
 }
-
-/*
-  
-
-*/
 
 export default Task;

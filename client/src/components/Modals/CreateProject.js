@@ -54,9 +54,9 @@ class CreateProject extends Component {
     const { category, projectName, projectDescription, usersMap } = this.state;
     var users = [];
     users.push(store.getState().userAuthentication.username);
-    usersMap.map(user => {
+    for(const user of usersMap) {
       users.push(user.name);
-    });
+    }
     const project = {
       projectName: projectName,
       projectDescription: projectDescription,

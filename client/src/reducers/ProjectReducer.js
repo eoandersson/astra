@@ -233,7 +233,7 @@ export default function handleProject(state = initialState, action) {
       });
     case HIDE_CATEGORY:
       newCurrentCategories = state.currentCategories;
-      var categoryIndex = newCurrentCategories.indexOf(action.payload);
+      categoryIndex = newCurrentCategories.indexOf(action.payload);
       if (categoryIndex !== -1) newCurrentCategories.splice(categoryIndex, 1);
       return Object.assign({}, state, {
         currentCategories: newCurrentCategories
