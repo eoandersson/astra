@@ -15,9 +15,9 @@ export default function editProject(state = initialState, action) {
   switch (action.type) {
     case SHOW_EDIT_PROJECT:
       var usersMapObject = [];
-      action.payload.users.map(user => {
+      for(const user of action.payload.users) {
         usersMapObject.push({ name: user });
-      });
+      }
 
       return Object.assign({}, state, {
         visibility: true,

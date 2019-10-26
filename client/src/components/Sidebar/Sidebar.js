@@ -127,7 +127,7 @@ class ProjectsSidebar extends Component {
   };
 
   render() {
-    const { visible, value } = this.state;
+    const { visible } = this.state;
     return (
       <Sidebar
         as={Menu}
